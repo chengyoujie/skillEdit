@@ -1,0 +1,6 @@
+<View sceneColor="0x0" layers="1,1,0,0,第 1 层" width="197" height="732">
+  <Label text="技能列表" styleSkin="png.comp.label" x="54" y="17" layer="1" width="99" height="18" color="0x990000"/>
+  <Tree layers="1,1,0" layer="1" x="17" y="51" width="162" height="368" scrollBarSkin="png.comp.vscroll" spaceBottom="3" var="treeFiles">
+    <UIView source="app/FileItem.xml" layer="1" name="render" runtime="com.cyj.app.view.app.FileItem" x="10" y="10"/>
+  </Tree>
+</View>

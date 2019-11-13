@@ -1,0 +1,9 @@
+<toolsconfig 
+title="技能编辑器@cyj"
+appName="技能编辑器"
+
+version="1.0.0"
+
+versionconfig="file:////192.168.1.127/share/toolsdata/skilledit/version.ver"
+
+/>
