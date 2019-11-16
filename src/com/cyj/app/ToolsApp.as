@@ -1,6 +1,8 @@
 package com.cyj.app
 {
 	import com.cyj.app.data.LocalConfig;
+	import com.cyj.app.data.MovieData;
+	import com.cyj.app.data.ProjectData;
 	import com.cyj.app.data.ToolsConfig;
 	import com.cyj.app.view.ToolsView;
 	import com.cyj.app.view.common.Alert;
@@ -42,6 +44,7 @@ package com.cyj.app
 		public static var config:ToolsConfig;
 		public static var event:EventDispatcher = new EventDispatcher();
 		public static var localCfg:LocalConfig = new LocalConfig();
+		public static var projectData:ProjectData = new ProjectData();
 		
 		public static var totalNum:int = 0;
 		public static var delaNum:int = 0;

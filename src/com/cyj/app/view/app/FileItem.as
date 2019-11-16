@@ -41,20 +41,6 @@ package com.cyj.app.view.app
 				this.mouseChildren = false;
 			}
 			super.dataSource = value;	
-//			var file:File;
-//			if(value is String)
-//			{
-//				file = new File(value as String);
-//			}else if (value is File)
-//			{
-//				file = value as File;
-//			}
-//			if(file)
-//			{
-//				txtName.text = file.name.substring(0, file.name.lastIndexOf("."));
-//			}else{
-//				super.dataSource;	
-//			}
 		}
 		
 		

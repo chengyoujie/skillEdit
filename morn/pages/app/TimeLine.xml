@@ -1,0 +1,11 @@
+<View width="896" height="250" sceneColor="0xffffff" layers="1,1,0,0,第 1 层">
+  <Button label="!>" skin="png.comp.button" x="414" y="7" layer="1" width="29" height="23" var="btnPlay"/>
+  <Panel layers="1,1,0,0,第 1 层" layer="1" x="-2" y="47" width="897" height="179" vScrollBarSkin="png.comp.vscroll" hScrollBarSkin="png.comp.hscroll" var="panelFrameLine">
+    <List layers="1,1,0,0,第 1 层" layer="1" repeatY="5" var="listFrameLine" x="4" y="-8">
+      <UIView source="app/FrameLine.xml" layer="1" name="render" runtime="com.cyj.app.view.common.frame.FrameLine" y="17"/>
+    </List>
+  </Panel>
+  <Box layers="1,1,0,0,第 1 层" layer="1" x="54" y="38" width="844" height="16" var="boxFrameTop">
+    <Image skin="png.guidecomp.img_arrow" layer="1" var="arrow"/>
+  </Box>
+</View>

@@ -9,7 +9,7 @@ package
 	import flash.events.Event;
 	import flash.filesystem.File;
 	
-	[SWF(width="1402", height="980", backgroundColor="#333333", frameRate="30")]
+	[SWF(width="1402", height="880", backgroundColor="#333333", frameRate="30")]
 	
 	public class SkillEdit extends Sprite
 	{

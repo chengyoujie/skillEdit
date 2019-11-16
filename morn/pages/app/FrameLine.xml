@@ -1,0 +1,8 @@
+<View width="600" height="35" sceneColor="0xffffff" layers="1,1,0,0,第 1 层">
+  <Button label="隐" skin="png.comp.button" x="5" y="6" layer="1" width="20" height="23" var="btnHide"/>
+  <Button label="锁" skin="png.comp.button" x="29" y="6" layer="1" width="20" height="23" var="btnLock"/>
+  <List layers="1,1,0,0,第 1 层" layer="1" x="54" y="2" repeatY="1" repeatX="45" var="listFrame" spaceX="1">
+    <Image skin="png.comp.blank" layer="1" width="544" height="28" y="1" var="imgBg"/>
+    <UIView source="app/FrameItem.xml" x="1" layer="1" name="render" runtime="com.cyj.app.view.common.frame.FrameItem"/>
+  </List>
+</View>

@@ -23,7 +23,7 @@ package com.cyj.app.view.app
 			var xml:String = "";//"<root>";
 			xml += getFileXml(file);
 //			xml += "</root>";
-			trace(xml);
+//			trace(xml);
 //			treeFiles.itemRender = FileItem;
 			treeFiles.dataSource = new XML(xml);
 		}

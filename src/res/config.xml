@@ -4,6 +4,6 @@ appName="技能编辑器"
 
 version="1.0.0"
 
-versionconfig="file:////192.168.1.127/share/toolsdata/skilledit/version.ver"
+versionconfig="file:////172.18.1.47/share/toolsdata/skilledit/version.ver"
 
 />

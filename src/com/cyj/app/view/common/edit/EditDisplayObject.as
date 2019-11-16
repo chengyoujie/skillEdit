@@ -2,6 +2,7 @@ package com.cyj.app.view.common.edit
 {
 	import com.cyj.app.view.common.Align;
 	import com.cyj.app.view.unit.Avatar;
+	import com.cyj.app.view.unit.Movie;
 	
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
@@ -11,49 +12,35 @@ package com.cyj.app.view.common.edit
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 
-	public class EditDisplayObject extends Sprite
+	public class EditDisplayObject
 	{
-		private var _target:Avatar;
+		private var _target:DisplayObject;
 		private var _editFrame:EditFrame;
-		private var _align:int;
+		private var _editLayer:DisplayObjectContainer;
 		private var _curBlock:EditBlock;
+		
 		private var _startMovePos:Point = new Point();
 		private var _startRect:Rectangle = new Rectangle();
 		private var _startOffsetPos:Point = new Point();
 		private var _offsetPos:Point = new Point();
 		
 		
-		public function EditDisplayObject(target:Avatar)
+		public function EditDisplayObject(target:DisplayObject, editLayer:DisplayObjectContainer)
 		{
 			_target = target;
-			this.x = target.x;
-			this.y = target.y;
-			target.x = 0;
-			target.y = 0;
-			this.addChild(_target);
-			if(target is DisplayObjectContainer)
-			{
-				DisplayObjectContainer(target).mouseChildren = DisplayObjectContainer(target).mouseEnabled = false;	
-			}
-			if(_target is Avatar)
-			{
-				var avt:Avatar = _target as Avatar;
-				_startOffsetPos.x = _offsetPos.x = avt.ox;
-				_startOffsetPos.y = _offsetPos.y = avt.oy;
-			}
+			_editLayer = editLayer;
+			_startOffsetPos.x = _offsetPos.x = ox;
+			_startOffsetPos.y = _offsetPos.y = oy;
 			_editFrame = new EditFrame();
-			this.addChild(_editFrame);
+			_editLayer.addChild(_editFrame);
 			this._editFrame.visible = false;
 			 var editBlocks:Array = _editFrame.editBlocks;
 			 for(var i:int=0; i<editBlocks.length; i++)
 			 {
 				 editBlocks[i].addEventListener(MouseEvent.MOUSE_DOWN, handleMoveEdit);
 			 }
-			 this.graphics.clear();
-			 this.graphics.beginFill(0x00ff00, 0.5);
-			 this.graphics.drawCircle(-2, -2, 4);
-			 this.graphics.endFill();
 		}
+		
 		
 		private function handleMoveEdit(e:MouseEvent):void
 		{
@@ -62,8 +49,8 @@ package com.cyj.app.view.common.edit
 			_curBlock = target;
 			_startMovePos.x = e.stageX;
 			_startMovePos.y = e.stageY;
-			_startRect.x = this.x;
-			_startRect.y = this.y;
+			_startRect.x = _target.x;
+			_startRect.y = _target.y;
 			_startRect.width = _target.width;
 			_startRect.height = _target.height;
 			_startOffsetPos.x = _offsetPos.x;
@@ -104,14 +91,47 @@ package com.cyj.app.view.common.edit
 			_target.height = h;
 			//x
 			var temp:Number = _offsetPos.x;
-			_offsetPos.x = _target.ox;
+			_offsetPos.x = ox;
 			this.x  =  _startRect.x + (_startRect.width - w)*wAlign - ( _offsetPos.x -_startOffsetPos.x);
 			//y
 			temp = _offsetPos.y;
-			_offsetPos.y = _target.oy;
+			_offsetPos.y = oy;
 			this.y  =  _startRect.y +(_startRect.height - h)*hAlign -( _offsetPos.y - _startOffsetPos.y);
 			
 			refushAlign();
+		}
+		
+		public function set x(value:Number):void
+		{
+			_target.x = value;
+			refushAlign();
+		}
+		public function get x():Number
+		{
+			return _target.x;
+		}
+		
+		public function set y(value:Number):void
+		{
+			_target.y = value;
+			refushAlign();
+		}
+		public function get y():Number
+		{
+			return _target.y;
+		}
+		
+		private function get ox():Number
+		{
+			if(_target is Movie)
+				return Movie(_target).frameOx;
+			return 0;
+		}
+		private function get oy():Number
+		{
+			if(_target is Movie)
+				return Movie(_target).frameOy;
+			return 0;
 		}
 		
 		private function handleStopBlockMove(e:MouseEvent):void
@@ -134,11 +154,15 @@ package com.cyj.app.view.common.edit
 			_curBlock = null;
 		}
 		
+		public function dispose():void
+		{
+			end();
+		}
 		
 		private function refushAlign():void
 		{
-			this._editFrame.x = _offsetPos.x;
-			this._editFrame.y = _offsetPos.y;
+			this._editFrame.x = _target.x + _offsetPos.x;
+			this._editFrame.y = _target.y + _offsetPos.y;
 		}
 	}
 }

@@ -1,11 +1,12 @@
 <View sceneColor="0x444444" layers="3,1,0,0,第 3 层;1,1,0,0,第 1 层;2,1,0,0,背景图" width="1402" height="890">
   <Image skin="png.comp.blank" x="0" y="0" layer="2" width="1402" height="890"/>
+  <Panel layers="1,1,0,0,第 1 层" layer="2" x="220" y="70" width="896" height="475" vScrollBarSkin="png.comp.vscroll" hScrollBarSkin="png.comp.hscroll" var="centerPanel">
+    <UIView source="app/CenterView.xml" layer="1" var="centerView" runtime="com.cyj.app.view.app.CenterView"/>
+  </Panel>
+  <UIView source="app/TimeLine.xml" x="215" y="547" layer="2" runtime="com.cyj.app.view.app.TimeLineView" var="timeLineView"/>
   <Label text="应用界面" styleSkin="png.comp.label" x="396" y="2" layer="1" color="0xff9900" stroke="0" width="600" height="32" align="center" size="18" var="appName"/>
   <Label text="日志" styleSkin="png.comp.label" x="1" y="837" layer="1" width="1402" height="49" color="0x33ff00" var="txtLog" wordWrap="true"/>
   <Label text="made by cyj 2019.05.16" styleSkin="png.comp.label" x="1268" y="869" layer="1" color="0x666666"/>
   <Image skin="png.guidecomp.购买类控件底_1" x="1114" y="67" layer="1" width="280" height="729" sizeGrid="10,10,10,10,1"/>
   <UIView source="app/LeftView.xml" x="12" y="77" layer="3" var="leftView" runtime="com.cyj.app.view.app.LeftView"/>
-  <Panel layers="1,1,0,0,第 1 层" layer="2" x="220" y="70" width="896" height="725" vScrollBarSkin="png.comp.vscroll" hScrollBarSkin="png.comp.hscroll" var="centerPanel">
-    <UIView source="app/CenterView.xml" layer="1" var="centerView" runtime="com.cyj.app.view.app.CenterView"/>
-  </Panel>
 </View>

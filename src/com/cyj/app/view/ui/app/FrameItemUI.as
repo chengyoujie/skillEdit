@@ -1,12 +1,13 @@
 /**Created by the Morn,do not modify.*/
 package com.cyj.app.view.ui.app {
 	import morn.core.components.*;
-	public class CenterViewUI extends View {
+	public class FrameItemUI extends View {
+		public var txtTest:Label = null;
 		protected static var uiView:XML =
-			<View width="892" height="470">
-			  <Image skin="png.guidecomp.外框_1" x="0" y="0" width="892" height="470" sizeGrid="8,8,8,8,1"/>
+			<View width="10" height="30">
+			  <Label text="1" x="-1" y="4" color="0xffffff" var="txtTest"/>
 			</View>;
-		public function CenterViewUI(){}
+		public function FrameItemUI(){}
 		override protected function createChildren():void {
 			super.createChildren();
 			createView(uiView);

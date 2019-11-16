@@ -3,6 +3,7 @@ package com.cyj.app.view
 	import com.cyj.app.SimpleEvent;
 	import com.cyj.app.ToolsApp;
 	import com.cyj.app.data.ToolsConfig;
+	import com.cyj.app.view.app.AppEvent;
 	import com.cyj.app.view.app.FileItem;
 	import com.cyj.app.view.common.Alert;
 	import com.cyj.app.view.common.edit.EditDisplayObject;
@@ -46,12 +47,6 @@ package com.cyj.app.view
 		/** 初始化界面  **/		
 		public function initView():void
 		{
-//			ava = new Avatar();
-//			ava.x = 500;
-//			ava.y = 300;
-//			this.addChild(ava);
-			
-			
 			leftView.refushList();
 			leftView.addEventListener(FileItem.EVENT_CLICK, handleSelectChange, true);
 			leftView.addEventListener(MouseEvent.MOUSE_DOWN, handleStartDrag, true);
@@ -72,12 +67,12 @@ package com.cyj.app.view
 				var fileItem:FileItem = e.target as FileItem;
 				var fileItemData:Object = fileItem.dataSource;
 				if(fileItemData.isDirectory)return;//点击的是文件加不做处理
-				var a:Avatar =  new Avatar();
-				a.path = fileItemData.path;
+				var a:Avatar =  new Avatar(fileItemData.path);
 				_dragObj = a;
 				_dragObj.x = e.stageX;
 				_dragObj.y = e.stageY;
 				App.stage.addChild(_dragObj);
+				ToolsApp.event.dispatchEvent(new SimpleEvent(AppEvent.CHANGE_AVATER, a));
 			}else{
 				return;
 			}
@@ -100,14 +95,25 @@ package com.cyj.app.view
 			if(rect.contains(stageX, stageY))
 			{
 				var offsetRect:Rectangle = centerPanel.content.scrollRect;
-				_dragObj.x = 0;
-				_dragObj.y = 0;
-				var edit:EditDisplayObject = new EditDisplayObject(_dragObj as Avatar);
-				edit.x = stageX - rect.x + offsetRect.x;
-				edit.y = stageY - rect.y+ offsetRect.y;
-				centerView.addChild(edit);
+				var ox:int = stageX - rect.x + offsetRect.x;
+				var oy:int = stageY - rect.y+ offsetRect.y;
+//				var edit:EditDisplayObject = centerView.addEditObj(_dragObj);//new EditDisplayObject(_dragObj as Avatar, centerView.editLayer);
+				if(_dragObj is Avatar)
+				{
+					var avt:Avatar = _dragObj as Avatar;
+					ToolsApp.projectData.avaterRes = avt.avaterRes;
+					centerView.editAvater(avt.avaterRes, ox, oy);
+					timeLineView.editAvater(avt.avaterRes);
+					avt.dispose();
+				}else{
+					_dragObj.x = ox;
+					_dragObj.y = oy;
+					centerView.addChild(_dragObj);
+				}
 				centerPanel.refresh();
 			}else{
+				if(_dragObj is Avatar)
+					(_dragObj as Avatar).dispose();
 				if(_dragObj.parent)
 					_dragObj.parent.removeChild(_dragObj);
 			}
