@@ -5,10 +5,13 @@ package com.cyj.app.view
 	import com.cyj.app.data.ToolsConfig;
 	import com.cyj.app.view.app.AppEvent;
 	import com.cyj.app.view.app.FileItem;
+	import com.cyj.app.view.app.ImageResItem;
 	import com.cyj.app.view.common.Alert;
 	import com.cyj.app.view.common.edit.EditDisplayObject;
 	import com.cyj.app.view.ui.app.AppMainUI;
 	import com.cyj.app.view.unit.Avatar;
+	import com.cyj.app.view.unit.DragImage;
+	import com.cyj.app.view.unit.SubImageInfo;
 	import com.cyj.utils.Log;
 	import com.cyj.utils.cmd.CMDManager;
 	import com.cyj.utils.load.ResData;
@@ -73,6 +76,13 @@ package com.cyj.app.view
 				_dragObj.y = e.stageY;
 				App.stage.addChild(_dragObj);
 				ToolsApp.event.dispatchEvent(new SimpleEvent(AppEvent.CHANGE_AVATER, a));
+			}else if(e.target is ImageResItem){
+				var img:DragImage = new DragImage();
+				img.data = ImageResItem(e.target).dataSource as SubImageInfo;
+				_dragObj = img;
+				_dragObj.x = e.stageX;
+				_dragObj.y = e.stageY;
+				App.stage.addChild(_dragObj);
 			}else{
 				return;
 			}
@@ -104,7 +114,12 @@ package com.cyj.app.view
 					ToolsApp.projectData.avaterRes = avt.avaterRes;
 					centerView.editAvater(avt.avaterRes, ox, oy);
 					timeLineView.editAvater(avt.avaterRes);
+					leftView.editAvater(avt.avaterRes);
 					avt.dispose();
+				}else if(_dragObj is DragImage){
+					timeLineView.addImage(DragImage(_dragObj).data, ox-centerView.centerPos.x, oy-centerView.centerPos.y);
+					if(_dragObj.parent)
+						_dragObj.parent.removeChild(_dragObj);
 				}else{
 					_dragObj.x = ox;
 					_dragObj.y = oy;

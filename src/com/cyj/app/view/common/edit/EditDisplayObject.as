@@ -41,6 +41,11 @@ package com.cyj.app.view.common.edit
 			 }
 		}
 		
+		public function get target():DisplayObject
+		{
+			return _target;
+		}
+		
 		
 		private function handleMoveEdit(e:MouseEvent):void
 		{
@@ -98,13 +103,13 @@ package com.cyj.app.view.common.edit
 			_offsetPos.y = oy;
 			this.y  =  _startRect.y +(_startRect.height - h)*hAlign -( _offsetPos.y - _startOffsetPos.y);
 			
-			refushAlign();
+			refushPos();
 		}
 		
 		public function set x(value:Number):void
 		{
 			_target.x = value;
-			refushAlign();
+			refushPos();
 		}
 		public function get x():Number
 		{
@@ -114,7 +119,7 @@ package com.cyj.app.view.common.edit
 		public function set y(value:Number):void
 		{
 			_target.y = value;
-			refushAlign();
+			refushPos();
 		}
 		public function get y():Number
 		{
@@ -124,13 +129,13 @@ package com.cyj.app.view.common.edit
 		private function get ox():Number
 		{
 			if(_target is Movie)
-				return Movie(_target).frameOx;
+				return Movie(_target).framex;
 			return 0;
 		}
 		private function get oy():Number
 		{
 			if(_target is Movie)
-				return Movie(_target).frameOy;
+				return Movie(_target).framey;
 			return 0;
 		}
 		
@@ -142,10 +147,15 @@ package com.cyj.app.view.common.edit
 		
 		public function start():void
 		{
+			if(_target.width==0 ||  _target.height==0)
+			{
+				this.end();
+				return;
+			}
 			this._editFrame.visible = true;
 			_curBlock = null;
 			this._editFrame.setSize(_target.width, _target.height);
-			this.refushAlign();
+			this.refushPos();
 		}
 		
 		public function end():void
@@ -159,10 +169,10 @@ package com.cyj.app.view.common.edit
 			end();
 		}
 		
-		private function refushAlign():void
+		public function refushPos():void
 		{
-			this._editFrame.x = _target.x + _offsetPos.x;
-			this._editFrame.y = _target.y + _offsetPos.y;
+			this._editFrame.x = _target.x + ox;
+			this._editFrame.y = _target.y + oy;
 		}
 	}
 }

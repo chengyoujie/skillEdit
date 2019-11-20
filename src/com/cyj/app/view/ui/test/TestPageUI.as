@@ -24,7 +24,7 @@ package com.cyj.app.view.ui.test {
 			    <Box name="render">
 			      <Clip skin="png.comp.clip_selectBox" x="26" y="3" clipY="2" width="87" name="selectBox"/>
 			      <Clip skin="png.comp.clip_num" clipX="10" name="icon"/>
-			      <Label text="listItem" x="27" y="3" width="80" name="label"/>
+			      <Label text="listItem" x="21" y="-13" width="80" name="label"/>
 			    </Box>
 			  </List>
 			  <Tree x="428" y="220" width="130" height="160" scrollBarSkin="png.comp.vscroll" spaceBottom="3">

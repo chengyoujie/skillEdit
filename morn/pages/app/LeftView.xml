@@ -3,4 +3,7 @@
   <Tree layers="1,1,0" layer="1" x="17" y="51" width="162" height="368" scrollBarSkin="png.comp.vscroll" spaceBottom="3" var="treeFiles">
     <UIView source="app/FileItem.xml" layer="1" name="render" runtime="com.cyj.app.view.app.FileItem" x="10" y="10"/>
   </Tree>
+  <List layers="1,1,0,0,第 1 层" layer="1" x="34" y="444" vScrollBarSkin="png.comp.vscroll" width="146" height="267" spaceY="2" var="listImageRes">
+    <UIView source="app/ImageResItem.xml" layer="1" name="render" runtime="com.cyj.app.view.app.ImageResItem"/>
+  </List>
 </View>

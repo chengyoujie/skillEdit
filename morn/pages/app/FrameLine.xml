@@ -1,8 +1,11 @@
-<View width="600" height="35" sceneColor="0xffffff" layers="1,1,0,0,第 1 层">
-  <Button label="隐" skin="png.comp.button" x="5" y="6" layer="1" width="20" height="23" var="btnHide"/>
-  <Button label="锁" skin="png.comp.button" x="29" y="6" layer="1" width="20" height="23" var="btnLock"/>
-  <List layers="1,1,0,0,第 1 层" layer="1" x="54" y="2" repeatY="1" repeatX="45" var="listFrame" spaceX="1">
-    <Image skin="png.comp.blank" layer="1" width="544" height="28" y="1" var="imgBg"/>
+<View sceneColor="0xcccccc" layers="1,1,0,0,第 1 层" width="880" height="35">
+  <Clip skin="png.comp.clip_selectBox" x="1" y="8" layer="1" clipY="2" width="121" name="selectBox" height="20"/>
+  <Button label="隐" skin="png.comp.button" x="76" y="5" layer="1" width="20" height="23" var="btnHide"/>
+  <Button label="锁" skin="png.comp.button" x="100" y="5" layer="1" width="20" height="23" var="btnLock"/>
+  <List layers="1,1,0,0,第 1 层" layer="1" x="125" y="3" repeatY="1" repeatX="60" var="listFrame" spaceX="1">
+    <Image skin="png.comp.blank" layer="1" width="756" height="28" y="1" var="imgBg" x="0"/>
     <UIView source="app/FrameItem.xml" x="1" layer="1" name="render" runtime="com.cyj.app.view.common.frame.FrameItem"/>
   </List>
+  <Label text="图层名字" styleSkin="png.comp.label" x="23" y="7" layer="1" color="0xffff00" var="txtName"/>
+  <Clip skin="png.comp.clip_tree_folder" x="3" y="10" layer="1" clipY="3"/>
 </View>

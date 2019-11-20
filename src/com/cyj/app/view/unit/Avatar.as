@@ -52,7 +52,7 @@ package com.cyj.app.view.unit
 			if(_moviePlay)
 			{
 				if(getTimer()<_renderTime)return;
-				if(_curFrame>=_res.maxFrame)_curFrame = 0;
+				if(_curFrame>=_res.data.maxFrame)_curFrame = 0;
 				_renderTime = getTimer() + 1000/_res.data.speed;
 				_moviePlay.gotoAndStop(_curFrame);
 				_curFrame ++;

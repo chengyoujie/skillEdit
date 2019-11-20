@@ -1,5 +1,7 @@
 package com.cyj.app.data
 {
+	import com.cyj.app.view.unit.SubImageInfo;
+
 	public class FrameData
 	{
 		public var items:Array = [];
@@ -9,6 +11,8 @@ package com.cyj.app.data
 //		public var height:int;
 		public var ox:int;
 		public var oy:int;
+		public var name:String;
+		public var visible:Boolean = true;
 		
 		public function FrameData(data:Object=null)
 		{
@@ -17,6 +21,21 @@ package com.cyj.app.data
 				{
 					items.push(new FrameItemData(data.items[i]));
 				}
+		}
+		
+		
+		
+		public function addFrameItemBySubInfo(sub:SubImageInfo, index:int=-1):FrameItemData
+		{
+			var item:FrameItemData = FrameItemData.getNewBySubImg(sub);
+			if(index==-1)
+			{
+				items.push(item);
+			}else{
+//				items.splice(index, 0, item);
+				items[index] = item;
+			}
+			return item;
 		}
 	}
 }

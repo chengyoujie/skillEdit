@@ -1,5 +1,7 @@
 package com.cyj.app.data
 {
+	import com.cyj.app.view.unit.SubImageInfo;
+
 	public class FrameItemData
 	{
 		//		"movex":0,
@@ -32,6 +34,19 @@ package com.cyj.app.data
 					this[key] = data[key];
 				}
 			}
+		}
+		
+		public static function getNewBySubImg(sub:SubImageInfo):FrameItemData
+		{
+			var item:FrameItemData = new FrameItemData();
+			item.w = sub.img.width;
+			item.h = sub.img.height;
+			item.ox = sub.ox;
+			item.oy = sub.oy;
+			item.res = sub.key;
+			item.x = 0;
+			item.y = 0;
+			return item;
 		}
 	}
 }

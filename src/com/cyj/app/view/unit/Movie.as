@@ -38,6 +38,11 @@ package com.cyj.app.view.unit
 			_frameData = data;
 		}
 		
+		public function get frameData():FrameData
+		{
+			return _frameData;
+		}
+		
 		
 		public function gotoAndStop(index:int):void
 		{
@@ -53,9 +58,9 @@ package com.cyj.app.view.unit
 			if(_frameData&&_frame>=_frameData.items.length)_frame = 0;
 			_frame ++;
 		}
-		
+		 
 		private var _frame:int = 0;
-		private function handleRender():void
+		public function handleRender():void
 		{
 			if(_frameData && _subImageInfos)
 			{
@@ -72,8 +77,8 @@ package com.cyj.app.view.unit
 				}else{
 					bmp.bitmapData = null;
 				}
-				bmp.x = frameData.ox;
-				bmp.y = frameData.oy;
+				bmp.x = frameData.x + frameData.ox;
+				bmp.y =  frameData.y + frameData.oy;
 				bmp.width = frameData.w;
 				bmp.height = frameData.h;
 			}else{
@@ -81,7 +86,7 @@ package com.cyj.app.view.unit
 			}
 		}
 		
-		private function getCurFrameData():FrameItemData
+		public function getCurFrameData():FrameItemData
 		{
 			if(_frameData && _frameData.items)
 			{
@@ -96,7 +101,7 @@ package com.cyj.app.view.unit
 			var frame:FrameItemData = getCurFrameData();
 			if(frame)
 				return frame.w;
-			return this.width;
+			return super.width;
 		}
 		
 		override public function get height():Number
@@ -104,7 +109,7 @@ package com.cyj.app.view.unit
 			var frame:FrameItemData = getCurFrameData();
 			if(frame)
 				return frame.h;
-			return this.height;
+			return super.height;
 		}
 		
 		override public function set width(value:Number):void
@@ -141,17 +146,17 @@ package com.cyj.app.view.unit
 			return _frameData.oy;
 		}
 		
-		public function get frameOy():int
+		public function get framey():int
 		{
 			var frame:FrameItemData = getCurFrameData();
 			if(!frame)return 0;
-			return frame.oy;
+			return frame.oy+frame.y;
 		}
-		public function get frameOx():int
+		public function get framex():int
 		{
 			var frame:FrameItemData = getCurFrameData();
 			if(!frame)return 0;
-			return frame.ox;
+			return frame.ox+frame.x;
 		}
 		
 	}

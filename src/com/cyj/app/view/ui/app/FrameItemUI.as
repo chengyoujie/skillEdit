@@ -5,7 +5,7 @@ package com.cyj.app.view.ui.app {
 		public var txtTest:Label = null;
 		protected static var uiView:XML =
 			<View width="10" height="30">
-			  <Label text="1" x="-1" y="4" color="0xffffff" var="txtTest"/>
+			  <Label text="●" x="-1" y="7" color="0xcccccc" var="txtTest" size="8"/>
 			</View>;
 		public function FrameItemUI(){}
 		override protected function createChildren():void {

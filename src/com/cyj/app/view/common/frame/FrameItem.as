@@ -9,7 +9,7 @@ package com.cyj.app.view.common.frame
 	public class FrameItem extends FrameItemUI
 	{
 		private var _data:FrameItemData;
-		
+		public var frameLine:FrameLine;
 		public function FrameItem()
 		{
 			super(); 
@@ -21,10 +21,10 @@ package com.cyj.app.view.common.frame
 		{
 			if(value is FrameItemData)
 			{
-				txtTest.text = "1";
+				txtTest.text = "●";
 				_data = value as FrameItemData;
 			}else{
-				txtTest.text = "0";
+				txtTest.text = "○";
 				_data = null;
 			}
 			super.dataSource = value;

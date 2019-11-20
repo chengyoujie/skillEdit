@@ -7,6 +7,7 @@ package com.cyj.app.view.unit
 		public var img:BitmapData;
 		public var  ox:int;
 		public var oy:int;
+		public var key:*;
 		
 		public function SubImageInfo()
 		{

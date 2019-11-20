@@ -38,6 +38,7 @@ package com.cyj.app.view.unit
 		private var _ox:Number = 0;
 		private var _oy:Number = 0;
 		private var _defaultFrameData:FrameData;
+		private var _resKeys:Array = [];
 		
 		public function AvaterRes(path:String)
 		{
@@ -70,20 +71,17 @@ package com.cyj.app.view.unit
 			{
 				_subImgInfos ={};
 				_defaultFrameData = new FrameData();
+				_defaultFrameData.name = "mv0";
 				var subtexture:Object = _data.subtexture;
-				var imgFrame:int = 0;
 				for(var key:String in subtexture)
 				{
 					var frameData:Object = subtexture[key];
 					var keyNum:int = int(key)%100;
-					if(keyNum>imgFrame)
-					{
-						imgFrame = keyNum;
-					}
 					var fd:SubImageInfo = new SubImageInfo();
 					fd.img = subImg(_image, frameData[0], frameData[1], frameData[2], frameData[3] );
 					fd.ox = frameData[4];
 					fd.oy = frameData[5];
+					fd.key = keyNum;
 					_subImgInfos[keyNum] = fd;
 					if(_w<frameData[2])_w = frameData[2];
 					if(_h<frameData[3])_h = frameData[3];
@@ -96,43 +94,37 @@ package com.cyj.app.view.unit
 					frameItem.res = keyNum+"";
 					frameItem.w = frameData[2];
 					frameItem.h = frameData[3];
+					_resKeys.push(fd);
 					_defaultFrameData.items.push(frameItem);
 				}
-				if(_data.frames)
+				_resKeys.sortOn("key", Array.NUMERIC);
+				if(_data.frames.length==0)
 				{
-					_maxFrame = -1;
-					for(var i:int=0; i<_data.frames.length; i++)
+					_data.frames.push(_defaultFrameData);
+				}
+				_maxFrame = -1;
+				for(var i:int=0; i<_data.frames.length; i++)
+				{
+					var frame:FrameData = _data.frames[i];
+					if(frame.items.length>_maxFrame)
 					{
-						var frame:FrameData = _data.frames[i];
-						if(frame.items.length>_maxFrame)
-						{
-							_maxFrame = frame.items.length;
-						}
+						_maxFrame = frame.items.length;
 					}
-				}else{
-					_maxFrame = imgFrame;
 				}
 				_isReady = true;
 				ToolsApp.event.dispatchEvent(new SimpleEvent(AppEvent.AVATER_RES_COMPLETE, this));
 			}
 		}
 		
-		public function getFrames():Array
+		public function getResKeys():Array
 		{
-			if(_data && _data.frames)
-				return _data.frames;
-			return [_defaultFrameData];
+			return _resKeys;
 		}
-		
-		public function getDefaultFrameData():FrameData
-		{
-			return _defaultFrameData;
-		}
-		
-		public function getSubImageInfo(id:String):SubImageInfo
-		{
-			return _subImgInfos[id];
-		}
+		 
+//		public function getSubImageInfo(id:String):SubImageInfo
+//		{
+//			return _subImgInfos[id];
+//		}
 		
 		public function get subImageInfos():Object
 		{
@@ -169,12 +161,7 @@ package com.cyj.app.view.unit
 		public function get data():MovieData
 		{
 			return _data;
-		}
-		
-		public function get maxFrame():int
-		{
-			return _maxFrame;
-		}
+		} 
 		
 		
 		private function subImg(img:BitmapData, x:int, y:int, w:int, h:int):BitmapData

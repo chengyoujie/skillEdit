@@ -37,7 +37,7 @@ package com.cyj.app.view.unit
 		private function initMovies():void
 		{
 			if(!_res || !_res.isReady)return;
-			var frames:Array = _res.getFrames();
+			var frames:Array = _res.data.frames;
 			if(frames)
 			{
 				for(var i:int=0; i<frames.length; i++)
@@ -51,8 +51,8 @@ package com.cyj.app.view.unit
 		public function gotoAndStop(index:int):void
 		{
 			if(!_res || !_res.isReady)return; 
-			if(index>_res.maxFrame)
-				index = 0;
+//			if(index>=_res.maxFrame)
+//				index = 0;
 			_frame = index;
 			for(var i:int=0; i<_movies.length; i++)
 			{
@@ -75,10 +75,30 @@ package com.cyj.app.view.unit
 				_movies[i].render();
 			}
 			_frame ++;
-			if(_frame>_res.maxFrame)
+			if(_frame>_res.data.maxFrame)
 				_frame = 0;
 		}
 		 
+		public function removeMovieByData(frame:FrameData):void
+		{
+			for(var i:int=0; i<_movies.length; i++)
+			{
+				if(_movies[i].frameData == frame)
+				{
+					removeMovie(_movies[i]);
+					break;
+				}
+			}
+		}
+		
+		public function setMovieVisible():void
+		{
+			for(var i:int=0; i<_movies.length; i++)
+			{
+				var movie:Movie = _movies[i];
+				movie.visible = movie.frameData.visible;
+			}
+		}
 		
 		public function removeMovie(movie:Movie):void
 		{
@@ -89,17 +109,28 @@ package com.cyj.app.view.unit
 			_movies.splice(index, 1);
 		}
 		
-		public function addMovie(movie:Movie):void
+		public function addMovie(movie:Movie, index:int=-1):void
 		{
-			var index:int = _movies.indexOf(movie);
-			if(index!=-1)return;
+			var idx:int = _movies.indexOf(movie);
+			if(idx!=-1)
+			{
+				return;
+			}
 			if(!_contain.contains(movie))
 			{
-				_contain.addChild(movie);
+				if(index == -1)
+					_contain.addChild(movie);
+				else{
+					_contain.addChildAt(movie, index);
+				}
 				movie.x = _centerPos.x+movie.ox;
 				movie.y = _centerPos.y+movie.oy;
 			}
-			_movies.push(movie);
+			if(index == -1)
+				_movies.push(movie);
+			else{
+				_movies.splice(index, 0, movie);
+			}
 		} 
 		
 		private function refushPos():void
