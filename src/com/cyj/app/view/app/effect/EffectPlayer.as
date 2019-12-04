@@ -103,6 +103,10 @@ package com.cyj.app.view.app.effect
 			var item:EffectPlayItem;
 			if(isTargetEffect)
 			{
+				if(targets.length == 0)
+				{
+					TipMsg.show("没有找到受击者，请添加受击者");
+				}
 				for(var i:int=0; i<targets.length; i++)
 				{
 					getItem(data, _view.roleLayer.owner, targets[i], isPlayAll);

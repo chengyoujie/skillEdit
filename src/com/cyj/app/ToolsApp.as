@@ -141,7 +141,8 @@ package com.cyj.app
 			view.initView();
 			
 			Log.log("系统启动成功");
-			loader.loadSingleRes(config.versionconfig, ResLoader.TXT, handleVersionConfigLoaded, null, null);
+			//因为没有共享目录， 暂时去掉否则其他人打开的时候会卡
+//			loader.loadSingleRes(config.versionconfig, ResLoader.TXT, handleVersionConfigLoaded, null, null);
 		}
 		
 		private static function handleVersionConfigLoaded(res:ResData):void

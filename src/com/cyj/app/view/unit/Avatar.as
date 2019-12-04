@@ -28,7 +28,10 @@ package com.cyj.app.view.unit
 		protected var _act:String;
 		protected var _dir:int=-1;
 		protected var _isDirRes:Boolean = false;
+		/**有资源的  【动作】= [方向1, 方向2, ... ]**/
 		protected var _canUseRes:Object = {};
+		/**可以显示的（会把有资源的进行镜像以及加上target, owner这两个特殊方向）  【动作】= [方向1, 方向2, ... ]**/
+		protected var _showUseRes:Object = {};
 //		private var _w:Number;
 //		private var _h:Number;
 //		private var _sx:Number=1;
@@ -179,7 +182,32 @@ package com.cyj.app.view.unit
 		 * */
 		public function getActHaveDirs(act:String):Array
 		{
-			return _canUseRes[act];
+			if(!_showUseRes[act])
+			{
+				_showUseRes[act] = [];
+				var arr:Array = _canUseRes[act];
+				if(arr)
+				{
+					if(arr.length>1)//多方向的会进行五方向镜像及加上特殊方向
+					{
+						for(var i:int=0; i<arr.length; i++)
+						{
+							_showUseRes[act].push(arr[i]);
+							var newDir:int = Direction.getReverseFiveDir(arr[i]);
+							if(newDir != arr[i])
+								_showUseRes[act].push(newDir);
+						}
+						_showUseRes[act].push(Direction.OWNER_DIR);
+						_showUseRes[act].push(Direction.TO_TARGET_DIR);
+					}else if(arr.length == 1){
+						_showUseRes[act].push(arr[0]);
+					}	
+				}else{
+					_showUseRes[act].push(Direction.TOP);//默认给个向上的
+				}
+				
+			}
+			return _showUseRes[act];
 		}
 		
 		public function set isDirRes(value:Boolean):void
@@ -217,8 +245,7 @@ package com.cyj.app.view.unit
 			App.timer.clearTimer(checkHasDir);
 			if(!_isDirRes)return; 
 			var hasDirs:Array = getActHaveDirs(_act);
-			var d:int = Direction.getHaveResDir(_dir);
-			if(!hasDirs || hasDirs.indexOf(d) == -1)
+			if(hasDirs.indexOf(_dir) == -1)
 			{
 				TipMsg.show("没有对应的方向  "+Direction.getDirName(_dir));
 			}

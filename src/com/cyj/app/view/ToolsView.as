@@ -80,6 +80,7 @@ package com.cyj.app.view
 		
 		public function initProject():void
 		{
+			Log.log("项目初始化完毕");
 			leftView.initProject();
 			rightView.initProject();
 			centerView.initProject();
@@ -106,6 +107,7 @@ package com.cyj.app.view
 				zzp[name] = obj.unit;
 			}
 			ToolsApp.projectData.config = zzp;
+			Log.log("config.zzp加载完毕");
 			initProject();
 		}
 		
@@ -206,7 +208,7 @@ package com.cyj.app.view
 					var avt:Avatar = _dragObj as Avatar;
 					avt.x = ox;
 					avt.y = oy;
-					centerView.addAvatar(avt, null, dropRole);
+					centerView.addAvatar(avt, dropRole);
 //					ToolsApp.projectData.avaterRes = avt.avaterRes;
 //					centerView.editAvater(avt.avaterRes, ox, oy);
 //					leftView.editAvater(avt.avaterRes);
@@ -214,7 +216,7 @@ package com.cyj.app.view
 				}else{
 					_dragObj.x = ox;
 					_dragObj.y = oy;
-					centerView.addAvatar(_dragObj, null, dropRole);
+					centerView.addAvatar(_dragObj, dropRole);
 //					centerView.addChild(_dragObj);
 				}
 				centerPanel.refresh();

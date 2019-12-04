@@ -91,6 +91,7 @@ package com.cyj.app.view.app
 			this.addEventListener(MouseEvent.MOUSE_DOWN, handleMouseDown);
 			SimpleEvent.on(AppEvent.CLICK_ROLE, handleClickRole);
 			SimpleEvent.on(AppEvent.EFFECT_STEP_CHANGE, handleEffectStepChange);
+//			SimpleEvent.on(AppEvent.REFUSH_SCENE, handleEffectStepChange);
 			SimpleEvent.on(AppEvent.MOVE_CHANGE, handleDistanceChange);
 //			btnPlay.clickHandler = new Handler(handlePlayAll);
 			checkLockEffect.clickHandler = new Handler(handleLockEffect);
@@ -105,7 +106,7 @@ package com.cyj.app.view.app
 		
 		public function initView():void
 		{
-			
+			initAvatar();
 		}
 		
 		private function handleLockEffect():void
@@ -122,12 +123,12 @@ package com.cyj.app.view.app
 		
 		public function initProject():void
 		{
-			initAvatar();
 		}
 		
 		private function initAvatar():void
 		{
 			var avts:Array = ToolsApp.localCfg.sceneAvater;
+			var roles:Vector.<Role> = new Vector.<Role>();
 			for(var i:int=0; i<avts.length; i++)
 			{
 				var info:AvaterData = avts[i] as AvaterData;
@@ -135,11 +136,20 @@ package com.cyj.app.view.app
 				var avt:Avatar = new Role(info);
 				avt.x = info.x;
 				avt.y = info.y;
-				addAvatar(avt, info);
+				if(info.type == EffectPlayOwnerType.Sender)
+				{
+					roles.unshift(avt);
+				}else{
+					roles.push(avt);
+				}
 //				if(info.id>_avtId)
 //				{
 //					_avtId = info.id+1;
 //				}
+			}
+			for(i=0; i<roles.length; i++)
+			{
+				addAvatar(roles[i]);
 			}
 			//测试
 //			var data1:AvaterData = new AvaterData("D:/publish//avatarres/body/1500", true);
@@ -162,7 +172,7 @@ package com.cyj.app.view.app
 //			this.roleLayer.addRole(target);
 		}
 		
-		public function addAvatar(display:DisplayObject, info:Object=null, dropTarget:Role=null):void
+		public function addAvatar(display:DisplayObject, dropTarget:Role=null):void
 		{
 			if(display is Role)
 			{
@@ -174,6 +184,8 @@ package com.cyj.app.view.app
 //					_avt2IdDic[avt] = info;
 //				}
 				this.roleLayer.addRole(avt);	
+				refushMoveList();
+				SimpleEvent.send(AppEvent.REFUSH_SCENE);
 			}else{
 				var curEffectItemData:EffectPlayItemData = ToolsApp.projectData.curEffectPlayItemData;
 				if(curEffectItemData)
@@ -432,6 +444,9 @@ package com.cyj.app.view.app
 					_curEdit.dispose();
 					_curEdit = null;
 					_roleOper.unbind();
+					
+					refushMoveList();
+					SimpleEvent.send(AppEvent.REFUSH_SCENE);
 				}
 			}
 		}

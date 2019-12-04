@@ -60,7 +60,8 @@ package com.cyj.app.view.app
 			_actBtnDic[Direction.TOP] = btnUp;
 			_actBtnDic[Direction.RIGHTTOP] = btnUpRight;
 			_actBtnDic[Direction.LEFTTOP] = btnLeftUp;
-//			_actBtnDic[Direction.OWNER_DIR] = btnOwnerDir;
+			_actBtnDic[Direction.OWNER_DIR] = btnOwnerDir;
+			_actBtnDic[Direction.TO_TARGET_DIR] = btnTargetDir;
 			_actBtnDic[Direction.LEFTBOTTOM] = btnLeftDown;
 			_actBtnDic[Direction.RIGHTBOTTOM] = btnRightDown;
 			
@@ -195,7 +196,7 @@ package com.cyj.app.view.app
 		private function refushCanUseDir():void
 		{
 			if(!_avt)return;
-			var arr:Array = _avt.getActHaveDirs(_avt.act) || [];
+			var arr:Array = _avt.getActHaveDirs(_avt.act);
 			
 			for(var dir:String in _actBtnDic)
 			{
@@ -203,12 +204,12 @@ package com.cyj.app.view.app
 				var dir2:int =int(dir);
 				btn.disabled = arr.indexOf(dir2)==-1 && arr.indexOf(Direction.getHaveResDir(dir2)) == -1;
 			}
-			if(arr.length>1)
-			{
-				btnTargetDir.disabled = btnOwnerDir.disabled = false;
-			}else{
-				btnTargetDir.disabled = btnOwnerDir.disabled = true;
-			}
+//			if(arr.length>1)
+//			{
+//				btnTargetDir.disabled = btnOwnerDir.disabled = false;
+//			}else{
+//				btnTargetDir.disabled = btnOwnerDir.disabled = true;
+//			}
 		}
 		
 	}

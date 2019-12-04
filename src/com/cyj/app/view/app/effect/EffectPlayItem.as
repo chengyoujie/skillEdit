@@ -4,6 +4,7 @@ package com.cyj.app.view.app.effect
 	import com.cyj.app.data.AvaterData;
 	import com.cyj.app.data.cost.Action;
 	import com.cyj.app.data.cost.Direction;
+	import com.cyj.app.data.cost.EaseType;
 	import com.cyj.app.data.cost.EffectPlayDisplayType;
 	import com.cyj.app.data.cost.EffectPlayEndType;
 	import com.cyj.app.data.cost.EffectPlayLayer;
@@ -70,6 +71,17 @@ package com.cyj.app.view.app.effect
 			if(!_data)return;
 			_endFun = endFun;
 			_isPlaying = true;
+			if(_data.delay>0)
+			{
+				App.timer.doOnce(_data.delay, run);
+			}else{
+				run();
+			}
+		}	
+		private function run():void
+		{
+			if(!_data)return;
+			App.timer.clearTimer( run);
 			refushDisplay();
 			doMove();
 			if(_data.endType == EffectPlayEndType.Time)
@@ -182,8 +194,8 @@ package com.cyj.app.view.app.effect
 				_tween.kill();
 				_tween = null;
 			}
-			_display.rotation = 0;
 			refushPos();
+			_display.rotation = 0;
 			var move:EffectPlayMoveEndData = _data.move;
 			var pos:Point = _tempPoint;
 			pos.x = 0;
@@ -214,11 +226,12 @@ package com.cyj.app.view.app.effect
 				var speed:int = move.speed || 1;
 				var time:Number = ComUtill.getDistance(_display, pos, true)/speed;
 				_display.mouseEnabled = false;
+				var ease:Function = EaseType.getEase(move.ease);
 				if(_data.endType == EffectPlayEndType.MoveEnd)
 				{
-					_tween = TweenLite.to(_display,time , {x:pos.x, y:pos.y, onComplete:onMoveEnd})
+					_tween = TweenLite.to(_display,time , {x:pos.x, y:pos.y, onComplete:onMoveEnd, "ease":ease})
 				}else{
-					_tween = TweenLite.to(_display,time , {x:pos.x, y:pos.y, onComplete:onMoveEnd});
+					_tween = TweenLite.to(_display, time , {x:pos.x, y:pos.y, onComplete:onMoveEnd, "ease":ease});
 				}
 			}
 		}
@@ -296,7 +309,7 @@ package com.cyj.app.view.app.effect
 		
 		public function refushPos():void
 		{
-			if(!_data)return;
+			if(!_data || !_display)return;
 			var useCasterPos:Boolean = false;//是否使用 角色坐标
 			if(_data.layer == EffectPlayLayer.Top || _data.layer == EffectPlayLayer.Bottom || _data.layer == EffectPlayLayer.FiveDir)
 			{
@@ -310,6 +323,17 @@ package com.cyj.app.view.app.effect
 			}else{
 				_display.x = _data.offx;
 				_display.y = _data.offy;
+			}
+			if(_data.move.type != EffectPlayOwnerType.None && _data.move.rotation)
+			{
+				var target:DisplayObject = caster==_owner?_target:_owner;
+				if(target)
+				{
+					var zeroPoint:Point = new Point();
+					var pos1:Point = target.localToGlobal(zeroPoint);
+					var pos2:Point = _display.localToGlobal(zeroPoint);
+					_display.rotation = ComUtill.getAngle(pos2, pos1)/Math.PI*180;
+				}
 			}
 		}
 		

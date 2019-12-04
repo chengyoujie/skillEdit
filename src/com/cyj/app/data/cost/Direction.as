@@ -30,15 +30,16 @@ package com.cyj.app.data.cost
 		
 		public static function getDirName(dir:int):String
 		{
+			//↑上,↗右上,→右,↘右下,↓下,↙左下,←左,↖左上,绑定者方向,受击者方向
 			switch(dir){
-				case Direction.TOP:return "上";
-				case Direction.RIGHTTOP:return "右上";
-				case Direction.RIGHT:return "右";
-				case Direction.RIGHTBOTTOM:return "右下";
-				case Direction.BOTTOM:return "下";
-				case Direction.LEFTBOTTOM:return "左下";
-				case Direction.LEFT:return "左";
-				case Direction.LEFTTOP:return "左上";
+				case Direction.TOP:return "↑上";
+				case Direction.RIGHTTOP:return "↗右上";
+				case Direction.RIGHT:return "→右";
+				case Direction.RIGHTBOTTOM:return "↘右下";
+				case Direction.BOTTOM:return "↓下";
+				case Direction.LEFTBOTTOM:return "↙左下";
+				case Direction.LEFT:return "←左";
+				case Direction.LEFTTOP:return "↖左上";
 				case Direction.OWNER_DIR:return "绑定者方向";
 				case Direction.TO_TARGET_DIR:return "受击者方向";
 			}
@@ -65,7 +66,7 @@ package com.cyj.app.data.cost
 		 * @param dir方向
 		 * @param display?要修改的节点
 		 */
-		public static function getFiveDir(dir:int, display: DisplayObject): int {
+		public static function getFiveDir(dir:int, display: DisplayObject=null): int {
 			var newDire: int = dir;
 			var scaleX: int = 1;
 			switch (dir) {
@@ -84,6 +85,25 @@ package com.cyj.app.data.cost
 			}
 			if (display) {
 				display.scaleX = scaleX;
+			}
+			return newDire;
+		}
+		
+		/**
+		 * 五方向反过来， 根据有资源的方向获取没有资源的方向 
+		 */
+		public static function getReverseFiveDir(dir:int): int {
+			var newDire: int = dir;
+			switch (dir) {
+				case Direction.RIGHTTOP:
+					newDire = Direction.LEFTTOP;
+					break;
+				case Direction.RIGHT:
+					newDire = Direction.LEFT;
+					break;
+				case Direction.RIGHTBOTTOM:
+					newDire = Direction.LEFTBOTTOM;
+					break;
 			}
 			return newDire;
 		}

@@ -37,6 +37,8 @@ package com.cyj.app.view.app
 		private var _moveBindData:Vector.<BindData>;
 		
 		private var _disPlayBindData:Vector.<BindData>;
+		private var _dirIndex2Dir:Object = {};
+		private var _dir2Dirindex:Object = {};
 		
 		
 		public function RightView()
@@ -65,14 +67,15 @@ package com.cyj.app.view.app
 				new BindData(comMoveTo, "type", "selectedIndex", handleMoveTypeChange, handleCheckMoveType),
 				new BindData(inputSpeed, "speed"),
 				new BindData(inputDistance, "distance", "text", handleDistanceChange),
-				new BindData(comAutoRotaion, "rotation", "selectedIndex",handleRefushScene)
+				new BindData(comAutoRotaion, "rotation", "selectedIndex",handleRefushScene),
+				new BindData(comMoveEase, "ease", "selectedIndex",handleRefushScene)
 			);
 			_disPlayBindData = new Vector.<BindData>();
 			_disPlayBindData.splice(0, 0,		
 //				new BindData(comDisType, "type", "selectedIndex",onDisplayTypeChange),
 				new BindData(inputResName, "data", "text",handleRefushScene),
 				new BindData(inputLoop, "loop"),
-				new BindData(comDisDir, "dir", "selectedIndex",handleRefushScene)
+				new BindData(comDisDir, "dir", "selectedIndex",handleRefushScene, null, setDirFun, getDirFun)
 			);
 			listStep.dataSource = [];
 		}
@@ -109,6 +112,19 @@ package com.cyj.app.view.app
 		{
 			inputOffx.text = "0";
 			inputOffy.text = "0";
+		}
+		
+		private function setDirFun(value:*):*
+		{
+			if(_dirIndex2Dir[value])
+				return _dirIndex2Dir[value];
+			return Direction.TOP;
+		}
+		private function getDirFun(value:*):*
+		{
+			if(_dir2Dirindex[value])
+				return _dir2Dirindex[value];
+			return 0;
 		}
 		
 		private function handleStarChange():void
@@ -225,6 +241,10 @@ package com.cyj.app.view.app
 			boxMove.visible = comMoveTo.selectedIndex != EffectPlayOwnerType.None;  
 			var selectItem:EffectPlayItemData = listStep.selectedItem as EffectPlayItemData;
 			if(!selectItem)return;
+			if(selectItem.move.type != EffectPlayOwnerType.None && selectItem.disInfo.type == EffectPlayDisplayType.MovieClip && selectItem.disInfo.loop>0)
+			{
+				TipMsg.show("提示：设置移动后最好设置Loop为0");
+			}
 			toBind(_moveBindData, selectItem.move);
 			SimpleEvent.send(AppEvent.MOVE_CHANGE,"type");
 		}
@@ -425,6 +445,9 @@ package com.cyj.app.view.app
 			onDisplayTypeChange();
 			handleStarChange();
 			handleEndChange();
+			var items:Vector.<EffectPlayItem> = ToolsApp.effectPlayer.items;
+			if(items.length>0 && items[0].display is Avatar)
+				handleSetCanUseDir(Avatar(items[0].display));
 			boxMove.visible = comMoveTo.selectedIndex != EffectPlayOwnerType.None;  
 			SimpleEvent.send(AppEvent.EFFECT_STEP_CHANGE, selectItem);
 		} 
@@ -487,21 +510,7 @@ package com.cyj.app.view.app
 				selectItem.disInfo.loop = 1;
 				selectItem.disInfo.type = EffectPlayDisplayType.MovieClip;
 				selectItem.disInfo.data =  ComUtill.getAvtResIdByPath(Avatar(avt).path);
-				var dir:int = selectItem.disInfo.dir;
-				var canUseDirs:Array = Avatar(avt).getActHaveDirs(Action.ACTION_TYPE_ACT);
-				if((dir == Direction.OWNER_DIR || dir == Direction.TO_TARGET_DIR) )
-				{
-					if(canUseDirs.length==1)//只有一个方向的
-					{
-						dir = canUseDirs[0];
-						TipMsg.show("因为当前特效只有一个方向， 所以当前播放方向"+Direction.getDirName(selectItem.disInfo.dir)+"自动修改为"+Direction.getDirName(dir));
-					}
-				}else if(canUseDirs.indexOf(dir) == -1)
-				{
-					dir = canUseDirs[0];
-					TipMsg.show("因为当前特效没有方向"+Direction.getDirName(selectItem.disInfo.dir)+" 自动修改为"+Direction.getDirName(dir));	
-				}
-				selectItem.disInfo.dir = dir;
+				handleSetCanUseDir(avt);
 			}else{
 				TipMsg.show("拖入了不能识别的资源"+getQualifiedClassName(avt));
 			}
@@ -509,7 +518,41 @@ package com.cyj.app.view.app
 			toBind(_disPlayBindData, selectItem.disInfo);
 			handleOwnerTypeChange();
 			onDisplayTypeChange();
+			handleEndChange();
 			ToolsApp.effectPlayer.playItem(selectItem, true);
+		}
+		
+		private function handleSetCanUseDir(avt:Avatar):void
+		{
+			var selectItem:EffectPlayItemData = listStep.selectedItem as EffectPlayItemData;
+			if(!selectItem)return;
+			var dir:int = selectItem.disInfo.dir;
+			var canUseDirs:Array = Avatar(avt).getActHaveDirs(Action.ACTION_TYPE_ACT);
+			var dirStrs:Array = [];
+			_dir2Dirindex = {};
+			_dirIndex2Dir = {};
+			for(var i:int=0; i<canUseDirs.length; i++)
+			{
+				dirStrs.push(Direction.getDirName(canUseDirs[i]));
+				_dir2Dirindex[canUseDirs[i]] = i;
+				_dirIndex2Dir[i] = canUseDirs[i];
+			}
+			comDisDir.labels = dirStrs.join(",");
+			
+			if((dir == Direction.OWNER_DIR || dir == Direction.TO_TARGET_DIR) )
+			{
+				if(canUseDirs.length==1)//只有一个方向的
+				{
+					dir = canUseDirs[0];
+					TipMsg.show("因为当前特效只有一个方向， 所以当前播放方向"+Direction.getDirName(selectItem.disInfo.dir)+"自动修改为"+Direction.getDirName(dir));
+				}
+			}else if(canUseDirs.indexOf(dir) == -1)
+			{
+				dir = canUseDirs[0];
+				TipMsg.show("因为当前特效没有方向"+Direction.getDirName(selectItem.disInfo.dir)+" 自动修改为"+Direction.getDirName(dir));	
+			}
+			selectItem.disInfo.dir = dir;
+			toBind(_disPlayBindData, selectItem.disInfo);
 		}
 		
 		private function handleAddStep():void

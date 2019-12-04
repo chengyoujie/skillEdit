@@ -9,6 +9,8 @@ package com.cyj.app.data.effect
 		public var speed:int = 500;
 		// angle
 		public var distance:int;
+		/**移动类型**/
+		public var ease:int;
 		/**是否自动设置旋转方向 */
 		public var rotation:Boolean = false;
 		

@@ -16,15 +16,20 @@ package com.cyj.app.utils
 		private var _onChangeFun:Function;
 		private var _checkFun:Function;
 		private var _listenerChange:Boolean = true;
+		/***ui到data的转换**/
+		private var _setDataFun:Function;
+		/**data到ui的转换**/
+		private var _getDataFun:Function;
 		
-		
-		public function BindData(bindUI:*, prop:String, uiProp:String="text", onChangeFun:Function=null, checkFun:Function=null)
+		public function BindData(bindUI:*, prop:String, uiProp:String="text", onChangeFun:Function=null, checkFun:Function=null, setDataFun:Function=null, getDataFun:Function=null)
 		{
 			_bindUI = bindUI;
 			_uiProp = uiProp;
 			_prop = prop;
 			_checkFun = checkFun;
 			_onChangeFun = onChangeFun;
+			_setDataFun = setDataFun;
+			_getDataFun = getDataFun;
 		}
 		
 		public function bind(data:Object):void
@@ -41,7 +46,10 @@ package com.cyj.app.utils
 		public function initData():void
 		{
 			if(_data==null)return;
-			_bindUI[_uiProp] = _data[_prop];
+			if(_getDataFun ==null)
+				_bindUI[_uiProp] = _data[_prop];
+			else
+				_bindUI[_uiProp] = _getDataFun(_data[_prop]);
 		}
 		
 		public function unBind():void
@@ -70,7 +78,12 @@ package com.cyj.app.utils
 				}
 			}
 			if(_data)
-				_data[_prop] = _bindUI[_uiProp]; 
+			{
+				if(_setDataFun == null)
+					_data[_prop] = _bindUI[_uiProp];
+				else
+					_data[_prop] = _setDataFun(_bindUI[_uiProp]);
+			}
 			if(_onChangeFun !=null)
 				_onChangeFun.apply();
 		}
