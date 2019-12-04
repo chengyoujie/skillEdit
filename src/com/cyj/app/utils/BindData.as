@@ -14,13 +14,16 @@ package com.cyj.app.utils
 		private var _prop:String;
 		private var binded:Boolean = false;
 		private var _onChangeFun:Function;
+		private var _checkFun:Function;
+		private var _listenerChange:Boolean = true;
 		
 		
-		public function BindData(bindUI:*, prop:String, uiProp:String="text", onChangeFun:Function=null)
+		public function BindData(bindUI:*, prop:String, uiProp:String="text", onChangeFun:Function=null, checkFun:Function=null)
 		{
 			_bindUI = bindUI;
 			_uiProp = uiProp;
 			_prop = prop;
+			_checkFun = checkFun;
 			_onChangeFun = onChangeFun;
 		}
 		
@@ -30,6 +33,7 @@ package com.cyj.app.utils
 				unBind();
 			_data = data;
 			binded = true;
+			initData();
 			//			_text.addEventListener(FocusEvent.FOCUS_OUT, handleFouceOut);
 			_bindUI.addEventListener(Event.CHANGE, handleFouceOut);
 		}
@@ -54,10 +58,22 @@ package com.cyj.app.utils
 		
 		private function handleFouceOut(e:Event):void
 		{
+			if(!_listenerChange)return;
+			if(_checkFun != null)
+			{
+				if(!_checkFun(_bindUI[_uiProp]))//检测是否可以使用
+				{
+					_listenerChange = false;
+					_bindUI[_uiProp] = _data[_prop];
+					_listenerChange = true;
+					return;
+				}
+			}
 			if(_data)
 				_data[_prop] = _bindUI[_uiProp]; 
 			if(_onChangeFun !=null)
 				_onChangeFun.apply();
 		}
+		
 	}
 }

@@ -18,9 +18,9 @@ package com.cyj.app.view.common
 		{
 		}
 		
-		public static function show(content:String, title:String="提示", showBtn:int=1, clickBtn:Function=null, okLabel:String="确定", cancleLabel:String="取消"):void
+		public static function show(content:String, title:String="提示", showBtn:int=1, clickBtn:Function=null, okLabel:String="确定", cancleLabel:String="取消", param:*=null):void
 		{
-			_alertDataList.push(new AlertData(content, title, showBtn, clickBtn, okLabel, cancleLabel));
+			_alertDataList.push(new AlertData(content, title, showBtn, clickBtn, okLabel, cancleLabel, param));
 			if(!_isShow)
 				showView();
 		}
@@ -92,8 +92,9 @@ class AlertData{
 	public var clickBtn:Function;
 	public var okLabel:String;
 	public var cancleLabel:String;
+	public var param:*;
 	
-	public function AlertData($content:String, $title:String="提示", $showBtn:int=3, $clickBtn:Function=null, $okLabel:String="确定", $cancleLabel:String="取消")
+	public function AlertData($content:String, $title:String="提示", $showBtn:int=3, $clickBtn:Function=null, $okLabel:String="确定", $cancleLabel:String="取消", param:*=null)
 	{
 		content = $content;
 		title = $title;
@@ -101,13 +102,20 @@ class AlertData{
 		clickBtn = $clickBtn;
 		okLabel = $okLabel;
 		cancleLabel = $cancleLabel;
+		this.param = param;
 	}
 	
 	public function execClickFun(btn:int):void
 	{
 		if(clickBtn!=null)
 		{
-			clickBtn.apply(this, [btn]);
+			if(param)
+			{
+				clickBtn.apply(this, [btn, param]);
+			}else{
+				clickBtn.apply(this, [btn]);	
+			}
+			
 		}
 	}
 }

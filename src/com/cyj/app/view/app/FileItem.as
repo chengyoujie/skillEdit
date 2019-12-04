@@ -33,6 +33,14 @@ package com.cyj.app.view.app
 		{
 			if(!value)return;
 			txtName.text = value.name;
+			var txtColor:int = 0xffffff;
+			if(value.path && value.type != "effect")
+			{
+				var file:File = new File(value.path);
+				if(!file.exists)
+					txtColor = 0xff0000;
+			}
+			txtName.color = txtColor;
 			_data = value;
 			if(_data.isDirectory)
 			{

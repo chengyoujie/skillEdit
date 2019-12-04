@@ -10,6 +10,8 @@ package com.cyj.app.view.common.edit
 		private var _editBlocks:Array = [];
 		private var _w:Number;
 		private var _h:Number;
+		private var _blockVisible:Boolean = true;
+		
 		public static const POS_ARR:Array =[
 			{x:0, y:0, pos:Align.TOP|Align.LEFT}, 	{x:0.5, y:0, pos:Align.TOP|Align.CENTER}, 	{x:1, y:0, pos:Align.TOP|Align.RIGHT}, 
 			{x:0, y:0.5, pos:Align.CENTER|Align.LEFT}, 																{x:1, y:0.5, pos:Align.CENTER|Align.RIGHT}, 
@@ -54,13 +56,32 @@ package com.cyj.app.view.common.edit
 			this.graphics.lineStyle(1, 0xff0000, 0.8);
 			this.graphics.drawRect(0, 0, w, h);
 			this.graphics.endFill();
+			refushBocks();
+		}
+		
+		public function set blockVisible(value:Boolean):void
+		{
+			_blockVisible = value;
+			refushBocks();
+		}
+		
+		public function get blockVisible():Boolean
+		{
+			return _blockVisible;
+		}
+		
+		private function refushBocks():void
+		{
 			for(var i:int=0; i<_editBlocks.length; i++)
 			{
 				var block:EditBlock = _editBlocks[i];
-				block.x = POS_ARR[i].x*w;
-				block.y = POS_ARR[i].y*h;
-				block.pos = POS_ARR[i].pos;
-				block.visible= true;
+				if(_blockVisible)
+				{
+					block.x = POS_ARR[i].x*_w;
+					block.y = POS_ARR[i].y*_h;
+					block.pos = POS_ARR[i].pos;
+				}
+				block.visible= _blockVisible;
 			}
 		}
 		

@@ -14,15 +14,15 @@ package com.cyj.app.view.common.edit
 
 	public class EditDisplayObject
 	{
-		private var _target:DisplayObject;
-		private var _editFrame:EditFrame;
-		private var _editLayer:DisplayObjectContainer;
-		private var _curBlock:EditBlock;
+		protected var _target:DisplayObject;
+		protected var _editFrame:EditFrame;
+		protected var _editLayer:DisplayObjectContainer;
+		protected var _curBlock:EditBlock;
 		
-		private var _startMovePos:Point = new Point();
-		private var _startRect:Rectangle = new Rectangle();
-		private var _startOffsetPos:Point = new Point();
-		private var _offsetPos:Point = new Point();
+		protected var _startMovePos:Point = new Point();
+		protected var _startRect:Rectangle = new Rectangle();
+		protected var _startOffsetPos:Point = new Point();
+		protected var _offsetPos:Point = new Point();
 		
 		
 		public function EditDisplayObject(target:DisplayObject, editLayer:DisplayObjectContainer)
@@ -34,6 +34,7 @@ package com.cyj.app.view.common.edit
 			_editFrame = new EditFrame();
 			_editLayer.addChild(_editFrame);
 			this._editFrame.visible = false;
+			this._editFrame.blockVisible = false;
 			 var editBlocks:Array = _editFrame.editBlocks;
 			 for(var i:int=0; i<editBlocks.length; i++)
 			 {
@@ -54,8 +55,9 @@ package com.cyj.app.view.common.edit
 			_curBlock = target;
 			_startMovePos.x = e.stageX;
 			_startMovePos.y = e.stageY;
-			_startRect.x = _target.x;
-			_startRect.y = _target.y;
+			refushTargetPos();
+			_startRect.x = _tempPoint.x;
+			_startRect.y = _tempPoint.y;
 			_startRect.width = _target.width;
 			_startRect.height = _target.height;
 			_startOffsetPos.x = _offsetPos.x;
@@ -130,12 +132,16 @@ package com.cyj.app.view.common.edit
 		{
 			if(_target is Movie)
 				return Movie(_target).framex;
+			if(_target is Avatar)
+				return Avatar(_target).ox;
 			return 0;
 		}
 		private function get oy():Number
 		{
 			if(_target is Movie)
 				return Movie(_target).framey;
+			if(_target is Avatar)
+				return Avatar(_target).oy;
 			return 0;
 		}
 		
@@ -167,12 +173,40 @@ package com.cyj.app.view.common.edit
 		public function dispose():void
 		{
 			end();
+			if(this._editFrame.parent)
+			{
+				this._editFrame.parent.removeChild(this._editFrame);
+			}
+			_editLayer = null;
+			_target = null;
 		}
+		private var _tempPoint:Point = new Point();
 		
 		public function refushPos():void
 		{
-			this._editFrame.x = _target.x + ox;
-			this._editFrame.y = _target.y + oy;
+			refushTargetPos();
+			this._editFrame.x = _tempPoint.x + ox;
+			this._editFrame.y = _tempPoint.y + oy;
+		}
+		
+		public function get frameX():int
+		{
+			return this._editFrame.x;
+		}
+		public function get frameY():int
+		{
+			return this._editFrame.y;
+		}
+		
+		private function refushTargetPos():Point
+		{
+			_tempPoint.x = 0;
+			_tempPoint.y = 0;
+			var pos:Point = _target.localToGlobal(_tempPoint);
+			pos = this._editLayer.globalToLocal(pos);
+			_tempPoint.x = pos.x;
+			_tempPoint.y = pos.y;
+			return _tempPoint;
 		}
 	}
 }

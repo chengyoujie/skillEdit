@@ -1,0 +1,65 @@
+<View width="280" height="800" sceneColor="0xffffff" layers="1,1,0,0,第 1 层">
+  <Image skin="png.guidecomp.购买类控件底_1" x="0" y="0" layer="1" width="280" height="801" sizeGrid="10,10,10,10,1"/>
+  <ComboBox skin="png.guidecomp.combobox" x="68" y="114" layer="1" var="comOwner" width="115" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="无,施法者,受击者" selectedIndex="0"/>
+  <Label text="拥有者：" styleSkin="png.comp.label" x="16" y="116" layer="1" color="0xff9900" stroke="0" align="right"/>
+  <Label text="特效组列表" styleSkin="png.comp.label" x="53" y="587" layer="1" width="99" height="18" color="0x990000" align="center"/>
+  <List layers="1,1,0,0,第 1 层" layer="1" x="15" y="612" vScrollBarSkin="png.comp.vscroll" width="258" height="177" spaceY="2" var="listStep">
+    <UIView source="app/EffectStepItem.xml" x="0" y="0" layer="1" runtime="com.cyj.app.view.app.EffectStepItem" name="render"/>
+  </List>
+  <Button skin="png.guidecomp.btn_加号_1" x="5" y="585" layer="1" var="btnAddStep"/>
+  <Button skin="png.guidecomp.btn_减号_1" x="28" y="585" layer="1" var="btnRemoveStep"/>
+  <Label text="id：" styleSkin="png.comp.label" x="41" y="17" layer="1" color="0xff9900" stroke="0" height="19" align="right"/>
+  <TextInput text="0" skin="png.comp.textinput" x="68" y="16" layer="1" color="0x0" var="inputId" width="65" height="22"/>
+  <ComboBox skin="png.guidecomp.combobox" x="68" y="142" layer="1" var="comLayer" width="115" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="角色顶部,角色底部,上层,底部,五方向" selectedIndex="0"/>
+  <Label text="图层：" styleSkin="png.comp.label" x="21" y="145" layer="1" color="0xff9900" stroke="0" width="47" height="18" align="right"/>
+  <ComboBox skin="png.guidecomp.combobox" x="68" y="259.5" layer="1" var="comEndType" width="115" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="特效播放结束,特效移动结束,特效播放时间" selectedIndex="0"/>
+  <Label text="结束条件：" styleSkin="png.comp.label" x="4" y="261.5" layer="1" color="0xff9900" stroke="0"/>
+  <ComboBox skin="png.guidecomp.combobox" x="68" y="199.5" layer="1" var="comTigglerType" width="124" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="开始,某一特效播放结束" selectedIndex="0"/>
+  <Label text="开始条件：" styleSkin="png.comp.label" x="5" y="201.5" layer="1" color="0xff9900" stroke="0"/>
+  <Label text="偏移X：" styleSkin="png.comp.label" x="21" y="470" layer="1" color="0xff9900" stroke="0"/>
+  <TextInput text="0" skin="png.comp.textinput" x="68" y="469" layer="1" color="0x0" width="65" height="22" var="inputOffx"/>
+  <Label text="偏移Y：" styleSkin="png.comp.label" x="20" y="505" layer="1" color="0xff9900" stroke="0"/>
+  <TextInput text="0" skin="png.comp.textinput" x="68" y="504" layer="1" color="0x0" width="65" height="22" var="inputOffy"/>
+  <Label text="延迟时间：" styleSkin="png.comp.label" x="5" y="546" layer="1" color="0xff9900" stroke="0"/>
+  <TextInput text="0" skin="png.comp.textinput" x="68" y="545" layer="1" color="0x0" width="65" height="22" var="inputDelay"/>
+  <Box layers="1,1,0,0,第 1 层" layer="1" x="5" y="49" var="boxDisInfo">
+    <Label text="资源名：" styleSkin="png.comp.label" layer="1" color="0xff9900" stroke="0" x="10" y="2"/>
+    <TextInput text="0" skin="png.comp.textinput" x="63" layer="1" color="0x0" width="130" height="22" var="inputResName" y="0"/>
+    <Box layers="1,1,0,0,第 1 层" layer="1" y="29" var="boxLoop">
+      <Label text="循环次数：" styleSkin="png.comp.label" y="1" layer="1" color="0xff9900" stroke="0" height="18" align="right"/>
+      <TextInput text="0" skin="png.comp.textinput" x="63" layer="1" color="0x0" width="65" height="22" var="inputLoop"/>
+    </Box>
+  </Box>
+  <Image skin="png.guidecomp.分割线_2px" x="0" y="106" layer="1" width="280"/>
+  <Image skin="png.guidecomp.分割线_2px" x="-2" y="195" layer="1" width="280"/>
+  <Image skin="png.guidecomp.分割线_2px" x="1" y="328" layer="1" width="280"/>
+  <ComboBox skin="png.guidecomp.combobox" x="68" layer="1" var="comMoveTo" width="115" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="无,施法者,受击者" selectedIndex="0" y="336.5"/>
+  <Label text="移动到：" styleSkin="png.comp.label" x="16" y="338.5" layer="1" color="0xff9900" stroke="0" height="19"/>
+  <Box layers="1,1,0,0,第 1 层" layer="1" x="4" y="370" var="boxMove">
+    <Label text="速度：" styleSkin="png.comp.label" x="24" y="1" layer="1" color="0xff9900" stroke="0" align="right"/>
+    <TextInput text="0" skin="png.comp.textinput" x="64" layer="1" color="0x0" width="65" height="22" var="inputSpeed" y="0"/>
+    <Label text="移动偏移：" styleSkin="png.comp.label" x="1" y="29" layer="1" color="0xff9900" stroke="0" align="right"/>
+    <TextInput text="0" skin="png.comp.textinput" x="64" y="29" layer="1" color="0x0" width="65" height="22" var="inputDistance"/>
+    <Label text="自动旋转：" styleSkin="png.comp.label" y="58" layer="1" color="0xff9900" stroke="0" align="right" height="18"/>
+    <ComboBox skin="png.guidecomp.combobox" x="64" y="56" layer="1" var="comAutoRotaion" width="55" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="否,是" selectedIndex="0"/>
+    <Button skin="png.guidecomp.btn_小按钮_1" layer="1" labelColors="0xc79a84,0xe0a98d,0x93827a" var="btnResetMoveDis" labelStroke="0" width="38" height="28" x="137" label="置零" y="26"/>
+  </Box>
+  <Image skin="png.guidecomp.分割线_2px" x="1" y="458" layer="1" width="280"/>
+  <Image skin="png.guidecomp.分割线_2px" x="3" y="536" layer="1" width="280"/>
+  <Button skin="png.guidecomp.btn_小按钮_1" layer="1" labelColors="0xc79a84,0xe0a98d,0x93827a" var="btnPlayItem" labelStroke="0" width="54" height="28" x="159" label="播放当前" y="583"/>
+  <Box layers="1,1,0,0,第 1 层" layer="1" x="5" y="232" var="boxTigglerParam">
+    <Label text="开始参数：" styleSkin="png.comp.label" y="1" layer="1" color="0xff9900" stroke="0"/>
+    <TextInput text="0" skin="png.comp.textinput" x="63" layer="1" color="0x0" width="65" height="22" var="inputTigglerParam"/>
+  </Box>
+  <Box layers="1,1,0,0,第 1 层" layer="1" x="4" y="290" var="boxEndParam">
+    <Label text="结束参数：" styleSkin="png.comp.label" y="1" layer="1" color="0xff9900" stroke="0"/>
+    <TextInput text="0" skin="png.comp.textinput" x="64" layer="1" color="0x0" width="65" height="22" var="inputEndParam"/>
+  </Box>
+  <Button skin="png.guidecomp.btn_小按钮_1" layer="1" labelColors="0xc79a84,0xe0a98d,0x93827a" var="btnResetOffset" labelStroke="0" width="38" height="28" x="142" label="置零" y="466"/>
+  <Button skin="png.guidecomp.btn_小按钮_1" layer="1" labelColors="0xc79a84,0xe0a98d,0x93827a" var="btnPlayAll" labelStroke="0" width="53" height="28" x="220" label="播放全部" y="582"/>
+  <Box layers="1,1,0,0,第 1 层" layer="1" x="29" var="boxDir" y="168">
+    <ComboBox skin="png.guidecomp.combobox" x="39" layer="1" var="comDisDir" width="64" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="↑上,↗右上,→右,↘右下,↓下,↙左下,←左,↖左上,绑定者方向,受击者方向" selectedIndex="0" y="0"/>
+    <Label text="方向：" styleSkin="png.comp.label" y="2" layer="1" color="0xff9900" stroke="0" x="0" align="right"/>
+  </Box>
+  <Image skin="png.guidecomp.分割线_2px" x="0" y="44" layer="1" width="280"/>
+</View>

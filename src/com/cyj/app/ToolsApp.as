@@ -5,8 +5,11 @@ package com.cyj.app
 	import com.cyj.app.data.ProjectData;
 	import com.cyj.app.data.ToolsConfig;
 	import com.cyj.app.view.ToolsView;
+	import com.cyj.app.view.app.effect.EffectPlayer;
 	import com.cyj.app.view.common.Alert;
+	import com.cyj.app.view.common.TipMsg;
 	import com.cyj.app.view.ui.common.AlertUI;
+	import com.cyj.app.view.unit.Role;
 	import com.cyj.utils.Log;
 	import com.cyj.utils.XML2Obj;
 	import com.cyj.utils.cmd.CMDManager;
@@ -27,6 +30,7 @@ package com.cyj.app
 	import flash.events.NativeDragEvent;
 	import flash.filesystem.File;
 	import flash.geom.Point;
+	import flash.utils.ByteArray;
 	import flash.utils.Dictionary;
 	
 	import morn.core.events.UIEvent;
@@ -46,10 +50,14 @@ package com.cyj.app
 		public static var localCfg:LocalConfig = new LocalConfig();
 		public static var projectData:ProjectData = new ProjectData();
 		
+		public static var effectPlayer:EffectPlayer;
+		
 		public static var totalNum:int = 0;
 		public static var delaNum:int = 0;
 		
 		public static var VERSION:String = "1.0.1";
+		
+		private static const localCfgPath:String = File.userDirectory.nativePath+"/AppData/Local/effectEdit/res/local.json";
 		
 //		public static var ftp:SimpleFTP;		
 		public function ToolsApp()
@@ -65,20 +73,31 @@ package com.cyj.app
 		{
 			view = new ToolsView();
 			App.stage.addChild(view);
+			Log.initLabel(view.txtLog);
+			
 			startDoDrag();
 			exitAppEvent();
-			loader.loadSingleRes("res/config.xml", ResLoader.TXT, handleConfigLoaded, null, handleLoadError);
+			
+			Log.log("开始加载系统config.xml");
+			loader.loadSingleRes("res/config.xml", ResLoader.TXT, handleAppConfigLoaded, null, handleLoadError);
 		}
 		
 		
-		private static function handleConfigLoaded(res:ResData):void
+		private static function handleAppConfigLoaded(res:ResData):void
 		{
 			XML2Obj.registerClass("toolsconfig", ToolsConfig);
-			XML2Obj.registerClass("local", LocalConfig);
+//			XML2Obj.registerClass("local", LocalConfig);
 			config = XML2Obj.readXml(res.data) as ToolsConfig;
 			VERSION = config.version;
 			App.stage.nativeWindow.title = config.title+"@"+VERSION;
-			loader.loadSingleRes("res/local.xml", ResLoader.TXT, handleLocalConfigLoaded, null, handleLoadError);
+			
+			Log.log("开始加载local.json");
+			var f:File = new File(localCfgPath);
+			if(f.exists)
+				loader.loadSingleRes(localCfgPath, ResLoader.TXT, handleLocalLoaded, null, handleLoadError);
+			else{
+				handleLocalLoaded();
+			}
 			
 //			Log.init(App.stage, 9, 360, 586, 65);
 			//
@@ -89,11 +108,36 @@ package com.cyj.app
 		}
 		
 		
-		private static function handleLocalConfigLoaded(res:ResData):void
+//		private static function handleLocalConfigLoaded(res:ResData):void
+//		{
+//			var data:Object = JSON.parse(res.data);
+//			localCfg.parse(data); //XML2Obj.readXml(res.data) as LocalConfig;
+//			Log.log("开始加载config.zzp");
+//			var configPath:String = ToolsApp.localCfg.localWebPath+"/resource/config/config.zzp"
+//			ToolsApp.loader.loadSingleRes(configPath, ResLoader.BYT, handleZzpLoaded);
+//		}
+		
+		private static function handleLocalLoaded(res:ResData=null):void
 		{
-			
-			localCfg = XML2Obj.readXml(res.data) as LocalConfig;
-			Log.initLabel(view.txtLog);
+			if(res)
+			{
+				var data:Object = JSON.parse(res.data);
+				localCfg.parse(data);
+			} else{
+				localCfg = new LocalConfig();
+			}
+//			var byte:ByteArray = res.data as ByteArray;
+//			byte.uncompress();
+//			var allLen:int = byte.readShort();
+//			var zzp:Object = {};
+//			for(var i:int=0; i<allLen; i++)
+//			{
+//				var name:String = byte.readUTF();
+//				var key:String = byte.readUTF();
+//				var obj:Object = byte.readObject();
+//				zzp[name] = obj.unit;
+//			}
+//			ToolsApp.projectData.config = zzp;
 			view.initView();
 			
 			Log.log("系统启动成功");
@@ -259,11 +303,39 @@ package com.cyj.app
 			App.stage.nativeWindow.addEventListener(Event.CLOSING, handleCloseApp);
 		}
 		
+		public static function saveLocalCfg():void
+		{
+			if(!localCfg)return;
+			var list:Vector.<Role> = view.centerView.roleLayer.all;
+			localCfg.sceneAvater.length = 0;
+			for(var i:int=0; i<list.length; i++)
+			{
+				localCfg.sceneAvater.push(list[i].data);
+			}
+			file.saveFile(localCfgPath, JSON.stringify(localCfg));
+		}
+		
+		public static function saveConfig():void
+		{
+			var data:String = JSON.stringify(projectData.allEffectPlayData.data);
+			if(localCfg.localDataPath)
+			{
+				file.saveFile(localCfg.localWebPath+"/resource/config/effect.json", data); 
+			}
+			if(localCfg.localWebPath)
+			{
+//				var file:File = new File(localCfg.localWebPath+"/resource/config/effect.json");
+				file.saveFile(localCfg.localWebPath+"/resource/config/effect.json", data); 
+			}
+			TipMsg.show("保存成功");
+		}
+		
 		private static function handleCloseApp(e:Event):void
 		{
 			Log.log("退出系统");
 			Log.refushLog();
-			file.saveFile(File.applicationDirectory.nativePath+"/res/local.xml", XML2Obj.readObj(localCfg, "local"));
+//			file.saveFile(File.applicationDirectory.nativePath+"/res/local.json", JSON.stringify(localCfg));//XML2Obj.readObj(localCfg, "local"));
+			saveLocalCfg();
 			//取消默认关闭
 //			e.preventDefault();
 //			NativeApplication.nativeApplication.activeWindow.visible = true;

@@ -10,5 +10,15 @@ package com.cyj.app
 			this.data = $data;
 			super(type, bubbles, cancelable);
 		}
+		
+		public static function send(type:String, data:*=null):void
+		{
+			ToolsApp.event.dispatchEvent(new SimpleEvent(type, data));
+		}
+		
+		public static function on(type:String, fun:Function):void
+		{
+			ToolsApp.event.addEventListener(type, fun);
+		}
 	}
 }

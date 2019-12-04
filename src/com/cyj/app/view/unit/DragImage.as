@@ -1,12 +1,16 @@
 package com.cyj.app.view.unit
 {
+	import com.cyj.app.ToolsApp;
+	import com.cyj.utils.load.ResData;
+	import com.cyj.utils.load.ResLoader;
+	
 	import flash.display.Bitmap;
 	import flash.display.Sprite;
 	
 	public class DragImage extends Sprite
 	{
 		private var bmp:Bitmap;
-		private var _data:SubImageInfo;
+		private var _path:String;
 		
 		public function DragImage()
 		{
@@ -16,24 +20,22 @@ package com.cyj.app.view.unit
 			
 		}
 		
-		public function set data(value:SubImageInfo):void
+		public function set path(value:String):void
 		{
-			_data = value;
-			if(_data)
-			{
-				bmp.bitmapData = _data.img;
-				bmp.x = _data.ox;
-				bmp.y = _data.oy;
-			}else{
-				bmp.bitmapData = null;
-				bmp.x = 0; 
-				bmp.y = 0;
-			}
+			_path = value;
+			ToolsApp.loader.loadSingleRes(_path, ResLoader.IMG, handleImgLoaded);
 		}
 		
-		public function get data():SubImageInfo
+		private function handleImgLoaded(res:ResData):void
 		{
-			return _data;			
+			bmp.bitmapData = res.data;
+			bmp.x = -bmp.width/2;
+			bmp.y = -bmp.height;
+		}
+		
+		public function get path():String
+		{
+			return _path;			
 		}
 		
 	}

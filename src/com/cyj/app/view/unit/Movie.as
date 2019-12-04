@@ -33,8 +33,8 @@ package com.cyj.app.view.unit
 		{
 //			_w = Number.NaN;
 //			_h = Number.NaN;
-			_sx = 1;
-			_sy = 1;	
+//			_sx = 1;
+//			_sy = 1;	
 			_frameData = data;
 		}
 		

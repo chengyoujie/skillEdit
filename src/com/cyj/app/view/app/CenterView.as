@@ -2,15 +2,31 @@ package com.cyj.app.view.app
 {
 	import com.cyj.app.SimpleEvent;
 	import com.cyj.app.ToolsApp;
+	import com.cyj.app.data.AvaterData;
 	import com.cyj.app.data.FrameData;
 	import com.cyj.app.data.FrameItemData;
+	import com.cyj.app.data.cost.Direction;
+	import com.cyj.app.data.cost.EffectPlayDisplayType;
+	import com.cyj.app.data.cost.EffectPlayOwnerType;
+	import com.cyj.app.data.effect.EffectPlayItemData;
+	import com.cyj.app.utils.ComUtill;
+	import com.cyj.app.view.app.effect.EffectPlayer;
+	import com.cyj.app.view.app.movectr.MoveControl;
+	import com.cyj.app.view.app.movectr.MoveControlCell;
+	import com.cyj.app.view.common.Alert;
+	import com.cyj.app.view.common.TipMsg;
+	import com.cyj.app.view.common.edit.EditAvater;
 	import com.cyj.app.view.common.edit.EditBlock;
 	import com.cyj.app.view.common.edit.EditDisplayObject;
-	import com.cyj.app.view.common.frame.FrameLine;
 	import com.cyj.app.view.ui.app.CenterViewUI;
+	import com.cyj.app.view.unit.Avatar;
 	import com.cyj.app.view.unit.AvaterRes;
+	import com.cyj.app.view.unit.DragImage;
+	import com.cyj.app.view.unit.Effect;
+	import com.cyj.app.view.unit.EffectImage;
 	import com.cyj.app.view.unit.Movie;
 	import com.cyj.app.view.unit.MoviePlay;
+	import com.cyj.app.view.unit.Role;
 	import com.cyj.app.view.unit.SubImageInfo;
 	
 	import flash.display.DisplayObject;
@@ -18,89 +34,304 @@ package com.cyj.app.view.app
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	import flash.utils.Dictionary;
+	import flash.utils.getDefinitionByName;
+	import flash.utils.getQualifiedClassName;
+	
+	import morn.core.handlers.Handler;
 	
 	public class CenterView extends CenterViewUI
 	{
 		
 		private var _res:AvaterRes;
-		private var _centerPos:Point;
-		private var _moviePlay:MoviePlay;
 		private var _frame:int;
-		private var _movieContain:Sprite;
+		
 		private var _editContain:Sprite;
 		private var _editDic:Dictionary = new Dictionary();
 		private var _curEdit:EditDisplayObject;
 		private var _moveOffPos:Point = new Point();
 		private var _curDragObj:DisplayObject;
+//		private var _avtId:int = 0;
+		private var _avt2IdDic:Dictionary = new Dictionary();
 		
+		private var _roleOper:RoleOper;
+		
+		public var roleLayer:RoleLayer;
+		
+		public var moveLayer:Sprite;
+		
+		public var upLayer:Sprite;
+		public var downLayer:Sprite;
+		private var _moveControls:Vector.<MoveControl> = new Vector.<MoveControl>();
+
 		
 		public function CenterView()
 		{
 			super();
 			this._width = Number.NaN;
 			this._height = Number.NaN;
-			_movieContain = new Sprite();
-			this.addChild(_movieContain);
+			downLayer = new Sprite();
+			addChild(downLayer);
+			
+			roleLayer = new RoleLayer();
+			this.addChild(roleLayer);
+			
+			upLayer = new Sprite();
+			addChild(upLayer);
+			
+			moveLayer = new Sprite();
+			addChild(moveLayer);
+			
 			_editContain = new Sprite();
 			this.addChild(_editContain);
 			
-			_centerPos = new Point();
-			_moviePlay = new MoviePlay(_movieContain);
-			ToolsApp.event.addEventListener(AppEvent.FRAME_CHANGE, handleFrameChange);
-			ToolsApp.event.addEventListener(AppEvent.ADD_LAYER, handleAddLayer);
-			ToolsApp.event.addEventListener(AppEvent.REMOVE_LAYER, handleRemoveLayer);
-			ToolsApp.event.addEventListener(AppEvent.FRAME_LINE_VISIBLE_CHANGE, handleFrameLineVisibleChange);
+			_roleOper = new RoleOper();
+			this.addChild(_roleOper);
+			_roleOper.visible = false;
+			
 			this.addEventListener(MouseEvent.MOUSE_DOWN, handleMouseDown);
+			SimpleEvent.on(AppEvent.CLICK_ROLE, handleClickRole);
+			SimpleEvent.on(AppEvent.EFFECT_STEP_CHANGE, handleEffectStepChange);
+			SimpleEvent.on(AppEvent.MOVE_CHANGE, handleDistanceChange);
+//			btnPlay.clickHandler = new Handler(handlePlayAll);
+			checkLockEffect.clickHandler = new Handler(handleLockEffect);
+			checkLockRole.clickHandler = new Handler(handleLockRole);
+//			btnRefush.clickHandler = new Handler(handleRefush);
 		}
 		
-		private function handleFrameChange(e:SimpleEvent):void
+		private function handlePlayAll():void
 		{
-			var frame:int = e.data as int;
-			_moviePlay.gotoAndStop(frame);
-			if(_curEdit)
-				_curEdit.start();
+			ToolsApp.effectPlayer.play();
 		}
 		
-		public function editAvater(avaterRes:AvaterRes, centerX:int=-1, centerY:int=-1):void
+		public function initView():void
+		{
+			
+		}
+		
+		private function handleLockEffect():void
+		{
+			checkLockEffect.selected = ToolsApp.effectPlayer.mouseEnable;
+			upLayer.mouseEnabled = downLayer.mouseEnabled = ToolsApp.effectPlayer.mouseEnable = !checkLockEffect.selected;
+		}
+		
+		private function handleLockRole():void
+		{
+			checkLockRole.selected = roleLayer.roleMouseEnable;
+			roleLayer.mouseEnabled = roleLayer.roleMouseEnable = !checkLockRole.selected ;
+		}
+		
+		public function initProject():void
+		{
+			initAvatar();
+		}
+		
+		private function initAvatar():void
+		{
+			var avts:Array = ToolsApp.localCfg.sceneAvater;
+			for(var i:int=0; i<avts.length; i++)
+			{
+				var info:AvaterData = avts[i] as AvaterData;
+//				info.path, info.isDirRes, info.dir, info.act
+				var avt:Avatar = new Role(info);
+				avt.x = info.x;
+				avt.y = info.y;
+				addAvatar(avt, info);
+//				if(info.id>_avtId)
+//				{
+//					_avtId = info.id+1;
+//				}
+			}
+			//测试
+//			var data1:AvaterData = new AvaterData("D:/publish//avatarres/body/1500", true);
+//			var owner:Role = new Role(data1);
+//			owner.x = 500;
+//			owner.y  = 350;
+//			owner.avaterType = EffectPlayOwnerType.Sender;
+//			this.roleLayer.addRole(owner);
+//			var data2:AvaterData =  new AvaterData("D:/publish//avatarres/monster/500", true);
+//			var target:Role = new Role(data2);
+//			target.x = 300;
+//			target.y = 450;
+//			target.avaterType = EffectPlayOwnerType.Target;
+//			this.roleLayer.addRole(target);
+//			var data3:AvaterData =  new AvaterData("D:/publish//avatarres/monster/500", true);
+//			target = new Role(data3);
+//			target.x = 500;
+//			target.y = 450;
+//			target.avaterType = EffectPlayOwnerType.Target;
+//			this.roleLayer.addRole(target);
+		}
+		
+		public function addAvatar(display:DisplayObject, info:Object=null, dropTarget:Role=null):void
+		{
+			if(display is Role)
+			{
+				var avt:Role = display as Role;
+//				if(!info)
+//				{
+//					_avtId++;
+////					ToolsApp.localCfg.sceneAvater.push(avt.data);
+//					_avt2IdDic[avt] = info;
+//				}
+				this.roleLayer.addRole(avt);	
+			}else{
+				var curEffectItemData:EffectPlayItemData = ToolsApp.projectData.curEffectPlayItemData;
+				if(curEffectItemData)
+				{
+					if(curEffectItemData.disInfo.data)
+					{
+						Alert.show("当前已有资源是否替换", "提示", Alert.ALERT_OK_CANCLE, handleReplaceRes, "替换", "取消", {"display":display, "dropTarget":dropTarget});
+					}else{
+						SimpleEvent.send(AppEvent.ITEM_ADD_RES, {"display":display, "dropTarget":dropTarget});
+					}
+				}else{
+					Alert.show("当前没有选择操作步骤，请先选择右侧的操作步骤");
+				}
+			}
+		}
+		
+		private function handleReplaceRes(del:int, data:*):void
+		{
+			if(del == Alert.ALERT_OK)
+			{
+				SimpleEvent.send(AppEvent.ITEM_ADD_RES, data);
+			}
+		}
+/////////////////////特效移动相关		
+		/**特效的步改变**/
+		private function handleEffectStepChange(e:SimpleEvent):void
 		{
 			if(_curEdit)
 			{
-				_curEdit.dispose();
+				_curEdit.end();
 				_curEdit = null;
 			}
-			_centerPos.x = centerX==-1?this.width/2:centerX;
-			_centerPos.y = centerY == -1?this.height/2:centerY;
-			this.graphics.clear();
-			this.graphics.lineStyle(1, 0xff0000);
-			this.graphics.moveTo(_centerPos.x - 20, _centerPos.y);
-			this.graphics.lineTo(_centerPos.x + 20, _centerPos.y);
-			this.graphics.moveTo(_centerPos.x , _centerPos.y- 20);
-			this.graphics.lineTo(_centerPos.x , _centerPos.y+ 20);
-			this.graphics.endFill();
-			_res = avaterRes;
-			_moviePlay.avaterRes = _res;
-			_moviePlay.setPos(_centerPos.x, _centerPos.y);
+			if(_roleOper && _roleOper.visible)
+			{
+				if(!_roleOper.target || _roleOper.target.isDispose)
+				{
+					_roleOper.unbind();
+				}
+			}
+			refushMoveList();
 		}
 		
-		public function get centerPos():Point
+		private function refushMoveList():void
 		{
-			return _centerPos;
+			clearMoveCtr();
+			var data:EffectPlayItemData = ToolsApp.projectData.curEffectPlayItemData;
+			if(data && data.move.type != EffectPlayOwnerType.None)
+			{
+				var roles:Vector.<Role> = roleLayer.targets;
+				var owners:Vector.<Role> = new Vector.<Role>();
+				owners.push(roleLayer.owner);
+				if(roleLayer.owner && roles)
+				{
+					var targets:Vector.<Role> = data.move.type == EffectPlayOwnerType.Sender?owners:roles;
+					var sends:Vector.<Role> = data.effOwnerType == EffectPlayOwnerType.Sender?owners:roles;
+					for(var i:int=0; i<sends.length; i++)
+					{
+						for(var m:int=0; m<targets.length; m++)
+						{
+							var move:MoveControl = new MoveControl();
+							move.bind(sends[i], targets[m], data.move.distance);
+							this.moveLayer.addChild(move);
+							_moveControls.push(move);
+						}
+					}
+				}
+			}
+		}
+		
+		private function handleDistanceChange(e:SimpleEvent):void
+		{
+			var itemData:EffectPlayItemData = ToolsApp.projectData.curEffectPlayItemData;
+			if(itemData)
+			{
+				if(e.data == "distance")
+					updateMoveCtrDistance(itemData.move.distance);
+				else if(e.data == "type")
+					refushMoveList();
+			}
+		}
+		
+		private function updateMoveCtrDistance(distance:int):void
+		{
+			for(var i:int=0; i<_moveControls.length; i++)
+			{
+				_moveControls[i].distance = distance;
+			}
+		}
+		
+		private function updateMoveCtr():void
+		{
+			for(var i:int=0; i<_moveControls.length; i++)
+			{
+					_moveControls[i].update();
+			}
+		}
+		
+		private function clearMoveCtr():void
+		{
+			while(_moveControls.length>0)
+			{
+				_moveControls.pop().dispose();
+			}
+		}
+//鼠标操作相关		
+		/** 根据方向获取特效添加层 */
+		public function getSceneLayerByDir(dir: int):Sprite{
+			return (dir == Direction.TOP || dir == Direction.LEFTTOP || dir == Direction.RIGHTTOP) ?downLayer : upLayer;
+		}
+		
+		private function handleClickRole(e:SimpleEvent):void
+		{
+			handleClick(e.data.role as Avatar, e.data.stageX, e.data.stageY);
 		}
 		
 		private function handleMouseDown(e:MouseEvent):void
 		{
-			var movie:Movie = e.target as Movie;
-			if(!movie)return;
-			_curDragObj = movie;
-			var edit:EditDisplayObject  = _editDic[movie];
-			if(!edit)
+			handleClick(e.target as DisplayObject, e.stageX, e.stageY);
+		}
+		private function handleClick(avt:DisplayObject, stageX:Number, stageY:Number):void{
+			
+			if(_curEdit)
 			{
-				edit = _editDic[movie] = new EditDisplayObject(movie, _editContain);
+				_curEdit.end();
+				_curEdit = null;
+//				_roleOper.visible = false;
 			}
-			edit.start();
+			if(!(avt is Avatar  ||  avt is EffectImage || avt is MoveControlCell))return;
+//			if(_lockRole && avt is Role)return;
+//			if(_lockEffect && (avt is Effect || avt is EffectImage))return;
+			_curDragObj = avt;
+			var edit:EditDisplayObject  = _editDic[avt];
+			if(avt is Avatar)
+			{
+				Avatar(avt).stop();
+				if(!edit)
+				{
+					edit = _editDic[avt] = new EditAvater(Avatar(avt), _editContain);
+				}
+				edit.start();
+				_roleOper.visible = true;
+				_roleOper.bind(Avatar(avt));
+			}else if(avt is EffectImage){
+				if(!edit)
+				{
+					edit = _editDic[avt] = new EditDisplayObject(avt, _editContain);
+				}
+				_roleOper.unbind();
+				edit.start();
+			}
+			if(edit && _roleOper.visible)
+			{
+				_roleOper.x = edit.frameX;
+				_roleOper.y = edit.frameY;
+			}
 			_curEdit = edit;
-			_moveOffPos.x = e.stageX;
-			_moveOffPos.y = e.stageY;
+			_moveOffPos.x = stageX;
+			_moveOffPos.y = stageY;
 			App.stage.addEventListener(MouseEvent.MOUSE_MOVE, handleMouseMove);
 			App.stage.addEventListener(MouseEvent.MOUSE_UP, handleMouseUp);
 		}
@@ -108,69 +339,101 @@ package com.cyj.app.view.app
 		private function handleMouseMove(e:MouseEvent):void
 		{
 			if(!_curDragObj)return;
-			var movie:Movie = _curDragObj as Movie;
-			if(movie)
+//			var avt:Avatar = _curDragObj as Avatar;
+			var stageX:int = e.stageX;//在同一函数中调用可能是不同的值， 所以先存起来
+			var stageY:int = e.stageY;
+			if(_curDragObj)
 			{
-				var frameItemData:FrameItemData = movie.getCurFrameData();
-				if(frameItemData)
+				if(_curDragObj is MoveControlCell)
 				{
-					frameItemData.x += e.stageX - _moveOffPos.x;
-					frameItemData.y += e.stageY - _moveOffPos.y;
-					movie.handleRender();
-					var edit:EditDisplayObject  = _editDic[movie];
-					if(edit)
-						edit.refushPos();
+					var moveCell:MoveControlCell = _curDragObj as MoveControlCell;
+					var moveCtr:MoveControl = moveCell.control;
+					var otherCell:MoveControlCell = moveCtr.fromCell==moveCell?moveCtr.toCell:moveCtr.fromCell;
+					moveCell.y += stageY - _moveOffPos.y;	
+					var offx:int = otherCell.target.x-moveCell.target.x;
+					var offy:int = otherCell.target.y-moveCell.target.y;
+					moveCell.x = moveCell.target.x + (moveCell.y-moveCell.target.y)*offx/offy;
+					moveCtr.updateLine();
+//					updateMoveCtr(moveCell.control.distance);
+				}else{
+					_curDragObj.x = (stageX - _moveOffPos.x)+_curDragObj.x;
+					_curDragObj.y = (stageY - _moveOffPos.y)+_curDragObj.y;	
 				}
+				_moveOffPos.x = stageX;
+				_moveOffPos.y = stageY;
+				var edit:EditDisplayObject  = _editDic[_curDragObj];
+				if(edit)
+				{
+					edit.refushPos();
+					if(_roleOper.visible)
+					{
+						_roleOper.x = edit.frameX;
+						_roleOper.y = edit.frameY;
+					}
+				}
+				
 			}
-			_moveOffPos.x = e.stageX;
-			_moveOffPos.y = e.stageY;
+			var info:Object = _avt2IdDic[_curDragObj];
+			if(info)
+			{
+				info.x = _curDragObj.x;
+				info.y = _curDragObj.y;
+			}
+			_moveOffPos.x = stageX;
+			_moveOffPos.y = stageY;
 		}
 		
 		private function handleMouseUp(e:MouseEvent):void
 		{
+			if(!_curDragObj)return;
+			var avt:Avatar = _curDragObj as Avatar;
+			if(avt)
+			{
+				avt.start();
+			}
+			if(_curDragObj is Role)
+			{
+				ToolsApp.effectPlayer.refushPos();
+				updateMoveCtr();
+			}
+			//TODO 派发移动结束事件
+			SimpleEvent.send(AppEvent.AVATER_MOVE, _curDragObj);
+			_curDragObj = null;
 			App.stage.removeEventListener(MouseEvent.MOUSE_MOVE, handleMouseMove);
 			App.stage.removeEventListener(MouseEvent.MOUSE_UP, handleMouseUp);
-			if(!_curDragObj)return;
 		}
 		
-		private function handleAddLayer(e:SimpleEvent):void
+		public function onAddAvtMouseMove(stageX:int, stageY:int):void
 		{
-			if(!_res || !_res.isReady)return;
-//			var layer:FrameLine = e.data as FrameLine;
-//			var frame:FrameData = layer.data;
-			var frame:FrameData = e.data as FrameData;
-			var index:int = _res.data.frames.indexOf(frame);
-			var movie:Movie = new Movie(frame, _res.subImageInfos);
-			_moviePlay.addMovie(movie, index);
+			roleLayer.onAddAvtMouseMove(stageX, stageY);
+		}
+		public function onAddAvtStopMove():void
+		{
+			roleLayer.onAddAvtStopMove();
 		}
 		
-		private function handleRemoveLayer(e:SimpleEvent):void
+		public function getAddAvtRole(stageX:int, stageY:int):Role
 		{
-			if(!_res || !_res.isReady)return;
-//			var layer:FrameLine = e.data as FrameLine;
-//			var frame:FrameData = layer.data;
-			var frame:FrameData = e.data as FrameData;
-			_moviePlay.removeMovieByData(frame);
-			
+			return roleLayer.getRoleByStagePos(stageX, stageY);
 		}
+
 		
-		private function handleFrameLineVisibleChange(e:SimpleEvent):void
+//键盘操作相关
+		public function doDelete():void
 		{
-			if(!_res || !_res.isReady)return;
-//			var frame:FrameData = e.data as FrameData;
 			if(_curEdit)
 			{
-				var movie:Movie = _curEdit.target as Movie;
-				if(movie)
+				var role:Role = _curEdit.target as Role;
+				if(role)
 				{
-					if(!movie.frameData.visible)
-					{
-						_curEdit.end();
-						_curEdit = null;
-					}
+					delete _editDic[role];
+					roleLayer.removeRole(role);
+					role.dispose();
+					_curEdit.dispose();
+					_curEdit = null;
+					_roleOper.unbind();
 				}
 			}
-			_moviePlay.setMovieVisible();
 		}
 		
 		
