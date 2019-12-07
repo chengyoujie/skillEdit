@@ -4,6 +4,8 @@ package com.cyj.app
 	import com.cyj.app.data.MovieData;
 	import com.cyj.app.data.ProjectData;
 	import com.cyj.app.data.ToolsConfig;
+	import com.cyj.app.data.effect.EffectPlayData;
+	import com.cyj.app.utils.SvnOper;
 	import com.cyj.app.view.ToolsView;
 	import com.cyj.app.view.app.effect.EffectPlayer;
 	import com.cyj.app.view.common.Alert;
@@ -11,6 +13,7 @@ package com.cyj.app
 	import com.cyj.app.view.ui.common.AlertUI;
 	import com.cyj.app.view.unit.Role;
 	import com.cyj.utils.Log;
+	import com.cyj.utils.ObjectUtils;
 	import com.cyj.utils.XML2Obj;
 	import com.cyj.utils.cmd.CMDManager;
 	import com.cyj.utils.cmd.CMDStringParser;
@@ -126,18 +129,15 @@ package com.cyj.app
 			} else{
 				localCfg = new LocalConfig();
 			}
-//			var byte:ByteArray = res.data as ByteArray;
-//			byte.uncompress();
-//			var allLen:int = byte.readShort();
-//			var zzp:Object = {};
-//			for(var i:int=0; i<allLen; i++)
-//			{
-//				var name:String = byte.readUTF();
-//				var key:String = byte.readUTF();
-//				var obj:Object = byte.readObject();
-//				zzp[name] = obj.unit;
-//			}
-//			ToolsApp.projectData.config = zzp;
+
+			try{
+				CMDManager.startCmd();
+				CMDManager.addParser(new CMDStringParser(), SvnOper.handleCmdResult);
+//				ToolsApp.cmdOper("net use \\\\"+ToolsApp.config.upip+" "+ToolsApp.config.uppass+" /user:\""+ToolsApp.config.upname+"\"");
+			}catch(e:*){
+				Alert.show("当前不支持CMD命令行\n"+e);
+			}
+			
 			view.initView();
 			
 			Log.log("系统启动成功");
@@ -210,37 +210,7 @@ package com.cyj.app
 			return str;
 		}
 		
-		public static function svnOper(oper:String, endTag:String=null, isClear:Boolean=true):void
-		{
-//			if(oper)
-//			{
-//				var svnop:String  = ToolsApp.config.svnpath+" "+oper+" --username chengyoujie --password chengyoujie   --no-auth-cache";
-//			}
-//			cmdOper(svnop, endTag, isClear);
-		}
 		
-		public static function cmdOper(oper:String, endTag:String=null, isClear:Boolean=true):void
-		{
-			if(oper)
-			{
-				CMDManager.runStringCmd(oper);;
-			}
-			if(endTag)
-				CMDManager.runStringCmd("|TAG|"+endTag+"|TAG|");
-			if(isClear)
-				cmdClear();
-		}
-		
-		public static function cmdClear():void
-		{
-			CMDManager.runStringCmd("cls");
-		}
-		
-		private static var _catchCmd:String = "";
-		private static function handleCmdResult(type:int, cmd:String):void
-		{
-			
-		}
 		
 		 
 		private static function handleGetFtpList(res:*, msg:*):void
@@ -328,6 +298,7 @@ package com.cyj.app
 //				var file:File = new File(localCfg.localWebPath+"/resource/config/effect.json");
 				file.saveFile(localCfg.localWebPath+"/resource/config/effect.json", data); 
 			}
+			projectData.lastSaveEffectData = projectData.allEffectPlayData.copy() as EffectPlayData;
 			TipMsg.show("保存成功");
 		}
 		
@@ -335,14 +306,50 @@ package com.cyj.app
 		{
 			Log.log("退出系统");
 			Log.refushLog();
-//			file.saveFile(File.applicationDirectory.nativePath+"/res/local.json", JSON.stringify(localCfg));//XML2Obj.readObj(localCfg, "local"));
 			saveLocalCfg();
-			//取消默认关闭
-//			e.preventDefault();
-//			NativeApplication.nativeApplication.activeWindow.visible = true;
+			if(checkProjectDataSave(saveAndExit, "保存并退出", "直接退出"))
+			{
+				//关闭
+				App.stage.nativeWindow.close();
+				
+			}else{//取消默认关闭
+				e.preventDefault();
+				NativeApplication.nativeApplication.activeWindow.visible = true;
+			}
+		}
+		
+		private static function saveAndExit(isOk:Boolean):void
+		{
+			if(isOk)
+			{
+				saveConfig();
+			}
 			//关闭
 			App.stage.nativeWindow.close();
+			
 		}
+		
+		
+		public static function checkProjectDataSave(onOkCall:Function, okLabel:String="保存", cancleLabel:String="退出", noclose:Boolean=false):Boolean
+		{
+			if(projectData.lastSaveEffectData && projectData.allEffectPlayData.data)
+			{
+				if(ObjectUtils.checkIsSame(projectData.lastSaveEffectData.data, projectData.allEffectPlayData.data)==false)
+				{
+					Alert.show("当前数据还没有保存，是否保存一下了？ ctr+s 哦~", "提示", Alert.ALERT_OK_CANCLE, function(dowhat:int):void{
+						if(dowhat == Alert.ALERT_OK)
+						{
+							onOkCall(true);
+						}else{
+							onOkCall(false);
+						}
+					}, okLabel, cancleLabel, noclose);
+					return false;
+				}
+			}
+			return true;
+		}
+		
 		
 		
 	}

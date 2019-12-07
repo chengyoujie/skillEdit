@@ -5,6 +5,7 @@ package com.cyj.app.view.app.effect
 	import com.cyj.app.data.cost.Direction;
 	import com.cyj.app.data.cost.EffectPlayOwnerType;
 	import com.cyj.app.data.cost.EffectPlayTiggerType;
+	import com.cyj.app.data.cost.RotationType;
 	import com.cyj.app.data.effect.EffectPlayData;
 	import com.cyj.app.data.effect.EffectPlayDisplayInfo;
 	import com.cyj.app.data.effect.EffectPlayItemData;
@@ -234,6 +235,14 @@ package com.cyj.app.view.app.effect
 				_items[i].refushDisplay();
 			}	
 		}
+		public function refushRotation():void
+		{
+			if(!_items)return;
+			for(var i:int=0; i<_items.length; i++)
+			{
+				_items[i].refushRotation();
+			}	
+		}
 		public function doMove():void
 		{
 			if(!_items)return;
@@ -260,6 +269,8 @@ package com.cyj.app.view.app.effect
 			if(info.move && info.move.type == EffectPlayOwnerType.Target)
 				return true;
 			if(info.disInfo.dir == Direction.TO_TARGET_DIR)
+				return true;
+			if(info.rotationType == RotationType.TARGET)
 				return true;
 			return false;
 		}

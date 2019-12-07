@@ -11,7 +11,6 @@ package com.cyj.app.data
 		public var versionconfig:String;
 		
 		
-		
 		private var _rarpath:String;
 		public function set rarpath(value:String):void
 		{
@@ -21,6 +20,17 @@ package com.cyj.app.data
 		public function get rarpath():String
 		{
 			return _rarpath;
+		}
+		
+		private var _svnpath:String;
+		public function set svnpath(value:String):void
+		{
+			_svnpath = value;
+			_svnpath = _svnpath.replace(/\$apppath/gi, File.applicationDirectory.nativePath+"/");
+		}
+		public function get svnpath():String
+		{
+			return _svnpath;
 		}
 
 

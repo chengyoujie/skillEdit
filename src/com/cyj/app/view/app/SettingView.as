@@ -22,6 +22,7 @@ package com.cyj.app.view.app
 			btnWebPath.clickHandler = new Handler(handleSelectWebPath);
 			btnSave.clickHandler = new Handler(handleSave);
 			btnCancle.clickHandler = new Handler(close);
+			checkAutoUpdate.clickHandler = new Handler(handleAutoUpdate);
 			show();
 		}
 		
@@ -29,6 +30,12 @@ package com.cyj.app.view.app
 		{
 			inputDataPath.text = ToolsApp.localCfg.localDataPath;
 			inputWebPath.text = ToolsApp.localCfg.localWebPath;
+			checkAutoUpdate.selected = ToolsApp.localCfg.autoCheck;
+		}
+		
+		private function handleAutoUpdate():void
+		{
+			
 		}
 		
 		private function handleSelectDataPath():void
@@ -50,6 +57,7 @@ package com.cyj.app.view.app
 			if(ToolsApp.localCfg.localDataPath == inputDataPath.text && ToolsApp.localCfg.localWebPath == inputDataPath.text)return;
 			ToolsApp.localCfg.localDataPath = inputDataPath.text;
 			ToolsApp.localCfg.localWebPath = inputWebPath.text;
+			ToolsApp.localCfg.autoCheck = checkAutoUpdate.selected;
 			ToolsApp.saveLocalCfg();
 			close();
 			SimpleEvent.send(AppEvent.LOCAL_CONFIG_CHANGE);

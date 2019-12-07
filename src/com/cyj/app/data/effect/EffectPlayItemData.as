@@ -1,12 +1,15 @@
 package com.cyj.app.data.effect
 {
+	import com.cyj.app.data.ICopyData;
 	import com.cyj.app.data.cost.EffectPlayDisplayType;
 	import com.cyj.app.data.cost.EffectPlayLayer;
 	import com.cyj.app.data.cost.EffectPlayOwnerType;
 
-	public class EffectPlayItemData
+	public class EffectPlayItemData implements ICopyData
 	{
 		public var id:int;
+		
+		public var name:String;
 		/**特效资源名字 */
 		public var disInfo:EffectPlayDisplayInfo = new EffectPlayDisplayInfo();
 		/**特效所有者 可以为空 */
@@ -16,7 +19,7 @@ package com.cyj.app.data.effect
 		/**结束条件 */
 		public var endType:int;
 		/**结束参数 */
-		public var endParam:* = 1000;
+		public var endParam:* = 0;
 		/**开始条件 */
 		public var tiggler:int;
 		/**开始参数 */
@@ -29,6 +32,10 @@ package com.cyj.app.data.effect
 		public var offy:int;
 		/**延迟执行时间 */
 		public var delay:int;
+		/**旋转类型**/
+		public var rotationType:int = 0;
+		/**旋转角度**/
+		public var rotation:Number = 0;
 		
 		public function EffectPlayItemData()
 		{
@@ -53,6 +60,13 @@ package com.cyj.app.data.effect
 					this[key] = data[key];
 				}
 			}
+		}
+		
+		public function copy():ICopyData
+		{
+			var cd:EffectPlayItemData = new EffectPlayItemData();
+			cd.parser(JSON.parse(JSON.stringify(this)));
+			return cd;
 		}
 	}
 }

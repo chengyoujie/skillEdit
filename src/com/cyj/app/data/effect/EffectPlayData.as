@@ -1,38 +1,43 @@
 package com.cyj.app.data.effect
 {
+	import com.cyj.app.data.EffectGroupItemData;
+	import com.cyj.app.data.ICopyData;
+	
 	import flash.utils.Dictionary;
 
-	public class EffectPlayData
+	public class EffectPlayData implements ICopyData
 	{
-		private var _dic:Object = {};
+		private var _items:Array = [];
 		public function EffectPlayData()
 		{
 		}
 		
 		public function parser(value:Object):void
 		{
+			_items.length = 0;
 			for(var key:String in value)
 			{
-				var arr:Array = value[key];
-				var items:Array = [];
-				for(var i:int=0; i<arr.length; i++)
-				{
-					var item:EffectPlayItemData = new EffectPlayItemData();
-					item.parser(arr[i]);
-					items.push(item);
-				}
-				_dic[key] = items;
+				var gItem:* = value[key];
+//				var arr:Array = gItem.data;
+//				var items:Array = [];
+//				for(var i:int=0; i<arr.length; i++)
+//				{
+//					var item:EffectPlayItemData = new EffectPlayItemData();
+//					item.parser(arr[i]);
+//					items.push(item);
+//				}
+				var groupItem:EffectGroupItemData = new EffectGroupItemData();
+				groupItem.parser(gItem);
+//				groupItem.id = gItem.id;
+//				groupItem.name = gItem.name;
+//				groupItem.data = items;
+				_items.push(groupItem);
 			}
 		}
 		
 		public function get list():Array
 		{
-			var list:Array = [];
-			for(var key:String in _dic)
-			{
-				list.push({id:key, data:_dic[key]});
-			}
-			return list;
+			return _items;
 		}
 		
 		public function addItem(id:int=-1, items:Array=null):void
@@ -40,29 +45,61 @@ package com.cyj.app.data.effect
 			var curId:int = id;
 			if(curId <0)
 			{
-				for(var key:String in _dic)
+				curId = 0;
+				for(var i:int=0; i<_items.length; i++)
 				{
-					if(curId<=int(key))
+					if(curId<=_items[i].id)
 					{
-						curId = int(key)+1;
+						curId = _items[i].id+1;
 					}
 				}
 			}
-			if(!items)items = [new EffectPlayItemData()];
-			_dic[curId] = items;
+			var item:EffectGroupItemData = new EffectGroupItemData();
+			item.id = curId;
+			_items.push(item);
+		}
+		
+		public function addItemData(data:EffectGroupItemData):void
+		{
+			var curId:int = 0;
+			for(var i:int=0; i<_items.length; i++)
+			{
+				if(curId<=_items[i].id)
+				{
+					curId = _items[i].id+1;
+				}
+			}
+			data.id = curId;
+			_items.push(data);
 		}
 		
 		public function get data():Object
 		{
-			return _dic;
+			var dic:Object = {};
+			for(var i:int=0; i<_items.length; i++)
+			{
+				var item:EffectGroupItemData = _items[i];
+				dic[item.id] = item;
+			}
+			return dic;
 		}
 		
 		public function removeItem(id:int):void
 		{
-			if(_dic[id])
+			for(var i:int=0; i<_items.length; i++)
 			{
-				delete _dic[id];
+				if(id ==_items[i].id)
+				{
+					_items.splice(i, 1);
+					return;
+				}
 			}
+		}
+		
+		public function copy():ICopyData{
+			var cd:EffectPlayData = new EffectPlayData();
+			cd.parser(JSON.parse(JSON.stringify(data)));
+			return cd;
 		}
 		
 		

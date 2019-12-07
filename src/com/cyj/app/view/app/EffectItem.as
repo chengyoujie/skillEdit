@@ -1,5 +1,6 @@
 package com.cyj.app.view.app
 {
+	import com.cyj.app.data.EffectGroupItemData;
 	import com.cyj.app.view.ui.app.EffectItemUI;
 	import com.cyj.app.view.unit.SubImageInfo;
 	
@@ -13,10 +14,16 @@ package com.cyj.app.view.app
 		
 		override public function set dataSource(value:Object):void
 		{
-			if(value)
-				txtName.text = value.id;
-			else
+			if(value is EffectGroupItemData)
+			{
+				var d:EffectGroupItemData = value as EffectGroupItemData;
+				txtId.text =  d.id+"";
+				txtName.text =  d.name;
+			}
+			else{
 				txtName.text = "";
+				txtId.text = "";
+			}
 			super.dataSource = value;
 		}
 	}

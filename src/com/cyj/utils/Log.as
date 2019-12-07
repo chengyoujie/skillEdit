@@ -42,7 +42,7 @@ package com.cyj.utils
 			trace("Log::"+value);
 			if(_logTxt)
 			{
-				_logTxt.text = value+"";
+				_logTxt.htmlText = value+"";
 				_logTxt.dispatchEvent(_refushEvent);
 			}
 			_log += "[记录]"+value+"\r\n";

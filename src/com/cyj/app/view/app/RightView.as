@@ -4,12 +4,15 @@ package com.cyj.app.view.app
 	
 	import com.cyj.app.SimpleEvent;
 	import com.cyj.app.ToolsApp;
+	import com.cyj.app.data.EffectGroupItemData;
+	import com.cyj.app.data.ICopyData;
 	import com.cyj.app.data.cost.Action;
 	import com.cyj.app.data.cost.Direction;
 	import com.cyj.app.data.cost.EffectPlayDisplayType;
 	import com.cyj.app.data.cost.EffectPlayEndType;
 	import com.cyj.app.data.cost.EffectPlayOwnerType;
 	import com.cyj.app.data.cost.EffectPlayTiggerType;
+	import com.cyj.app.data.cost.RotationType;
 	import com.cyj.app.data.effect.EffectPlayItemData;
 	import com.cyj.app.data.effect.EffectPlayMoveEndData;
 	import com.cyj.app.utils.BindData;
@@ -23,9 +26,12 @@ package com.cyj.app.view.app
 	import com.cyj.app.view.unit.Effect;
 	import com.cyj.app.view.unit.EffectImage;
 	import com.cyj.app.view.unit.Role;
+	import com.cyj.utils.Log;
 	
 	import flash.display.DisplayObject;
+	import flash.display.Shape;
 	import flash.events.Event;
+	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	
 	import morn.core.handlers.Handler;
@@ -51,7 +57,8 @@ package com.cyj.app.view.app
 			initEvent();
 			_itemBindData = new Vector.<BindData>();
 			_itemBindData.splice(0, 0,			
-						new BindData(inputId, "id", "text", handleIdChange, handleIdChangeCheck),
+						new BindData(inputId, "id", "text", handleIdNameChange, handleIdChangeCheck),
+						new BindData(inputName, "name", "text", handleIdNameChange),
 						new BindData(comOwner, "effOwnerType", "selectedIndex", handleOwnerTypeChange),
 						new BindData(comLayer, "layer", "selectedIndex", handleRefushScene),
 						new BindData(comEndType, "endType", "selectedIndex", handleEndChange),
@@ -60,14 +67,16 @@ package com.cyj.app.view.app
 						new BindData(inputTigglerParam, "tigglerParam","text",  null , handleCheckStartData),
 						new BindData(inputOffx, "offx", "text",handleRefushScene),
 						new BindData(inputOffy, "offy", "text", handleRefushScene),
-						new BindData(inputDelay, "delay")
+						new BindData(inputDelay, "delay"),
+						new BindData(comRotation, "rotationType", "selectedIndex", handleRotationTypeChange),
+						new BindData(inputRotation, "rotation", "text", handleRefushRotation)
 					);
 			_moveBindData = new Vector.<BindData>( );
 			_moveBindData.splice(0, 0,		
 				new BindData(comMoveTo, "type", "selectedIndex", handleMoveTypeChange, handleCheckMoveType),
 				new BindData(inputSpeed, "speed"),
 				new BindData(inputDistance, "distance", "text", handleDistanceChange),
-				new BindData(comAutoRotaion, "rotation", "selectedIndex",handleRefushScene),
+//				new BindData(comAutoRotaion, "rotation", "selectedIndex",handleRefushScene),
 				new BindData(comMoveEase, "ease", "selectedIndex",handleRefushScene)
 			);
 			_disPlayBindData = new Vector.<BindData>();
@@ -90,7 +99,7 @@ package com.cyj.app.view.app
 		{
 			btnAddStep.clickHandler = new Handler(handleAddStep);
 			btnRemoveStep.clickHandler = new Handler(handleRemoveStep);
-			listStep.selectHandler = new Handler(handleSelectStep);
+			listStep.addEventListener(MouseEvent.CLICK, handleSelectStep);
 			btnPlayItem.clickHandler = new Handler(handlePlayItem);
 			btnPlayAll.clickHandler = new Handler(handlePlayAll);
 			btnResetMoveDis.clickHandler = new Handler(handleResetMoveDis);
@@ -207,11 +216,19 @@ package com.cyj.app.view.app
 			}else if(type == EffectPlayEndType.Time)
 			{
 				boxEndParam.visible = true;
+				txtEndParamDes.text = "结束时间：";
 				if(int(inputEndParam.text)<=0)
 				{
-					TipMsg.show("设置结束时间不能为空， 设置默认1秒");
 					selectItem.endParam = 1000;
 					toBind(_itemBindData, selectItem);
+				}
+			}else if(type == EffectPlayEndType.Plug)
+			{
+				boxEndParam.visible = true;
+				txtEndParamDes.text = "插件ID：";
+				if(!inputEndParam.text)
+				{
+					TipMsg.show("设置插件Id不能为空");
 				}
 			}
 		}
@@ -312,7 +329,7 @@ package com.cyj.app.view.app
 			ToolsApp.effectPlayer.play();
 		}
 		
-		private function handleIdChange():void
+		private function handleIdNameChange():void
 		{
 			var step:EffectStepItem = listStep.selection as EffectStepItem;
 			if(step)
@@ -407,12 +424,17 @@ package com.cyj.app.view.app
 		
 		private function handleEffectChange(e:SimpleEvent):void
 		{
-			var data:Object = e.data;
+			var data:EffectGroupItemData = e.data as EffectGroupItemData;
 			if(!data)return;
 			_effectPlayItemDatas = data.data;
 			listStep.dataSource = _effectPlayItemDatas;
 			if(_effectPlayItemDatas.length>0)
+			{
 				listStep.selectedIndex = 0;
+				handleSelectStep();
+			}else{
+				ToolsApp.effectPlayer.clearAll();
+			}
 		}
 		
 		private function toBind(binds:Vector.<BindData>, data:Object):void
@@ -429,15 +451,20 @@ package com.cyj.app.view.app
 				listStep.selectedIndex = 0;
 			if(_effectPlayItemDatas)
 				listStep.dataSource = _effectPlayItemDatas;
-			handleSelectStep(listStep.selectedIndex);
+			handleSelectStep();
 		}
 		
-		private function handleSelectStep(index:int):void
+		private function handleSelectStep(e:MouseEvent=null):void
 		{
 			if(!_effectPlayItemDatas)return;
 			var selectItem:EffectPlayItemData = listStep.selectedItem as EffectPlayItemData;
 			ToolsApp.projectData.curEffectPlayItemData = selectItem;
 			if(!selectItem)return;
+			if(e)
+			{
+				Log.log("当前选择 特效项: "+selectItem.id);
+				ToolsApp.projectData.fouceData = selectItem;
+			}
 			toBind(_itemBindData, selectItem);
 			toBind(_moveBindData, selectItem.move);
 			toBind(_disPlayBindData, selectItem.disInfo);
@@ -445,6 +472,7 @@ package com.cyj.app.view.app
 			onDisplayTypeChange();
 			handleStarChange();
 			handleEndChange();
+			handleRotationTypeChange(false);
 			var items:Vector.<EffectPlayItem> = ToolsApp.effectPlayer.items;
 			if(items.length>0 && items[0].display is Avatar)
 				handleSetCanUseDir(Avatar(items[0].display));
@@ -476,6 +504,10 @@ package com.cyj.app.view.app
 				}else{
 					ToolsApp.effectPlayer.refushDisplay();	
 				}
+				if(selectItem.rotationType != RotationType.COSTOM)
+				{
+					ToolsApp.effectPlayer.refushRotation();
+				}
 				
 				toBind(_disPlayBindData, selectItem.disInfo);
 			}
@@ -483,6 +515,22 @@ package com.cyj.app.view.app
 //			{
 //				ToolsApp.effectPlayer.doMove();
 //			}
+		}
+		
+		private function handleRotationTypeChange(refushScene:Boolean=true):void
+		{
+			var selectItem:EffectPlayItemData = listStep.selectedItem as EffectPlayItemData;
+			if(!selectItem)return;
+			inputRotation.visible = selectItem.rotationType == RotationType.COSTOM;
+			if(refushScene)
+				ToolsApp.effectPlayer.playItem(selectItem, true);
+		}
+		
+		private function handleRefushRotation():void
+		{
+			var selectItem:EffectPlayItemData = listStep.selectedItem as EffectPlayItemData;
+			if(!selectItem)return;
+			ToolsApp.effectPlayer.refushRotation();
 		}
 		
 		private function handleAddRes(e:SimpleEvent):void
@@ -563,6 +611,7 @@ package com.cyj.app.view.app
 			_effectPlayItemDatas.push(item);
 			listStep.dataSource = _effectPlayItemDatas;
 			listStep.selectedIndex = _effectPlayItemDatas.length -1;
+			handleSelectStep();
 		}
 		private function handleRemoveStep():void
 		{
@@ -575,6 +624,7 @@ package com.cyj.app.view.app
 					_effectPlayItemDatas.splice(index, 1);
 			}
 			listStep.dataSource = _effectPlayItemDatas;
+			handleSelectStep();
 		}
 		
 		private function getNewId():int
@@ -587,6 +637,37 @@ package com.cyj.app.view.app
 					idx = _effectPlayItemDatas[i].id;
 			}
 			return idx+1;
+		}
+		
+		public function past(value:ICopyData):void
+		{
+			if(value is EffectPlayItemData)
+			{
+				if(!_effectPlayItemDatas)return;
+				var item:EffectPlayItemData = value as EffectPlayItemData;
+				item.id = getNewId();
+				_effectPlayItemDatas.push(item);
+				Log.log("粘贴  特效项："+item.id);
+				listStep.dataSource = _effectPlayItemDatas;
+				listStep.selectedIndex = _effectPlayItemDatas.length -1;
+			}
+		}
+		
+		private var _mask:Shape;
+		public function onResize(w:int, h:int):void
+		{
+			if(!_mask)
+			{
+				_mask = new Shape();
+				this.addChild(_mask);
+				this.mask = _mask;
+			}
+			_mask.graphics.clear();
+			_mask.graphics.beginFill(0xff0000, 0.5);
+			_mask.graphics.drawRect(0, 0, w, h-1);
+			_mask.graphics.endFill();
+			bg.width = w;
+			bg.height = h;
 		}
 		
 	}

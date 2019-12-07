@@ -20,6 +20,13 @@ package com.cyj.app.data
 		/**当前正在编辑的特效列表中某一步的数据**/
 		public var curEffectPlayItemData:EffectPlayItemData;
 		
+		/**当前焦点所在的对象的数据**/
+		public var fouceData:ICopyData;
+		/**复制内容**/
+		public var copyData:ICopyData;
+		/**上次保存的数据**/
+		public var lastSaveEffectData:EffectPlayData;
+		
 		private var _imgName2PathDic:Object = {};
 		private var _path2ImgNameDic:Object = {};
 		

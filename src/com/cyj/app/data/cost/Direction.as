@@ -146,6 +146,32 @@ package com.cyj.app.data.cost
 			return dir;
 		}
 		
+		/**
+		 * 根据方向获取角度值 
+		 * @param dir 方向
+		 * */
+		public static function getDegrees(dir: int): Number {
+			switch (dir) {
+				case Direction.TOP:
+					return 270;
+				case Direction.RIGHTTOP:
+					return 315;
+				case Direction.RIGHT:
+					return 0;
+				case Direction.RIGHTBOTTOM:
+					return 45;
+				case Direction.BOTTOM:
+					return 90;
+				case Direction.LEFTBOTTOM:
+					return 135;
+				case Direction.LEFT:
+					return 180;
+				case Direction.LEFTTOP:
+					return 225;
+			}
+			return 0;
+		}
+		
 		public function Direction()
 		{
 		}

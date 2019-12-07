@@ -19,10 +19,11 @@ package com.cyj.app.view.app
 		
 		override public function set dataSource(value:Object):void
 		{
-			if(value)
+			if(value is EffectPlayItemData)
 			{
 				_data = value as EffectPlayItemData;
-				txtName.text = value.id;
+				txtName.text = _data.name;
+				txtId.text = _data.id+"";
 			}
 			super.dataSource = value;
 		}

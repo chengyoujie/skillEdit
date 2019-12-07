@@ -3,7 +3,7 @@ package com.cyj.app.data
 	import com.cyj.app.data.cost.EffectPlayOwnerType;
 	import com.cyj.app.utils.ComUtill;
 
-	public class AvaterData
+	public class AvaterData implements ICopyData
 	{
 //		{"id":_avtId, "x":avt.x, "y":avt.y, "path":avt.path, "isDirRes":avt.isDirRes, "dir":avt.dir, "act":avt.act }; 
 		public var id:int;
@@ -32,5 +32,14 @@ package com.cyj.app.data
 				}
 			}
 		}
+		
+		public function copy():ICopyData
+		{
+			var cd:AvaterData = new AvaterData();
+			cd.parse(JSON.parse(JSON.stringify(this)));
+			cd.id = ComUtill.getOnlyId();
+			return cd;
+		}
+		
 	}
 }

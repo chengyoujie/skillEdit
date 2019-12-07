@@ -7,6 +7,8 @@ package com.cyj.app.data
 		public var localWebPath:String = "";
 		public var localDataPath:String = "";
 		public var sceneAvater:Array = [];
+		/**开启时是否自动更新**/
+		public var autoCheck:Boolean = true;
 		
 		public function LocalConfig()
 		{

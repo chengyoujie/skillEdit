@@ -4,6 +4,8 @@ appName="特效编辑器"
 
 version="1.0.0"
 
+svnpath="$apppath/res/bin/svnbin/svn.exe" 
+
 versionconfig="file:////172.18.1.47/share/toolsdata/skilledit/version.ver"
 
 />

@@ -1,6 +1,7 @@
 package com.cyj.app.view.unit
 {
 	import com.cyj.app.ToolsApp;
+	import com.cyj.app.data.ImageData;
 	import com.cyj.utils.load.ResData;
 	import com.cyj.utils.load.ResLoader;
 	
@@ -14,12 +15,14 @@ package com.cyj.app.view.unit
 	{
 		private var _bmd:Bitmap;
 		private var _path:String;
+		private var _data:ImageData;
 		
 		public function EffectImage()
 		{
 			super();
 			_bmd = new Bitmap();
 			addChild(_bmd);
+			_data = new ImageData();
 			this.mouseChildren = false;
 		}
 		
@@ -32,12 +35,18 @@ package com.cyj.app.view.unit
 		public function set path(value:String):void {
 			if (_path != value) {
 				_path = value;
+				_data.path = value;
 				if (Boolean(value)) {
 					ToolsApp.loader.loadSingleRes(_path, ResLoader.IMG, handleLoadComplete);
 				} else {
 					bitmapData = null;
 				}
 			}
+		}
+		
+		public function get data():ImageData
+		{
+			return _data;
 		}
 		
 		private function handleLoadComplete(res:ResData):void

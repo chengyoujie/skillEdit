@@ -5,6 +5,7 @@ package com.cyj.app.view.app
 	import com.cyj.app.data.AvaterData;
 	import com.cyj.app.data.FrameData;
 	import com.cyj.app.data.FrameItemData;
+	import com.cyj.app.data.ICopyData;
 	import com.cyj.app.data.cost.Direction;
 	import com.cyj.app.data.cost.EffectPlayDisplayType;
 	import com.cyj.app.data.cost.EffectPlayOwnerType;
@@ -28,6 +29,7 @@ package com.cyj.app.view.app
 	import com.cyj.app.view.unit.MoviePlay;
 	import com.cyj.app.view.unit.Role;
 	import com.cyj.app.view.unit.SubImageInfo;
+	import com.cyj.utils.Log;
 	
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
@@ -177,12 +179,6 @@ package com.cyj.app.view.app
 			if(display is Role)
 			{
 				var avt:Role = display as Role;
-//				if(!info)
-//				{
-//					_avtId++;
-////					ToolsApp.localCfg.sceneAvater.push(avt.data);
-//					_avt2IdDic[avt] = info;
-//				}
 				this.roleLayer.addRole(avt);	
 				refushMoveList();
 				SimpleEvent.send(AppEvent.REFUSH_SCENE);
@@ -314,8 +310,7 @@ package com.cyj.app.view.app
 //				_roleOper.visible = false;
 			}
 			if(!(avt is Avatar  ||  avt is EffectImage || avt is MoveControlCell))return;
-//			if(_lockRole && avt is Role)return;
-//			if(_lockEffect && (avt is Effect || avt is EffectImage))return;
+
 			_curDragObj = avt;
 			var edit:EditDisplayObject  = _editDic[avt];
 			if(avt is Avatar)
@@ -328,11 +323,18 @@ package com.cyj.app.view.app
 				edit.start();
 				_roleOper.visible = true;
 				_roleOper.bind(Avatar(avt));
+				if(avt is Role)
+				{	
+					Log.log("当前选择角色"+Avatar(avt).onlyId);
+					ToolsApp.projectData.fouceData = Avatar(avt).data;
+				}
 			}else if(avt is EffectImage){
 				if(!edit)
 				{
 					edit = _editDic[avt] = new EditDisplayObject(avt, _editContain);
 				}
+				Log.log("当前选择图片"+EffectImage(avt).path);
+				ToolsApp.projectData.fouceData = EffectImage(avt).data;
 				_roleOper.unbind();
 				edit.start();
 			}
@@ -451,6 +453,32 @@ package com.cyj.app.view.app
 			}
 		}
 		
+		private var _pastGap:int = 10;
+		private var _lastPastRoleId:int = 0;
+		public function past(value:ICopyData):void
+		{
+			if(value is AvaterData)
+			{
+				var avtData:AvaterData = value as AvaterData;
+				var avt:Role = new Role(avtData);
+				if(_lastPastRoleId == avtData.id)
+					_pastGap += 10;
+				else
+					_pastGap = 10;
+				avtData.x += _pastGap;
+				avtData.y += _pastGap;
+				avt.x = avtData.x;
+				avt.y = avtData.y;
+				addAvatar(avt);
+				Log.log("粘贴 角色"+avtData.id);
+			}
+		}
+		public function onResize(w:int, h:int):void
+		{
+			
+			bg.width = w;
+			bg.height = h;
+		}
 		
 	}
 }

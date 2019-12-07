@@ -197,7 +197,6 @@ package com.cyj.app.view.app
 		{
 			if(!_avt)return;
 			var arr:Array = _avt.getActHaveDirs(_avt.act);
-			
 			for(var dir:String in _actBtnDic)
 			{
 				var btn:Button = _actBtnDic[dir];

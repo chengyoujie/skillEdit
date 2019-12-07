@@ -11,6 +11,7 @@ package com.cyj.app.view.ui.app {
 		public var inputDataPath:TextInput = null;
 		public var btnSave:Button = null;
 		public var btnCancle:Button = null;
+		public var checkAutoUpdate:CheckBox = null;
 		protected static var uiView:XML =
 			<View width="419" height="270">
 			  <Image skin="png.guidecomp.通用面板_2" x="0" y="0" width="419" height="270" sizeGrid="160,40,160,40,1" var="bg"/>
@@ -22,10 +23,11 @@ package com.cyj.app.view.ui.app {
 			  <Button label="浏览" skin="png.guidecomp.btn_四字常规_1" x="323" y="106" labelColors="0xc79a84,0xe0a98d,0x93827a" labelStroke="0x0" var="btnDataPath"/>
 			  <TextInput skin="png.guidecomp.textinput_文字输入底框_2" x="101" y="117" width="216" height="22" color="0xff6600" var="inputDataPath" margin="3,2,2,2"/>
 			  <Label text="选择数据路径" x="16" y="118" color="0xff9900" stroke="0"/>
-			  <Button label="保存" skin="png.guidecomp.btn_四字常规_1" x="99" y="192" labelColors="0xc79a84,0xe0a98d,0x93827a" labelStroke="0x0" var="btnSave"/>
-			  <Button label="取消" skin="png.guidecomp.btn_四字常规_1" x="224" y="191" labelColors="0xc79a84,0xe0a98d,0x93827a" labelStroke="0x0" var="btnCancle"/>
+			  <Button label="保存" skin="png.guidecomp.btn_四字常规_1" x="99" y="208" labelColors="0xc79a84,0xe0a98d,0x93827a" labelStroke="0x0" var="btnSave"/>
+			  <Button label="取消" skin="png.guidecomp.btn_四字常规_1" x="224" y="207" labelColors="0xc79a84,0xe0a98d,0x93827a" labelStroke="0x0" var="btnCancle"/>
 			  <Label x="105" y="90" color="0x999999" stroke="0" width="140" height="20" text="avatarres的上一层目录"/>
 			  <Label x="102" y="144" color="0x999999" stroke="0" width="140" height="20" text="ExcelData的上一层目录"/>
+			  <CheckBox label="启动时自动更新" skin="png.guidecomp.checkbox_单选" x="100" y="173" labelColors="0xc79a84,0xe0a98d,0x93827a" labelStroke="0" var="checkAutoUpdate"/>
 			</View>;
 		public function SettingViewUI(){}
 		override protected function createChildren():void {

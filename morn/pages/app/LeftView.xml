@@ -1,16 +1,21 @@
 <View sceneColor="0x0" layers="1,1,0,0,第 1 层" width="197" height="800">
-  <Label text="特效组列表" styleSkin="png.comp.label" x="39" y="584" layer="1" width="99" height="18" color="0x990000" align="center"/>
-  <Tree layers="1,1,0" layer="1" x="19" y="268" width="162" height="302" scrollBarSkin="png.comp.vscroll" spaceBottom="3" var="treeEffect">
+  <Image skin="png.guidecomp.购买类控件底_1" x="0" y="0" layer="1" width="197" height="800" sizeGrid="10,10,10,10,1" var="bg"/>
+  <Label text="特效组列表" styleSkin="png.comp.label" x="38" y="583" layer="1" width="99" height="18" color="0x990000" align="center"/>
+  <Tree layers="1,1,0" layer="1" x="16" y="237" width="162" height="289" scrollBarSkin="png.comp.vscroll" spaceBottom="3" var="treeEffect">
     <UIView source="app/FileItem.xml" layer="1" name="render" runtime="com.cyj.app.view.app.FileItem" x="10" y="10"/>
   </Tree>
-  <List layers="1,1,0,0,第 1 层" layer="1" x="35" y="606" vScrollBarSkin="png.comp.vscroll" width="146" height="188" spaceY="2" var="listEffect">
+  <List layers="1,1,0,0,第 1 层" layer="1" x="16" y="606" vScrollBarSkin="png.comp.vscroll" width="173" height="188" spaceY="2" var="listEffect">
     <UIView source="app/EffectItem.xml" layer="1" name="render" runtime="com.cyj.app.view.app.EffectItem"/>
   </List>
-  <Label text="特效资源列表" styleSkin="png.comp.label" x="52.5" y="245" layer="1" width="99" height="18" color="0x990000" align="center"/>
-  <Label text="角色资源列表" styleSkin="png.comp.label" x="52.5" y="11" layer="1" width="99" height="18" color="0x990000" align="center"/>
-  <Tree layers="1,1,0" layer="1" x="19" y="32" width="162" height="195" scrollBarSkin="png.comp.vscroll" spaceBottom="3" var="treeRole">
+  <Label text="特效资源列表" styleSkin="png.comp.label" x="49" y="219" layer="1" width="99" height="18" color="0x990000" align="center"/>
+  <Label text="角色资源列表" styleSkin="png.comp.label" x="52.5" y="5" layer="1" width="99" height="18" color="0x990000" align="center"/>
+  <Tree layers="1,1,0" layer="1" x="19" y="26" width="162" height="195" scrollBarSkin="png.comp.vscroll" spaceBottom="3" var="treeRole">
     <UIView source="app/FileItem.xml" layer="1" name="render" runtime="com.cyj.app.view.app.FileItem" x="10" y="10"/>
   </Tree>
-  <Button skin="png.guidecomp.btn_加号_1" x="134" y="585" layer="1" var="btnAddEff"/>
-  <Button skin="png.guidecomp.btn_减号_1" x="157" y="585" layer="1" var="btnRemoveEff"/>
+  <Button skin="png.guidecomp.btn_加号_1" x="134" y="582" layer="1" var="btnAddEff"/>
+  <Button skin="png.guidecomp.btn_减号_1" x="157" y="582" layer="1" var="btnRemoveEff"/>
+  <Label text="特效组ID：" styleSkin="png.comp.label" x="19" y="535" layer="1" color="0xff9900" stroke="0" height="19" align="right"/>
+  <TextInput text="0" skin="png.comp.textinput" x="84" y="534" layer="1" color="0x0" var="inputId" width="65" height="22"/>
+  <Label text="特效组名字：" styleSkin="png.comp.label" x="7" y="559" layer="1" color="0xff9900" stroke="0" height="18" align="right"/>
+  <TextInput text="0" skin="png.comp.textinput" x="84" y="558" layer="1" color="0x0" var="inputName" width="65" height="22"/>
 </View>

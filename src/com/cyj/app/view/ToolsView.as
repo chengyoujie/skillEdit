@@ -3,11 +3,15 @@ package com.cyj.app.view
 	import com.cyj.app.SimpleEvent;
 	import com.cyj.app.ToolsApp;
 	import com.cyj.app.data.AvaterData;
+	import com.cyj.app.data.EffectGroupItemData;
+	import com.cyj.app.data.ICopyData;
 	import com.cyj.app.data.ToolsConfig;
 	import com.cyj.app.data.cost.Action;
 	import com.cyj.app.data.cost.Direction;
 	import com.cyj.app.data.cost.ResType;
+	import com.cyj.app.utils.BindData;
 	import com.cyj.app.utils.ComUtill;
+	import com.cyj.app.utils.SvnOper;
 	import com.cyj.app.view.app.AppEvent;
 	import com.cyj.app.view.app.EffectItem;
 	import com.cyj.app.view.app.FileItem;
@@ -72,10 +76,16 @@ package com.cyj.app.view
 			centerPanel.vScrollBar.touchScrollEnable = false;
 			centerPanel.hScrollBar.touchScrollEnable = false;
 			btnSetting.clickHandler = new Handler(handleOpenSettingView);
+			btnSave.clickHandler = new Handler(handleSaveData);
+			btnOpenDir.clickHandler = new Handler(handleOpenDir);
+			btnSvnCommit.clickHandler = new Handler(handleSvnCommit);
+			btnSvnUpdate.clickHandler = new Handler(handleSvnUpdate);
 			App.stage.addEventListener(KeyboardEvent.KEY_DOWN, handleKeyDown);
+			App.stage.addEventListener(Event.RESIZE, handleStageReSize);
 			SimpleEvent.on(AppEvent.LOCAL_CONFIG_CHANGE, loadConfigZzp);
 			loadConfigZzp();
 			appName.text = ToolsApp.config.appName;
+			handleStageReSize();
 		}
 		
 		public function initProject():void
@@ -91,6 +101,30 @@ package com.cyj.app.view
 			
 		} 
 		
+		private function handleStageReSize(e:Event=null):void
+		{
+			var sw:int = App.stage.stageWidth;
+			var sh:int = App.stage.stageHeight;
+			var cw:int = sw - centerPanel.x- rightView.width - 3;
+			if(cw<1)
+				cw = 1;
+			var ch:int = sh - centerPanel.y - 30;
+			centerPanel.width = cw;
+			centerPanel.height = ch;
+			appName.x = sw/2 - appName.width/2;
+			boxOper.x = sw-boxOper.width-10;
+			txtLog.width = sw - txtAuth.width;
+			txtLog.y = sh - txtLog.height - 3;
+			txtAuth.x = sw - txtAuth.width;
+			txtAuth.y = sh - txtAuth.height - 3;
+			rightView.x = sw - rightView.width;
+			bg.width = sw;
+			bg.height = sh;
+			centerPanel.refresh();
+			leftView.onResize(leftView.width, sh-leftView.y-30);
+			rightView.onResize(rightView.width, sh-rightView.y - 30);
+			centerView.onResize(cw, ch);
+		}
 		
 		
 		private function handleZzpLoaded(res:ResData):void
@@ -172,12 +206,38 @@ package com.cyj.app.view
 		
 		private function handleKeyDown(e:KeyboardEvent):void
 		{
-			if(e.keyCode == Keyboard.DELETE)
+			if(e.keyCode == Keyboard.DELETE)//删除
 			{
 				centerView.doDelete();
-			}else if(e.keyCode == Keyboard.S && e.ctrlKey)
+			}else if(e.keyCode == Keyboard.S && e.ctrlKey)//保存
 			{
 				ToolsApp.saveConfig();
+			}else if(e.keyCode == Keyboard.C && e.ctrlKey)//复制
+			{
+				if(ToolsApp.projectData.fouceData)
+				{
+					ToolsApp.projectData.copyData = ToolsApp.projectData.fouceData.copy();
+					Log.log("复制成功");
+				}
+			}else if(e.keyCode == Keyboard.V && e.ctrlKey)//粘贴
+			{
+				var pastData:ICopyData = ToolsApp.projectData.copyData;
+				if(pastData)
+				{
+					pastData = pastData.copy();
+					leftView.past(pastData);
+					centerView.past(pastData);
+					rightView.past(pastData);
+				}
+			}else if(e.keyCode == Keyboard.Q && e.ctrlKey)//更新
+			{
+				handleSvnUpdate();
+			}else if(e.keyCode == Keyboard.W && e.ctrlKey)//上传
+			{
+				handleSvnCommit();
+			}else if(e.keyCode == Keyboard.E && e.ctrlKey)//目录
+			{
+				handleOpenDir();
 			}
 		}
 		
@@ -249,9 +309,40 @@ package com.cyj.app.view
 			_settingView.x = App.stage.stageWidth/2 - _settingView.width/2;
 			_settingView.y = App.stage.stageHeight/2 - _settingView.height/2;
 			App.stage.addChild(_settingView);
+		} 
+		public function handleSaveData():void
+		{
+			ToolsApp.saveConfig();
+		}
+		public function handleOpenDir():void
+		{
+			var file:File = new File(ToolsApp.localCfg.localWebPath + "/resource/config/");
+			if(file.exists)
+			{
+				file.openWithDefaultApplication();
+			}else{
+				TipMsg.show("没有找到目录"+file.nativePath);
+			}
+		}
+		public function handleSvnCommit():void
+		{
+			SvnOper.svnCommit(ToolsApp.localCfg.localWebPath + "/resource/config/", handleSvnCommitComplete);
 		}
 		
-		
+		public function handleSvnUpdate():void
+		{
+			SvnOper.svnUpdata(ToolsApp.localCfg.localWebPath + "/resource/config/", handleSvnUpdateComplete);
+		}
+		private function handleSvnCommitComplete(success:Boolean):void
+		{
+			if(success)
+				Alert.show("提交成功");
+		}
+		private function handleSvnUpdateComplete(success:Boolean):void
+		{
+			if(success)
+				Alert.show("更新成功");
+		}
 		
 	}
 }
