@@ -53,7 +53,7 @@ package com.cyj.app.view.ui.app {
 			    <Box var="boxRole">
 			      <ComboBox labels="旁观者,施法者,受击者" skin="png.comp.combobox" x="57" var="comRoleType" width="65" height="23"/>
 			      <Label text="角色类型" y="2" width="55" height="18" align="center" color="0xffff00" x="0"/>
-			      <ComboBox labels="站立,移动,攻击" skin="png.comp.combobox" x="57" var="comAct" width="64" height="23" y="28"/>
+			      <ComboBox labels="站立,移动,攻击,攻击1,攻击2,攻击3,攻击4" skin="png.comp.combobox" x="57" var="comAct" width="64" height="23" y="28"/>
 			      <Label text="动作" y="30" width="55" height="18" align="center" color="0xffff00" x="0"/>
 			    </Box>
 			  </Box>
