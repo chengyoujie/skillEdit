@@ -11,6 +11,7 @@ package com.cyj.app.data
 //		public var height:int;
 		public var ox:int;
 		public var oy:int;
+		
 		public var name:String;
 		public var visible:Boolean = true;
 		

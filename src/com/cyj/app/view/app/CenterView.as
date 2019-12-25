@@ -235,8 +235,21 @@ package com.cyj.app.view.app
 				owners.push(roleLayer.owner);
 				if(roleLayer.owner && roles)
 				{
-					var targets:Vector.<Role> = data.move.type == EffectPlayOwnerType.Sender?owners:roles;
-					var sends:Vector.<Role> = data.effOwnerType == EffectPlayOwnerType.Sender?owners:roles;
+					var targets:Vector.<Role>;
+					var sends:Vector.<Role>;
+					if(roles.length>0 && data.effOwnerType == EffectPlayOwnerType.OneTarget)
+					{
+						sends = new Vector.<Role>();
+						sends.push(roles[0]);
+						targets = owners;
+					}else 
+					if(data.effOwnerType == EffectPlayOwnerType.Sender){
+						sends = owners;
+						targets = roles;
+					}else{
+						sends = roles;
+						targets = owners;
+					}
 					for(var i:int=0; i<sends.length; i++)
 					{
 						for(var m:int=0; m<targets.length; m++)

@@ -128,6 +128,9 @@ package com.cyj.app.view.app
 			file =new File(root+"effect");
 			xml += getFileXml(file, ResType.EFFECT);
 			
+			file =new File(root+"effect2");
+			xml += getFileXml(file, ResType.EFFECT);
+			
 			var arr:Array = ToolsApp.projectData.getResCfgByMenu("skills");
 			for(var i:int=0; i<arr.length; i++)
 			{

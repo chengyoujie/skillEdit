@@ -67,7 +67,10 @@ package com.cyj.app.view.app
 						new BindData(inputTigglerParam, "tigglerParam","text",  null , handleCheckStartData),
 						new BindData(inputOffx, "offx", "text",handleRefushScene),
 						new BindData(inputOffy, "offy", "text", handleRefushScene),
+						new BindData(inputScalex, "scalex", "text",handleRefushScene),
+						new BindData(inputScaley, "scaley", "text", handleRefushScene),
 						new BindData(inputDelay, "delay"),
+						new BindData(checkDelayRandom, "delayRandom", "selected", handleRefushScene),
 						new BindData(comRotation, "rotationType", "selectedIndex", handleRotationTypeChange),
 						new BindData(inputRotation, "rotation", "text", handleRefushRotation)
 					);
@@ -104,6 +107,8 @@ package com.cyj.app.view.app
 			btnPlayAll.clickHandler = new Handler(handlePlayAll);
 			btnResetMoveDis.clickHandler = new Handler(handleResetMoveDis);
 			btnResetOffset.clickHandler = new Handler(handleResetOffset);
+			btnTweenProp.clickHandler = new Handler(handleOpenTweenProp);
+			btnTweenRefush.clickHandler = new Handler(handleTweenRefush);
 			SimpleEvent.on(AppEvent.AVATER_MOVE, handleSceneAvaterMove);
 			SimpleEvent.on(AppEvent.EFFECT_CHANGE, handleEffectChange);
 			SimpleEvent.on(AppEvent.ITEM_ADD_RES, handleAddRes);
@@ -111,6 +116,41 @@ package com.cyj.app.view.app
 			SimpleEvent.on(AppEvent.REFUSH_RIGHT, handleRefushRight);
 			SimpleEvent.on(AppEvent.AVATER_TYPE_CHANGE, handleRefushScene);
 			SimpleEvent.on(AppEvent.REFUSH_SCENE, handleRefushScene);
+			SimpleEvent.on(AppEvent.SET_TWEEN_PROP, handleTweenChange);
+		}
+		
+		private var _setTweenView:SetTweenView = new SetTweenView();
+		private function handleOpenTweenProp():void
+		{
+			var selectItem:EffectPlayItemData = listStep.selectedItem as EffectPlayItemData;
+			if(!selectItem)return;
+			_setTweenView.open(selectItem);
+		}
+		
+		private function handleTweenChange(e:SimpleEvent):void
+		{
+			refushTweenDes();
+			handleRefushScene();
+		}
+		
+		private function handleTweenRefush():void
+		{
+			ToolsApp.effectPlayer.refushTween();
+		}
+		
+		
+		private function refushTweenDes():void
+		{
+			var selectItem:EffectPlayItemData = listStep.selectedItem as EffectPlayItemData;
+			if(!selectItem)return;
+			var tweens:Array = selectItem.tweenProps;
+			var des:String = "<font color='#00ff00'>";
+			for(var i:int=0; i<tweens.length; i++)
+			{
+				des += " "+SetTweenView.tweenData[tweens[i].prop].name+",";	
+			}
+			des += "</font>";
+			txtTweenProp.htmlText = tweens.length>0?des:"无";
 		}
 		
 		private function handleResetMoveDis():void
@@ -180,7 +220,7 @@ package com.cyj.app.view.app
 				}
 			}
 			return false;
-		}
+		} 
 		
 		private function handleCheckEndData(data:String):Boolean
 		{
@@ -277,6 +317,10 @@ package com.cyj.app.view.app
 			}else if(selectItem.effOwnerType == index)
 			{
 				TipMsg.show("当前移动类型与拥有者类型相同");
+				return false;
+			}else if(selectItem.effOwnerType == EffectPlayOwnerType.OneTarget && index == EffectPlayOwnerType.Target)
+			{
+				TipMsg.show("拥有者类型不能喝移动目标一致");
 				return false;
 			}
 			if(index != EffectPlayOwnerType.None)
@@ -376,7 +420,7 @@ package com.cyj.app.view.app
 						selectItem.offy = pos2.y - pos1.y;
 						toBind(_itemBindData, selectItem);
 					}
-				}else if(role.avaterType == EffectPlayOwnerType.Target)
+				}else if(role.avaterType == EffectPlayOwnerType.Target || selectItem.effOwnerType ==EffectPlayOwnerType.OneTarget)
 				{
 					item = ToolsApp.effectPlayer.getEffectPlayItem(selectItem.id, role);
 					if(!item || !item.display)return;
@@ -389,7 +433,7 @@ package com.cyj.app.view.app
 				var eff:DisplayObject = display as DisplayObject;
 				item = ToolsApp.effectPlayer.getEffectPlayByDisplay(eff);
 				if(!item)return;
-				if(selectItem.effOwnerType == EffectPlayOwnerType.Sender)
+				if(selectItem.effOwnerType == EffectPlayOwnerType.Sender ||selectItem.effOwnerType == EffectPlayOwnerType.OneTarget)
 					target = item.owner;
 				else if(selectItem.effOwnerType == EffectPlayOwnerType.Target)
 					target = item.target;
@@ -472,6 +516,7 @@ package com.cyj.app.view.app
 			onDisplayTypeChange();
 			handleStarChange();
 			handleEndChange();
+			refushTweenDes();
 			handleRotationTypeChange(false);
 			var items:Vector.<EffectPlayItem> = ToolsApp.effectPlayer.items;
 			if(items.length>0 && items[0].display is Avatar)

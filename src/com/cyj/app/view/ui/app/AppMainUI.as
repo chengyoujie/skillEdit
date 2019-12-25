@@ -20,16 +20,16 @@ package com.cyj.app.view.ui.app {
 		public var btnOpenDir:Button = null;
 		public var btnSvnUpdate:Button = null;
 		protected static var uiView:XML =
-			<View width="1402" height="880">
-			  <Image skin="png.comp.blank" x="0" y="0" width="1402" height="880" var="bg"/>
-			  <Panel x="200" y="53" width="918" height="800" vScrollBarSkin="png.comp.vscroll" hScrollBarSkin="png.comp.hscroll" var="centerPanel">
+			<View width="1402" height="910">
+			  <Image skin="png.comp.blank" x="0" y="0" width="1402" height="910" var="bg"/>
+			  <Panel x="200" y="53" width="918" height="829" vScrollBarSkin="png.comp.vscroll" hScrollBarSkin="png.comp.hscroll" var="centerPanel">
 			    <CenterView var="centerView" runtime="com.cyj.app.view.app.CenterView"/>
 			  </Panel>
 			  <LeftView x="0" y="52" var="leftView" runtime="com.cyj.app.view.app.LeftView"/>
 			  <Label text="应用界面" x="396" y="7" color="0xff9900" stroke="0" width="600" height="32" align="center" size="18" var="appName"/>
-			  <Label text="日志" x="1" y="858" width="1271" height="21" color="0x33ff00" var="txtLog" wordWrap="true"/>
-			  <Label text="made by cyj 2019.12.02" x="1268" y="858" color="0x666666" var="txtAuth"/>
-			  <RightView x="1118" y="49" var="rightView" runtime="com.cyj.app.view.app.RightView"/>
+			  <Label text="日志" x="5" y="884" width="1271" height="21" color="0x33ff00" var="txtLog" wordWrap="true"/>
+			  <Label text="made by cyj 2019.12.02" x="1268" y="890" color="0x666666" var="txtAuth"/>
+			  <RightView x="1121" y="52" var="rightView" runtime="com.cyj.app.view.app.RightView"/>
 			  <Box x="1147" y="14" var="boxOper">
 			    <Button skin="png.guidecomp.btn_小按钮_1" labelColors="0xc79a84,0xe0a98d,0x93827a" var="btnSetting" labelStroke="0" width="47" height="28" x="194" label="设置"/>
 			    <Button skin="png.guidecomp.btn_小按钮_1" labelColors="0xc79a84,0xe0a98d,0x93827a" var="btnSvnCommit" labelStroke="0" width="49" height="28" x="96" label="上传(W)"/>

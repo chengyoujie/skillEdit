@@ -12,6 +12,7 @@ package com.cyj.app.data.cost
 		public static const ACTION_TYPE_ACT3: String = "act3";
 		public static const ACTION_TYPE_ACT2: String = "act2";
 		public static const ACTION_TYPE_ACT1: String = "act1";
+		public static const ACTION_TYPE_ACT0: String = "act0";
 		public static const ACTION_TYPE_ACT: String = "act";
 		
 		public function Action()

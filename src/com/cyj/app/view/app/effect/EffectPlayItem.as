@@ -13,6 +13,7 @@ package com.cyj.app.view.app.effect
 	import com.cyj.app.data.cost.RotationType;
 	import com.cyj.app.data.effect.EffectPlayItemData;
 	import com.cyj.app.data.effect.EffectPlayMoveEndData;
+	import com.cyj.app.data.effect.EffectPlayTweenPropData;
 	import com.cyj.app.utils.ComUtill;
 	import com.cyj.app.view.app.CenterView;
 	import com.cyj.app.view.common.Alert;
@@ -22,6 +23,7 @@ package com.cyj.app.view.app.effect
 	import com.cyj.app.view.unit.EffectImage;
 	import com.cyj.app.view.unit.Role;
 	import com.greensock.TweenLite;
+	import com.greensock.TweenMax;
 	
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
@@ -72,9 +74,14 @@ package com.cyj.app.view.app.effect
 			if(!_data)return;
 			_endFun = endFun;
 			_isPlaying = true;
-			if(_data.delay>0)
+			if(_endFun !=null && _data.delay>0)
 			{
-				App.timer.doOnce(_data.delay, run);
+				if(_data.delayRandom)
+				{
+					App.timer.doOnce(_data.delay*Math.random(), run);
+				}else{
+					App.timer.doOnce(_data.delay, run);	
+				}
 			}else{
 				run();
 			}
@@ -85,6 +92,7 @@ package com.cyj.app.view.app.effect
 			App.timer.clearTimer( run);
 			refushDisplay();
 			doMove();
+			refushTween();
 			if(_data.endType == EffectPlayEndType.Time)
 			{
 				App.timer.doOnce(_data.endParam, end);
@@ -235,6 +243,10 @@ package com.cyj.app.view.app.effect
 				_display.rotation = 0;
 				var toRole:Avatar = getCaster(move.type);
 				var fromRole:Avatar = getCaster(_data.effOwnerType);
+				if(_data.effOwnerType == EffectPlayOwnerType.OneTarget)
+				{
+					toRole = _target;
+				}
 				if(fromRole && toRole )
 				{
 					_tempPoint2.x = 0;
@@ -376,6 +388,15 @@ package com.cyj.app.view.app.effect
 				_display.x = _data.offx;
 				_display.y = _data.offy;
 			}
+			if(_display is Avatar)
+			{
+				Avatar(_display).scalex = _data.scalex;
+				Avatar(_display).scaley = _data.scaley;
+			}else{
+				_display.scaleX = _data.scalex;
+				_display.scaleY = _data.scaley;
+			}
+			
 //			if(_data.move.type != EffectPlayOwnerType.None && _data.move.rotation)
 //			{
 //				var target:DisplayObject = caster==_owner?_target:_owner;
@@ -389,6 +410,23 @@ package com.cyj.app.view.app.effect
 //			}
 			refushDir();
 			refushRotation();
+		}
+		
+		public function refushTween():void
+		{
+			if(!_display)return;
+			if(!_data)return;
+			for(var i:int=0; i<_data.tweenProps.length; i++)
+			{
+				var item:EffectPlayTweenPropData = _data.tweenProps[i];
+				var prop:String = item.prop;
+				if(!_display.hasOwnProperty(prop))continue;
+				_display[item.prop] = item.from;
+				var ease:Function = EaseType.getEase(item.type);
+				var tweenData:Object = { "ease":ease};
+				tweenData[prop] = item.to;
+				TweenMax.to(_display, item.time/1000, tweenData)
+			}
 		}
 		
 		public function set mouseEnable(value:Boolean):void
@@ -406,7 +444,7 @@ package com.cyj.app.view.app.effect
 		{
 			if(type == EffectPlayOwnerType.None)return null;
 			else if(type == EffectPlayOwnerType.Target)return _target;
-			else if(type == EffectPlayOwnerType.Sender)return _owner;
+			else if(type == EffectPlayOwnerType.Sender || type == EffectPlayOwnerType.OneTarget)return _owner;
 			return null;
 		}
 		

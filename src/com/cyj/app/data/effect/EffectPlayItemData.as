@@ -30,12 +30,19 @@ package com.cyj.app.data.effect
 		public var offx:int;
 		/**偏移Y */
 		public var offy:int;
+		
+		public var scalex:Number = 1;
+		public var scaley:Number = 1;
 		/**延迟执行时间 */
 		public var delay:int;
+		/**是否延迟时间随机**/
+		public var delayRandom:int;
 		/**旋转类型**/
 		public var rotationType:int = 0;
 		/**旋转角度**/
 		public var rotation:Number = 0;
+		/**缓动的参数**/
+		public var tweenProps:Array = [];
 		
 		public function EffectPlayItemData()
 		{
@@ -55,7 +62,18 @@ package com.cyj.app.data.effect
 //					var disInfoItem:EffectPlayDisplayInfo = new EffectPlayDisplayInfo();
 					disInfo.parser(data[key]);
 					this[key] = disInfo;
-				}else if(this.hasOwnProperty(key))
+				}else if(key == "tweenProps")
+				{
+					var tweens:Array = [];
+					for(var i:int=0; i<data["tweenProps"].length; i++)
+					{
+						var item:EffectPlayTweenPropData = new EffectPlayTweenPropData();
+						item.parser(data["tweenProps"][i]);
+						tweens.push(item);
+					}
+					this.tweenProps = tweens;
+				}
+				else if(this.hasOwnProperty(key))
 				{
 					this[key] = data[key];
 				}

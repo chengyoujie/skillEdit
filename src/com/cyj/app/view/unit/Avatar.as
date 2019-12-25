@@ -228,16 +228,31 @@ package com.cyj.app.view.unit
 				var pscaleX:int = getParentScaleX();
 				if(_dir != d)
 				{
-					this.scaleX = -1;// pscaleX>0?-1:1;
+					this.scaleX = -1*_scalex;// pscaleX>0?-1:1;
 				}else{
-					this.scaleX = 1;//pscaleX>0?1:-1;
+					this.scaleX = 1*_scalex;//pscaleX>0?1:-1;
 				}
+				this.scaleY = 1*_scaley;// pscaleX>0?-1:1;
 				App.timer.doOnce(500, checkHasDir, null, true);
 				path = _path+"/"+_path.substr(_path.lastIndexOf("/"))+"_"+_act+"_"+d;
 				path = path.replace(/\/\//gi, "/");
+			}else{
+				this.scaleX = _scalex;
+				this.scaleY = _scaley;
 			}
 			_res = AvaterRes.get(path);
 			_moviePlay.avaterRes = _res;
+		}
+		
+		private var _scalex:Number = 1;
+		public function set  scalex(value:Number):void{
+			_scalex = value;
+			refushRes();
+		}
+		private var _scaley:Number = 1;
+		public function set  scaley(value:Number):void{
+			_scaley = value;
+			refushRes();
 		}
 		
 		private function checkHasDir():void

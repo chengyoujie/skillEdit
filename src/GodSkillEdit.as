@@ -9,7 +9,7 @@ package
 	import flash.events.Event;
 	import flash.filesystem.File;
 	
-	[SWF(width="1402", height="880", backgroundColor="#333333", frameRate="30")]
+	[SWF(width="1402", height="910", backgroundColor="#333333", frameRate="30")]
 	public class GodSkillEdit extends Sprite
 	{
 		public function GodSkillEdit()

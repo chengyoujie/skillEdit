@@ -3,6 +3,7 @@ package com.cyj.app.utils
 	import com.cyj.app.ToolsApp;
 	import com.cyj.app.data.cost.Sex;
 	
+	import flash.filesystem.File;
 	import flash.geom.Point;
 
 	public class ComUtill
@@ -34,7 +35,16 @@ package com.cyj.app.utils
 			var cfgs:Array = ToolsApp.projectData.config.resBody;
 			if (String(resId).indexOf('/') >= 0) return {path:String(resId), isDirRes:false};
 			var cfg:* = getCfg(cfgs, "id", resId);
-			if (!cfg) return  {path:root +'effect/' + resId, isDirRes:false};
+			if (!cfg)
+			{
+				var p:String = root +'effect/' + resId;
+				var f:File = new File(p+".json");
+				if(!f.exists)
+				{
+					p = root +'effect2/' + resId;
+				}
+				return  {path:p, isDirRes:false};
+			}
 			var res:String = cfg.res1;
 			if (sex == Sex.Female && cfg.res2) res = cfg.res2;
 			return {path:root +cfg.resMenu + '/' + res, isDirRes:true};// + '/' + res + '_{0}_{1}';

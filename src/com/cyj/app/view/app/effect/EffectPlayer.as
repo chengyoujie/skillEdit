@@ -47,6 +47,7 @@ package com.cyj.app.view.app.effect
 			var items:Array = ToolsApp.projectData.curEffectPlayList;
 			if(!items)return;
 			var targets:Vector.<Role> = _view.roleLayer.targets;
+			var defaultTagret:Role = targets&&targets.length>0?targets[0]:null;
 			for(var i:int=0; i<items.length; i++)
 			{
 				var item:EffectPlayItemData = items[i];
@@ -56,8 +57,10 @@ package com.cyj.app.view.app.effect
 					{
 						getItem(item, _view.roleLayer.owner, targets[j], true);
 					}
+				}else if(defaultTagret && item.effOwnerType == EffectPlayOwnerType.OneTarget){
+					getItem(item,  defaultTagret,_view.roleLayer.owner, true);
 				}else{
-					getItem(item, _view.roleLayer.owner, null, true);
+					getItem(item, _view.roleLayer.owner, defaultTagret, true);
 				}
 			}
 		}
@@ -101,6 +104,7 @@ package com.cyj.app.view.app.effect
 				clearAll();
 			var isTargetEffect:Boolean = isOnTarget(data);
 			var targets:Vector.<Role> = _view.roleLayer.targets;
+			var defaultTagret:Role = targets&&targets.length>0?targets[0]:null;
 			var item:EffectPlayItem;
 			if(isTargetEffect)
 			{
@@ -112,6 +116,9 @@ package com.cyj.app.view.app.effect
 				{
 					getItem(data, _view.roleLayer.owner, targets[i], isPlayAll);
 				}
+			}else if(defaultTagret && data.effOwnerType == EffectPlayOwnerType.OneTarget)
+			{
+				getItem(data, defaultTagret, _view.roleLayer.owner , isPlayAll);
 			}else{
 				getItem(data, _view.roleLayer.owner, null, isPlayAll);
 			}
@@ -260,6 +267,14 @@ package com.cyj.app.view.app.effect
 			}	
 		}
 		
+		public function refushTween():void
+		{
+			if(!_items)return;
+			for(var i:int=0; i<_items.length; i++)
+			{
+				_items[i].refushTween();
+			}	
+		}
 		
 		/**是否作用于目标 由于目标可能是多个所以会创建多个EffectItem */
 		private function isOnTarget(info:EffectPlayItemData):Boolean

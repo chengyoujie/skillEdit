@@ -1,0 +1,10 @@
+<View width="498" height="402" sceneColor="0xffffff" layers="1,1,0,0,第 1 层">
+  <Image skin="png.guidecomp.通用面板_2" x="0" y="-1" layer="1" width="498" height="402" sizeGrid="160,40,160,40,1" var="bg"/>
+  <Label text="设置缓动" styleSkin="png.comp.label" x="127" y="7" layer="1" width="247" height="18" align="center" color="0xccff00" stroke="0x0" var="txtTitle"/>
+  <Button skin="png.guidecomp.btn_关闭_1" x="469" y="15" layer="1" var="btnClose"/>
+  <Button label="保存" skin="png.guidecomp.btn_四字常规_1" x="156" y="351" layer="1" labelColors="0xc79a84,0xe0a98d,0x93827a" labelStroke="0x0" var="btnSave"/>
+  <Button label="取消" skin="png.guidecomp.btn_四字常规_1" x="281" y="350" layer="1" labelColors="0xc79a84,0xe0a98d,0x93827a" labelStroke="0x0" var="btnCancle"/>
+  <List layers="1,1,0,0,第 1 层" layer="1" x="20" y="58" repeatY="7" width="466" height="283" spaceY="5" vScrollBarSkin="png.comp.vscroll" var="listProp">
+    <UIView source="app/SetTweenItem.xml" layer="1" name="render" runtime="com.cyj.app.view.app.SetTweenItem"/>
+  </List>
+</View>

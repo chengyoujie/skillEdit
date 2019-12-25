@@ -40,15 +40,21 @@ package com.cyj.app.view.ui.app {
 		public var comDisDir:ComboBox = null;
 		public var inputRotation:TextInput = null;
 		public var comRotation:ComboBox = null;
+		public var inputScaley:TextInput = null;
+		public var inputScalex:TextInput = null;
+		public var checkDelayRandom:CheckBox = null;
+		public var btnTweenProp:Button = null;
+		public var txtTweenProp:Label = null;
+		public var btnTweenRefush:Button = null;
 		protected static var uiView:XML =
-			<View width="280" height="800">
-			  <Image skin="png.guidecomp.购买类控件底_1" x="0" y="0" width="280" height="801" sizeGrid="10,10,10,10,1" var="bg"/>
-			  <Label text="特效组列表" x="53" y="581" width="99" height="18" color="0x990000" align="center"/>
-			  <List x="11" y="608" vScrollBarSkin="png.comp.vscroll" width="258" height="187" spaceY="2" var="listStep">
+			<View width="280" height="830">
+			  <Image skin="png.guidecomp.购买类控件底_1" x="0" y="0" width="280" height="831" sizeGrid="10,10,10,10,1" var="bg"/>
+			  <Label text="特效组列表" x="55" y="610" width="99" height="18" color="0x990000" align="center"/>
+			  <List x="13" y="637" vScrollBarSkin="png.comp.vscroll" width="258" height="187" spaceY="2" var="listStep">
 			    <EffectStepItem x="0" y="0" runtime="com.cyj.app.view.app.EffectStepItem" name="render"/>
 			  </List>
-			  <Button skin="png.guidecomp.btn_加号_1" x="5" y="579" var="btnAddStep"/>
-			  <Button skin="png.guidecomp.btn_减号_1" x="28" y="579" var="btnRemoveStep"/>
+			  <Button skin="png.guidecomp.btn_加号_1" x="7" y="608" var="btnAddStep"/>
+			  <Button skin="png.guidecomp.btn_减号_1" x="30" y="608" var="btnRemoveStep"/>
 			  <Label text="id：" x="41" y="9" color="0xff9900" stroke="0" height="19" align="right"/>
 			  <TextInput text="0" skin="png.comp.textinput" x="68" y="8" color="0x0" var="inputId" width="65" height="22"/>
 			  <Box x="5" y="60" var="boxDisInfo">
@@ -60,15 +66,15 @@ package com.cyj.app.view.ui.app {
 			    </Box>
 			  </Box>
 			  <Image skin="png.guidecomp.分割线_2px" x="0" y="137" width="280"/>
-			  <Button skin="png.guidecomp.btn_小按钮_1" labelColors="0xc79a84,0xe0a98d,0x93827a" var="btnPlayItem" labelStroke="0" width="54" height="28" x="159" label="播放当前" y="577"/>
-			  <Button skin="png.guidecomp.btn_小按钮_1" labelColors="0xc79a84,0xe0a98d,0x93827a" var="btnPlayAll" labelStroke="0" width="53" height="28" x="220" label="播放全部" y="576"/>
+			  <Button skin="png.guidecomp.btn_小按钮_1" labelColors="0xc79a84,0xe0a98d,0x93827a" var="btnPlayItem" labelStroke="0" width="54" height="28" x="161" label="播放当前" y="606"/>
+			  <Button skin="png.guidecomp.btn_小按钮_1" labelColors="0xc79a84,0xe0a98d,0x93827a" var="btnPlayAll" labelStroke="0" width="53" height="28" x="222" label="播放全部" y="605"/>
 			  <Image skin="png.guidecomp.分割线_2px" x="0" y="58" width="280"/>
 			  <Label text="名字：" x="27" y="34" color="0xff9900" stroke="0" height="19" align="right"/>
 			  <TextInput text="0" skin="png.comp.textinput" x="67" y="33" color="0x0" var="inputName" width="130" height="22"/>
 			  <ComboBox skin="png.guidecomp.combobox" x="68" y="115" var="comCtrType" width="115" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="特效,角色" selectedIndex="0"/>
 			  <Label text="控制类型：" x="4" y="117" color="0xff9900" stroke="0" align="right"/>
 			  <Box x="-2" y="143" var="boxEffectCtr">
-			    <ComboBox skin="png.guidecomp.combobox" x="70" var="comOwner" width="115" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="无,施法者,受击者" selectedIndex="0"/>
+			    <ComboBox skin="png.guidecomp.combobox" x="70" var="comOwner" width="115" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="无,施法者,受击者,受击者其中一个" selectedIndex="0"/>
 			    <Label text="拥有者：" x="18" y="2" color="0xff9900" stroke="0" align="right"/>
 			    <ComboBox skin="png.guidecomp.combobox" x="70" y="28" var="comLayer" width="115" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="角色顶部,角色底部,上层,底部,五方向" selectedIndex="0"/>
 			    <Label text="图层：" x="23" y="31" color="0xff9900" stroke="0" width="47" height="18" align="right"/>
@@ -105,7 +111,7 @@ package com.cyj.app.view.ui.app {
 			      <Label text="结束参数：" y="1" color="0xff9900" stroke="0" var="txtEndParamDes"/>
 			      <TextInput text="0" skin="png.comp.textinput" x="64" color="0x0" width="65" height="22" var="inputEndParam"/>
 			    </Box>
-			    <Button skin="png.guidecomp.btn_小按钮_1" labelColors="0xc79a84,0xe0a98d,0x93827a" var="btnResetOffset" labelStroke="0" width="38" height="28" x="144" label="置零" y="312"/>
+			    <Button skin="png.guidecomp.btn_小按钮_1" labelColors="0xc79a84,0xe0a98d,0x93827a" var="btnResetOffset" labelStroke="0" width="38" height="28" x="135" label="置零" y="311"/>
 			    <Box x="31" var="boxDir" y="54">
 			      <ComboBox skin="png.guidecomp.combobox" x="39" var="comDisDir" width="115" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="↑上,↗右上,→右,↘右下,↓下,↙左下,←左,↖左上,绑定者方向,受击者方向" selectedIndex="0" y="0"/>
 			      <Label text="方向：" y="2" color="0xff9900" stroke="0" x="0" align="right"/>
@@ -113,7 +119,16 @@ package com.cyj.app.view.ui.app {
 			    <Label text="旋转角度：" x="8" y="401" color="0xff9900" stroke="0"/>
 			    <TextInput text="0" skin="png.comp.textinput" x="157" y="401" color="0x0" width="65" height="22" var="inputRotation"/>
 			    <ComboBox skin="png.guidecomp.combobox" x="68" var="comRotation" width="86" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="自定义,拥有者方向,目标方向" selectedIndex="0" y="400"/>
+			    <Label text="缩放Y：" x="175" y="347" color="0xff9900" stroke="0"/>
+			    <TextInput text="0" skin="png.comp.textinput" x="223" y="346" color="0x0" width="51" height="22" var="inputScaley"/>
+			    <Label text="偏移X：" x="179" y="317" color="0xff9900" stroke="0"/>
+			    <TextInput text="0" skin="png.comp.textinput" x="226" y="316" color="0x0" width="48" height="22" var="inputScalex"/>
+			    <CheckBox label="范围内随机" skin="png.guidecomp.checkbox_单选" x="140" y="374" labelColors="0xc79a84,0xe0a98d,0x93827a" labelStroke="0" var="checkDelayRandom"/>
 			  </Box>
+			  <Button skin="png.guidecomp.btn_小按钮_1" labelColors="0xc79a84,0xe0a98d,0x93827a" var="btnTweenProp" labelStroke="0" width="67" height="28" x="12" label="缓动属性" y="573"/>
+			  <Label text="缓动属性：" x="81" y="576" color="0xc79a84" stroke="0" width="60" height="18"/>
+			  <Label text="无" x="143" y="578" color="0xff9900" stroke="0" width="101" height="18" var="txtTweenProp"/>
+			  <Button skin="png.guidecomp.btn_小按钮_1" labelColors="0xc79a84,0xe0a98d,0x93827a" var="btnTweenRefush" labelStroke="0" width="25" height="28" x="248" label="刷" y="576"/>
 			</View>;
 		public function RightViewUI(){}
 		override protected function createChildren():void {

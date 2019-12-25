@@ -30,6 +30,8 @@ package com.cyj.app.view.app
 		public static const REFUSH_RIGHT:String = "refushRight";
 		/**localConfig发生改变***/
 		public static const LOCAL_CONFIG_CHANGE:String = "localCfgChange";
+		/**设置Tween属性**/
+		public static const SET_TWEEN_PROP:String = "setTweenProp";
 		
 		public function AppEvent()
 		{
