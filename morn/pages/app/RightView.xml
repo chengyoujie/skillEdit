@@ -62,19 +62,21 @@
       <Label text="结束参数：" styleSkin="png.comp.label" y="1" layer="1" color="0xff9900" stroke="0" var="txtEndParamDes"/>
       <TextInput text="0" skin="png.comp.textinput" x="64" layer="1" color="0x0" width="65" height="22" var="inputEndParam"/>
     </Box>
-    <Button skin="png.guidecomp.btn_小按钮_1" layer="1" labelColors="0xc79a84,0xe0a98d,0x93827a" var="btnResetOffset" labelStroke="0" width="38" height="28" x="135" label="置零" y="311"/>
+    <Button skin="png.guidecomp.btn_小按钮_1" layer="1" labelColors="0xc79a84,0xe0a98d,0x93827a" var="btnResetOffset" labelStroke="0" width="38" height="28" x="146" label="置零" y="314"/>
     <Box layers="1,1,0,0,第 1 层" layer="1" x="31" var="boxDir" y="54">
       <ComboBox skin="png.guidecomp.combobox" x="39" layer="1" var="comDisDir" width="115" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="↑上,↗右上,→右,↘右下,↓下,↙左下,←左,↖左上,绑定者方向,受击者方向" selectedIndex="0" y="0"/>
       <Label text="方向：" styleSkin="png.comp.label" y="2" layer="1" color="0xff9900" stroke="0" x="0" align="right"/>
     </Box>
-    <Label text="旋转角度：" styleSkin="png.comp.label" x="8" y="401" layer="1" color="0xff9900" stroke="0"/>
+    <Label text="旋转角度：" styleSkin="png.comp.label" x="8" y="402.5" layer="1" color="0xff9900" stroke="0"/>
     <TextInput text="0" skin="png.comp.textinput" x="157" y="401" layer="1" color="0x0" width="65" height="22" var="inputRotation"/>
-    <ComboBox skin="png.guidecomp.combobox" x="68" layer="1" var="comRotation" width="86" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="自定义,拥有者方向,目标方向" selectedIndex="0" y="400"/>
-    <Label text="缩放Y：" styleSkin="png.comp.label" x="175" y="347" layer="1" color="0xff9900" stroke="0"/>
-    <TextInput text="0" skin="png.comp.textinput" x="223" y="346" layer="1" color="0x0" width="51" height="22" var="inputScaley"/>
-    <Label text="偏移X：" styleSkin="png.comp.label" x="179" y="317" layer="1" color="0xff9900" stroke="0"/>
-    <TextInput text="0" skin="png.comp.textinput" x="226" y="316" layer="1" color="0x0" width="48" height="22" var="inputScalex"/>
+    <ComboBox skin="png.guidecomp.combobox" x="68" layer="1" var="comRotation" width="86" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="自定义,拥有者方向,目标方向" selectedIndex="0" y="400.5"/>
+    <Label text="缩放Y：" styleSkin="png.comp.label" x="209" y="349" layer="1" color="0xff9900" stroke="0" width="41" height="18"/>
+    <TextInput text="0" skin="png.comp.textinput" x="249" y="347" layer="1" color="0x0" width="30" height="22" var="inputScaley"/>
+    <Label text="缩放X：" styleSkin="png.comp.label" x="209" y="320" layer="1" color="0xff9900" stroke="0" width="39" height="18"/>
+    <TextInput text="0" skin="png.comp.textinput" x="250" y="319" layer="1" color="0x0" width="29" height="22" var="inputScalex"/>
     <CheckBox label="范围内随机" skin="png.guidecomp.checkbox_单选" x="140" y="374" layer="1" labelColors="0xc79a84,0xe0a98d,0x93827a" labelStroke="0" var="checkDelayRandom"/>
+    <CheckBox label="屏幕坐标" skin="png.guidecomp.checkbox_单选" x="138" y="345" layer="1" labelColors="0xc79a84,0xe0a98d,0x93827a" labelStroke="0" var="checkScreenPos"/>
+    <CheckBox label="绑定拥有者" skin="png.guidecomp.checkbox_单选" x="189" y="56" layer="1" labelColors="0xc79a84,0xe0a98d,0x93827a" labelStroke="0" var="checkBindOwner"/>
   </Box>
   <Button skin="png.guidecomp.btn_小按钮_1" layer="1" labelColors="0xc79a84,0xe0a98d,0x93827a" var="btnTweenProp" labelStroke="0" width="67" height="28" x="12" label="缓动属性" y="573"/>
   <Label text="缓动属性：" styleSkin="png.comp.label" x="81" y="576" layer="1" color="0xc79a84" stroke="0" width="60" height="18"/>

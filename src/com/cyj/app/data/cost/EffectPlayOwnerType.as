@@ -11,6 +11,7 @@ package com.cyj.app.data.cost
 		/**其中的一个目标 */
 		public static const OneTarget:int = 3;
 		
+		
 		public function EffectPlayOwnerType()
 		{
 		}

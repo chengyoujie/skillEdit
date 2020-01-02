@@ -13,7 +13,8 @@ package com.cyj.app.view.app.effect
 	import com.cyj.app.data.cost.RotationType;
 	import com.cyj.app.data.effect.EffectPlayItemData;
 	import com.cyj.app.data.effect.EffectPlayMoveEndData;
-	import com.cyj.app.data.effect.EffectPlayTweenPropData;
+	import com.cyj.app.data.effect.EffectPlayTweenData;
+	import com.cyj.app.data.effect.EffectPlayTweenItemData;
 	import com.cyj.app.utils.ComUtill;
 	import com.cyj.app.view.app.CenterView;
 	import com.cyj.app.view.common.Alert;
@@ -371,6 +372,7 @@ package com.cyj.app.view.app.effect
 			refushPos();
 		}
 		
+		private var _orginDisplayPos:Point = new Point();
 		public function refushPos():void
 		{
 			if(!_data || !_display)return;
@@ -380,7 +382,19 @@ package com.cyj.app.view.app.effect
 				useCasterPos = true;
 			}
 			var caster:Avatar = getCaster(_data.effOwnerType);
-			if(caster && useCasterPos)
+			if(_data.useScreen)
+			{
+				var sw:int = _centerView.width;
+				var sh:int =  _centerView.height;
+				if(caster && useCasterPos)//使用layer作为图层
+				{
+					_display.x = sw/2+_data.offx;
+					_display.y = sh/2+_data.offy;
+				}else{
+					_display.x = caster.x -  sw/2+_data.offx;
+					_display.y = caster.y -  sh/2+_data.offy;
+				}
+			}else if(caster && useCasterPos)
 			{
 				_display.x = caster.x+_data.offx;
 				_display.y = caster.y+_data.offy;
@@ -388,6 +402,8 @@ package com.cyj.app.view.app.effect
 				_display.x = _data.offx;
 				_display.y = _data.offy;
 			}
+			_orginDisplayPos.x = _display.x;
+			_orginDisplayPos.y = _display.y;
 			if(_display is Avatar)
 			{
 				Avatar(_display).scalex = _data.scalex;
@@ -414,19 +430,47 @@ package com.cyj.app.view.app.effect
 		
 		public function refushTween():void
 		{
+			App.timer.clearTimer(handleTweenEnd);
 			if(!_display)return;
 			if(!_data)return;
+			var delay:int = 0;
 			for(var i:int=0; i<_data.tweenProps.length; i++)
 			{
-				var item:EffectPlayTweenPropData = _data.tweenProps[i];
-				var prop:String = item.prop;
-				if(!_display.hasOwnProperty(prop))continue;
-				_display[item.prop] = item.from;
+				var item:EffectPlayTweenData = _data.tweenProps[i];
+				if(item.items.length == 0)continue;
 				var ease:Function = EaseType.getEase(item.type);
-				var tweenData:Object = { "ease":ease};
-				tweenData[prop] = item.to;
-				TweenMax.to(_display, item.time/1000, tweenData)
+				var tweenData:Object = { "ease":ease, delay:(delay/1000)};
+				for(var k:int=0; k<item.items.length; k++)
+				{
+					var propItem:EffectPlayTweenItemData = item.items[k];
+					var prop:String = propItem.prop;
+					var from:*;
+					var to:*;
+					if(!_display.hasOwnProperty(prop))continue;
+					from = propItem.from;
+					to = propItem.to;
+					if(prop == "x")
+					{
+							from = _orginDisplayPos.x + from;
+							to = _orginDisplayPos.x + to;
+					}else if(prop == "y")
+					{
+						from = _orginDisplayPos.y + from;
+						to = _orginDisplayPos.y + to;
+					}
+					_display[propItem.prop] = from;
+					tweenData[prop] =to ;
+				}
+				TweenMax.to(_display, item.time/1000, tweenData);
+				delay += item.time;
 			}
+			App.timer.doOnce(delay, handleTweenEnd);
+		}
+		
+		private function handleTweenEnd():void
+		{
+			_display.x = _orginDisplayPos.x;
+			_display.y = _orginDisplayPos.y;
 		}
 		
 		public function set mouseEnable(value:Boolean):void
@@ -458,6 +502,7 @@ package com.cyj.app.view.app.effect
 				_tween.kill();
 				_tween = null;
 			}
+			App.timer.clearTimer(handleTweenEnd);
 		}
 		
 		public function dispose():void
@@ -470,6 +515,7 @@ package com.cyj.app.view.app.effect
 			}else if(_display is EffectImage){
 				EffectImage(_display).dispose();
 			}
+			App.timer.clearTimer(handleTweenEnd);
 			App.timer.clearTimer(end);
 			_data = null;
 			_target = null;

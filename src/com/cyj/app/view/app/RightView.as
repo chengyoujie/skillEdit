@@ -69,6 +69,8 @@ package com.cyj.app.view.app
 						new BindData(inputOffy, "offy", "text", handleRefushScene),
 						new BindData(inputScalex, "scalex", "text",handleRefushScene),
 						new BindData(inputScaley, "scaley", "text", handleRefushScene),
+						new BindData(checkScreenPos, "useScreen", "selected", handleRefushScene),
+						new BindData(checkBindOwner, "bindOwner", "selected", handleRefushScene),
 						new BindData(inputDelay, "delay"),
 						new BindData(checkDelayRandom, "delayRandom", "selected", handleRefushScene),
 						new BindData(comRotation, "rotationType", "selectedIndex", handleRotationTypeChange),
@@ -147,7 +149,10 @@ package com.cyj.app.view.app
 			var des:String = "<font color='#00ff00'>";
 			for(var i:int=0; i<tweens.length; i++)
 			{
-				des += " "+SetTweenView.tweenData[tweens[i].prop].name+",";	
+				for(var k:int=0; k<tweens[i].items.length; k++)
+				{
+					des += " "+SetTweenView.tweenData[tweens[i].items[k].prop].name+",";
+				}	
 			}
 			des += "</font>";
 			txtTweenProp.htmlText = tweens.length>0?des:"无";
@@ -439,7 +444,13 @@ package com.cyj.app.view.app
 					target = item.target;
 				if(!target)return;
 				pos2 = eff.localToGlobal(_tempZeroPoint);
-				pos1 = target.localToGlobal(_tempZeroPoint);
+				if(selectItem.useScreen)
+				{
+					var view:CenterView = ToolsApp.view.centerView; 
+					pos1 = view.localToGlobal(new Point(view.width/2, view.height/2));
+				}else{
+					pos1 = target.localToGlobal(_tempZeroPoint);
+				}
 				selectItem.offx = pos2.x - pos1.x;
 				selectItem.offy = pos2.y - pos1.y;
 				toBind(_itemBindData, selectItem);
@@ -523,6 +534,10 @@ package com.cyj.app.view.app
 				handleSetCanUseDir(Avatar(items[0].display));
 			boxMove.visible = comMoveTo.selectedIndex != EffectPlayOwnerType.None;  
 			SimpleEvent.send(AppEvent.EFFECT_STEP_CHANGE, selectItem);
+			if(_setTweenView && _setTweenView.stage)
+			{
+				_setTweenView.open(selectItem);
+			}
 		} 
 		
 		private function handleRefushOperChange(e:SimpleEvent):void

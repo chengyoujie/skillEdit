@@ -411,6 +411,10 @@ package morn.core.components {
 			if (index < _array.length) {
 				cell.visible = true;
 				cell.dataSource = _array[index];
+				if(cell.hasOwnProperty("$_index"))
+				{
+					cell["$_index"] = index;
+				}
 			} else {
 				cell.visible = false;
 				cell.dataSource = null;

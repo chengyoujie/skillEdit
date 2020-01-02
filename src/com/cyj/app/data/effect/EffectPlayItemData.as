@@ -43,6 +43,10 @@ package com.cyj.app.data.effect
 		public var rotation:Number = 0;
 		/**缓动的参数**/
 		public var tweenProps:Array = [];
+		/**是否使用屏幕中心坐标*/	
+		public var useScreen:Boolean = false;
+		/**是否绑定拥有者**/
+		public var bindOwner:Boolean = false;
 		
 		public function EffectPlayItemData()
 		{
@@ -67,7 +71,7 @@ package com.cyj.app.data.effect
 					var tweens:Array = [];
 					for(var i:int=0; i<data["tweenProps"].length; i++)
 					{
-						var item:EffectPlayTweenPropData = new EffectPlayTweenPropData();
+						var item:EffectPlayTweenData = new EffectPlayTweenData();
 						item.parser(data["tweenProps"][i]);
 						tweens.push(item);
 					}

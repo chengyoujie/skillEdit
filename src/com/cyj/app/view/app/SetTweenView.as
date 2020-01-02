@@ -2,7 +2,8 @@ package com.cyj.app.view.app
 {
 	import com.cyj.app.SimpleEvent;
 	import com.cyj.app.data.effect.EffectPlayItemData;
-	import com.cyj.app.data.effect.EffectPlayTweenPropData;
+	import com.cyj.app.data.effect.EffectPlayTweenData;
+	import com.cyj.app.data.effect.EffectPlayTweenItemData;
 	import com.cyj.app.view.ui.app.SetTweenViewUI;
 	
 	import morn.core.handlers.Handler;
@@ -12,8 +13,12 @@ package com.cyj.app.view.app
 		public static const  tweenData:Object = {
 			"alpha":{index:0, name:"透明度", prop:"alpha", from:1, to:0.5},
 			"scaleX":{index:1, name:"缩放X", prop:"scaleX", from:1, to:0.5},
-			"scaleY":{index:2, name:"缩放Y", prop:"scaleY", from:1, to:0.5}
+			"scaleY":{index:2, name:"缩放Y", prop:"scaleY", from:1, to:0.5},
+			"x":{index:3, name:"X", prop:"x", from:0, to:1},
+			"y":{index:4, name:"Y", prop:"y", from:0, to:1}
 		};
+		public static var tweenIndex2Data:Object = {};
+		public static var allKeys:Array = [];
 //			{"name":"透明度", prop:"alpha", from:1, to:0.5},
 //			{"name":"缩放X", prop:"scaleX", from:1, to:0.5},
 //			{"name":"缩放Y", prop:"scaleX", from:1, to:0.5}
@@ -21,13 +26,22 @@ package com.cyj.app.view.app
 		public function SetTweenView()
 		{
 			super();
+			for(var key:String in tweenData)
+			{
+				tweenIndex2Data[tweenData[key].index] = tweenData[key];
+			}
 		}
 		override protected function initialize():void
 		{
 			super.initialize();
+			allKeys = [];
+			for(var key:String in tweenData)
+			{
+				allKeys[tweenData[key].index] = tweenData[key].name;
+			}
 			btnClose.clickHandler = new Handler(close);
-			btnSave.clickHandler = new Handler(handleSave);
-			btnCancle.clickHandler = new Handler(close);
+			btnAddTween.clickHandler = new Handler(handleAddItem);
+			btnRemoveTween.clickHandler = new Handler(handleRemoveItem);
 		} 
 		
 		public function open(data:EffectPlayItemData):void
@@ -35,25 +49,37 @@ package com.cyj.app.view.app
 			App.stage.addChild(this);
 			this.x = App.stage.stageWidth/2 - this.width/2;
 			this.y = App.stage.stageHeight/2 - this.height/2;
-			var list:Array = [];
-			var hasShow:Object = {};
 			_data = data;
-			var tweenProps:Array = data.tweenProps;
-			for(var i:int=0; i<tweenProps.length; i++)
+			refushList();
+		}
+		
+		private function refushList():void
+		{
+			if(!_data)return;
+			var list:Array = [];
+			var tweenProps:Array = _data.tweenProps;
+			listProp.dataSource = tweenProps;
+		}
+		
+		private function handleAddItem():void
+		{
+			var item:Object = listProp.selectedItem;
+			var addTween:EffectPlayTweenData = new EffectPlayTweenData();
+			_data.tweenProps.push(addTween);
+			refushList();
+		}
+		
+		private function handleRemoveItem():void
+		{
+			var item:Object = listProp.selectedItem;
+			if(!item)return;
+			var tweenData:EffectPlayTweenData = item as EffectPlayTweenData;
+			var index:int = _data.tweenProps.indexOf(tweenData);
+			if(index != -1)
 			{
-				var prop:EffectPlayTweenPropData = tweenProps[i];
-				var obj:Object = tweenData[prop.prop];
-				list[obj.index] = {data:prop, selected:true};
+				_data.tweenProps.splice(index, 1);
 			}
-			for(var key:String in tweenData)
-			{
-				var tdata:Object = tweenData[key];
-				if(list[tdata.index])continue;
-				var item:EffectPlayTweenPropData = new EffectPlayTweenPropData();
-				item.init(tdata.prop, tdata.from, tdata.to, 1000);
-				list[tdata.index] = {data:item, selected:false};
-			}
-			listProp.dataSource = list;
+			refushList();
 		}
 		
 		private function handleSave():void
@@ -65,12 +91,13 @@ package com.cyj.app.view.app
 				return;
 			}
 			var tween:Array = [];
+			var tw:EffectPlayTweenData;
 			for(var i:int=0; i<list.length; i++)
 			{
 				var item:SetTweenItem = listProp.getCell(i) as SetTweenItem;
-				if(item.checkUse.selected)
+				if(item.data.group)
 				{
-					tween.push(item.data);
+					tween.push(item.data.data);
 				}
 			}
 			_data.tweenProps = tween;

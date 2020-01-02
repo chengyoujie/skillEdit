@@ -27,7 +27,7 @@ package com.cyj.app.view.ui.app {
 			  <Tree x="19" y="26" width="162" height="195" scrollBarSkin="png.comp.vscroll" spaceBottom="3" var="treeRole">
 			    <FileItem name="render" runtime="com.cyj.app.view.app.FileItem" x="10" y="10"/>
 			  </Tree>
-			  <Button skin="png.guidecomp.btn_加号_1" x="133" y="607" var="btnAddEff"/>
+			  <Button skin="png.guidecomp.btn_加号_1" x="133" y="607" var="btnAddEff" width="23" height="23"/>
 			  <Button skin="png.guidecomp.btn_减号_1" x="156" y="607" var="btnRemoveEff"/>
 			  <Label text="特效组ID：" x="19" y="556" color="0xff9900" stroke="0" height="19" align="right"/>
 			  <TextInput text="0" skin="png.comp.textinput" x="84" y="555" color="0x0" var="inputId" width="65" height="22"/>
