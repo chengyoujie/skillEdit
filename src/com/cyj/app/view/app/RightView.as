@@ -181,14 +181,14 @@ package com.cyj.app.view.app
 			return 0;
 		}
 		
-		private function handleStarChange():void
+		private function handleStarChange(refushId:Boolean=true):void
 		{
 			var type:int = comTigglerType.selectedIndex;
 			if(type == EffectPlayTiggerType.PlayComplete)
 			{
 				boxTigglerParam.visible = true;
-//				if(!handleCheckStartData(inputTigglerParam.text))
-//				{
+				if(refushId)
+				{
 					var id:String = "0";
 					var selectItem:EffectPlayItemData = listStep.selectedItem as EffectPlayItemData;
 					if(selectItem)
@@ -201,7 +201,7 @@ package com.cyj.app.view.app
 					}
 					inputTigglerParam.text = id;
 //					TipMsg.show("当前没有找到结束条件对应的项，设置默认值为0");
-//				}
+				}
 			}else{
 				boxTigglerParam.visible = false;
 			}
@@ -525,7 +525,7 @@ package com.cyj.app.view.app
 			toBind(_disPlayBindData, selectItem.disInfo);
 			ToolsApp.effectPlayer.playItem(selectItem, true);
 			onDisplayTypeChange();
-			handleStarChange();
+			handleStarChange(false);
 			handleEndChange();
 			refushTweenDes();
 			handleRotationTypeChange(false);
