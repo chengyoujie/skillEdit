@@ -488,7 +488,7 @@ package com.cyj.app.view.app.effect
 		{
 			if(type == EffectPlayOwnerType.None)return null;
 			else if(type == EffectPlayOwnerType.Target)return _target;
-			else if(type == EffectPlayOwnerType.Sender || type == EffectPlayOwnerType.OneTarget)return _owner;
+			else if(type == EffectPlayOwnerType.Sender || type == EffectPlayOwnerType.OneTarget  || type == EffectPlayOwnerType.MyTeam) return _owner;
 			return null;
 		}
 		

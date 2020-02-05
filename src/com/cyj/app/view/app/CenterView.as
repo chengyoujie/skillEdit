@@ -138,7 +138,7 @@ package com.cyj.app.view.app
 				var avt:Avatar = new Role(info);
 				avt.x = info.x;
 				avt.y = info.y;
-				if(info.type == EffectPlayOwnerType.Sender)
+				if(info.type == EffectPlayOwnerType.Sender || info.type == EffectPlayOwnerType.MyTeam)
 				{
 					roles.unshift(avt);
 				}else{
@@ -243,7 +243,7 @@ package com.cyj.app.view.app
 						sends.push(roles[0]);
 						targets = owners;
 					}else 
-					if(data.effOwnerType == EffectPlayOwnerType.Sender){
+					if(data.effOwnerType == EffectPlayOwnerType.Sender || data.effOwnerType ==  EffectPlayOwnerType.MyTeam){
 						sends = owners;
 						targets = roles;
 					}else{

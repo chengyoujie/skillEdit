@@ -251,7 +251,7 @@ package com.cyj.app.view.app
 				if(comMoveTo.selectedIndex == EffectPlayOwnerType.None)
 				{
 					TipMsg.show("当前设置移动完成，需要设置移动信息， 设置默认移动");
-					selectItem.move.type = selectItem.effOwnerType==EffectPlayOwnerType.Sender?EffectPlayOwnerType.Target:EffectPlayOwnerType.Sender;
+					selectItem.move.type = (selectItem.effOwnerType==EffectPlayOwnerType.Sender || selectItem.effOwnerType == EffectPlayOwnerType.MyTeam)?EffectPlayOwnerType.Target:EffectPlayOwnerType.Sender;
 					selectItem.move.rotation = true;
 					selectItem.move.speed = 500;
 					toBind(_moveBindData, selectItem.move);
@@ -414,9 +414,9 @@ package com.cyj.app.view.app
 				var role:Role = display as Role;
 				pos1 = role.localToGlobal(_tempZeroPoint);
 				if(role.avaterType == EffectPlayOwnerType.None || role.avaterType != selectItem.effOwnerType)return;//旁观者不管 类型不关的不管
-				else if(role.avaterType == EffectPlayOwnerType.Sender)
+				else if(role.avaterType == EffectPlayOwnerType.Sender || role.avaterType == EffectPlayOwnerType.MyTeam)
 				{	
-					if(selectItem.effOwnerType ==EffectPlayOwnerType.Sender)
+					if(selectItem.effOwnerType ==EffectPlayOwnerType.Sender || selectItem.effOwnerType ==EffectPlayOwnerType.MyTeam)
 					{	
 						item = ToolsApp.effectPlayer.getEffectPlayItem(selectItem.id);
 						if(!item || !item.display)return;
@@ -438,7 +438,7 @@ package com.cyj.app.view.app
 				var eff:DisplayObject = display as DisplayObject;
 				item = ToolsApp.effectPlayer.getEffectPlayByDisplay(eff);
 				if(!item)return;
-				if(selectItem.effOwnerType == EffectPlayOwnerType.Sender ||selectItem.effOwnerType == EffectPlayOwnerType.OneTarget)
+				if(selectItem.effOwnerType == EffectPlayOwnerType.Sender ||selectItem.effOwnerType == EffectPlayOwnerType.OneTarget || selectItem.effOwnerType == EffectPlayOwnerType.MyTeam)
 					target = item.owner;
 				else if(selectItem.effOwnerType == EffectPlayOwnerType.Target)
 					target = item.target;

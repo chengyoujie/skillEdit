@@ -15,7 +15,6 @@ package com.cyj.app.view.ui.app {
 		public var btnPlayItem:Button = null;
 		public var btnPlayAll:Button = null;
 		public var inputName:TextInput = null;
-		public var comCtrType:ComboBox = null;
 		public var boxEffectCtr:Box = null;
 		public var comOwner:ComboBox = null;
 		public var comLayer:ComboBox = null;
@@ -51,12 +50,12 @@ package com.cyj.app.view.ui.app {
 		protected static var uiView:XML =
 			<View width="280" height="830">
 			  <Image skin="png.guidecomp.购买类控件底_1" x="0" y="0" width="280" height="831" sizeGrid="10,10,10,10,1" var="bg"/>
-			  <Label text="特效组列表" x="55" y="610" width="99" height="18" color="0x990000" align="center"/>
-			  <List x="13" y="637" vScrollBarSkin="png.comp.vscroll" width="258" height="187" spaceY="2" var="listStep">
+			  <Label text="特效组列表" x="55" y="606" width="99" height="18" color="0x990000" align="center"/>
+			  <List x="13" y="633" vScrollBarSkin="png.comp.vscroll" width="258" height="187" spaceY="2" var="listStep">
 			    <EffectStepItem x="0" y="0" runtime="com.cyj.app.view.app.EffectStepItem" name="render"/>
 			  </List>
-			  <Button skin="png.guidecomp.btn_加号_1" x="7" y="608" var="btnAddStep"/>
-			  <Button skin="png.guidecomp.btn_减号_1" x="30" y="608" var="btnRemoveStep"/>
+			  <Button skin="png.guidecomp.btn_加号_1" x="7" y="604" var="btnAddStep"/>
+			  <Button skin="png.guidecomp.btn_减号_1" x="30" y="604" var="btnRemoveStep"/>
 			  <Label text="id：" x="41" y="9" color="0xff9900" stroke="0" height="19" align="right"/>
 			  <TextInput text="0" skin="png.comp.textinput" x="68" y="8" color="0x0" var="inputId" width="65" height="22"/>
 			  <Box x="5" y="60" var="boxDisInfo">
@@ -67,16 +66,14 @@ package com.cyj.app.view.ui.app {
 			      <TextInput text="0" skin="png.comp.textinput" x="63" color="0x0" width="65" height="22" var="inputLoop"/>
 			    </Box>
 			  </Box>
-			  <Image skin="png.guidecomp.分割线_2px" x="0" y="137" width="280"/>
-			  <Button skin="png.guidecomp.btn_小按钮_1" labelColors="0xc79a84,0xe0a98d,0x93827a" var="btnPlayItem" labelStroke="0" width="54" height="28" x="161" label="播放当前" y="606"/>
-			  <Button skin="png.guidecomp.btn_小按钮_1" labelColors="0xc79a84,0xe0a98d,0x93827a" var="btnPlayAll" labelStroke="0" width="53" height="28" x="222" label="播放全部" y="605"/>
+			  <Image skin="png.guidecomp.分割线_2px" x="0" y="122" width="280"/>
+			  <Button skin="png.guidecomp.btn_小按钮_1" labelColors="0xc79a84,0xe0a98d,0x93827a" var="btnPlayItem" labelStroke="0" width="54" height="28" x="161" label="播放当前" y="602"/>
+			  <Button skin="png.guidecomp.btn_小按钮_1" labelColors="0xc79a84,0xe0a98d,0x93827a" var="btnPlayAll" labelStroke="0" width="53" height="28" x="222" label="播放全部" y="601"/>
 			  <Image skin="png.guidecomp.分割线_2px" x="0" y="58" width="280"/>
 			  <Label text="名字：" x="27" y="34" color="0xff9900" stroke="0" height="19" align="right"/>
 			  <TextInput text="0" skin="png.comp.textinput" x="67" y="33" color="0x0" var="inputName" width="130" height="22"/>
-			  <ComboBox skin="png.guidecomp.combobox" x="68" y="115" var="comCtrType" width="115" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="特效,角色" selectedIndex="0"/>
-			  <Label text="控制类型：" x="4" y="117" color="0xff9900" stroke="0" align="right"/>
-			  <Box x="-2" y="143" var="boxEffectCtr">
-			    <ComboBox skin="png.guidecomp.combobox" x="70" var="comOwner" width="115" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="无,施法者,受击者,受击者其中一个" selectedIndex="0"/>
+			  <Box x="-2" y="135" var="boxEffectCtr">
+			    <ComboBox skin="png.guidecomp.combobox" x="70" var="comOwner" width="115" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="无,施法者,受击者,受击者其中一个,我方全体" selectedIndex="0"/>
 			    <Label text="拥有者：" x="18" y="2" color="0xff9900" stroke="0" align="right"/>
 			    <ComboBox skin="png.guidecomp.combobox" x="70" y="28" var="comLayer" width="115" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="角色顶部,角色底部,上层,底部,五方向" selectedIndex="0"/>
 			    <Label text="图层：" x="23" y="31" color="0xff9900" stroke="0" width="47" height="18" align="right"/>
@@ -129,10 +126,10 @@ package com.cyj.app.view.ui.app {
 			    <CheckBox label="屏幕坐标" skin="png.guidecomp.checkbox_单选" x="138" y="345" labelColors="0xc79a84,0xe0a98d,0x93827a" labelStroke="0" var="checkScreenPos"/>
 			    <CheckBox label="绑定拥有者" skin="png.guidecomp.checkbox_单选" x="189" y="56" labelColors="0xc79a84,0xe0a98d,0x93827a" labelStroke="0" var="checkBindOwner"/>
 			  </Box>
-			  <Button skin="png.guidecomp.btn_小按钮_1" labelColors="0xc79a84,0xe0a98d,0x93827a" var="btnTweenProp" labelStroke="0" width="67" height="28" x="12" label="缓动属性" y="573"/>
-			  <Label text="缓动属性：" x="81" y="576" color="0xc79a84" stroke="0" width="60" height="18"/>
-			  <Label text="无" x="143" y="578" color="0xff9900" stroke="0" width="101" height="18" var="txtTweenProp"/>
-			  <Button skin="png.guidecomp.btn_小按钮_1" labelColors="0xc79a84,0xe0a98d,0x93827a" var="btnTweenRefush" labelStroke="0" width="25" height="28" x="248" label="刷" y="576"/>
+			  <Button skin="png.guidecomp.btn_小按钮_1" labelColors="0xc79a84,0xe0a98d,0x93827a" var="btnTweenProp" labelStroke="0" width="67" height="28" x="12" label="缓动属性" y="568"/>
+			  <Label text="缓动属性：" x="81" y="571" color="0xc79a84" stroke="0" width="60" height="18"/>
+			  <Label text="无" x="143" y="573" color="0xff9900" stroke="0" width="101" height="18" var="txtTweenProp"/>
+			  <Button skin="png.guidecomp.btn_小按钮_1" labelColors="0xc79a84,0xe0a98d,0x93827a" var="btnTweenRefush" labelStroke="0" width="25" height="28" x="248" label="刷" y="571"/>
 			</View>;
 		public function RightViewUI(){}
 		override protected function createChildren():void {

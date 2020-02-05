@@ -42,7 +42,7 @@ package com.cyj.app.view.app
 //			}else{
 //				_targets.push(role);
 //			}
-			if(!_owner && _targets.length==0 && role.avaterType != EffectPlayOwnerType.Sender)
+			if(!_owner && _targets.length==0 && role.avaterType != EffectPlayOwnerType.Sender )
 			{
 				role.avaterType = EffectPlayOwnerType.Sender;
 				TipMsg.show("第一个角色默认为施法者");
