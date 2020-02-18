@@ -137,6 +137,7 @@ package com.cyj.app.view
 			{
 				var name:String = byte.readUTF();
 				var key:String = byte.readUTF();
+				var keyProp:Object = byte.readObject();
 				var obj:Object = byte.readObject();
 				zzp[name] = obj.unit;
 			}
