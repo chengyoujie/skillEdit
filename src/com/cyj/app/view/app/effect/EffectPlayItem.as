@@ -5,6 +5,7 @@ package com.cyj.app.view.app.effect
 	import com.cyj.app.data.cost.Action;
 	import com.cyj.app.data.cost.Direction;
 	import com.cyj.app.data.cost.EaseType;
+	import com.cyj.app.data.cost.EffectPlayDelayTimeType;
 	import com.cyj.app.data.cost.EffectPlayDisplayType;
 	import com.cyj.app.data.cost.EffectPlayEndType;
 	import com.cyj.app.data.cost.EffectPlayLayer;
@@ -43,6 +44,7 @@ package com.cyj.app.view.app.effect
 		private var _endFun:Function;
 		private var _isPlaying:Boolean  = false;
 		private var _mouseEnable:Boolean = true;
+		private var _index:int = 0;
 //		private var _img:EffectImage;
 //		private var avt:Avatar;
 		
@@ -51,11 +53,12 @@ package com.cyj.app.view.app.effect
 			_centerView = ToolsApp.view.centerView;
 		}
 		
-		public function setData(data:EffectPlayItemData, owner:Role, target:Role):void
+		public function setData(data:EffectPlayItemData, owner:Role, target:Role, index:int=0):void
 		{
 			_data = data;
 			_owner = owner;
 			_target = target;
+			_index = index;
 		}
 		
 		public function get data():EffectPlayItemData
@@ -77,9 +80,11 @@ package com.cyj.app.view.app.effect
 			_isPlaying = true;
 			if(_endFun !=null && _data.delay>0)
 			{
-				if(_data.delayRandom)
+				if(_data.delayType == EffectPlayDelayTimeType.Random)
 				{
 					App.timer.doOnce(_data.delay*Math.random(), run);
+				}else if(_data.delayType == EffectPlayDelayTimeType.GAP){
+					App.timer.doOnce(_data.delay*_index, run);
 				}else{
 					App.timer.doOnce(_data.delay, run);	
 				}

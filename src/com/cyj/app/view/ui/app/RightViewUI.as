@@ -41,9 +41,9 @@ package com.cyj.app.view.ui.app {
 		public var comRotation:ComboBox = null;
 		public var inputScaley:TextInput = null;
 		public var inputScalex:TextInput = null;
-		public var checkDelayRandom:CheckBox = null;
 		public var checkScreenPos:CheckBox = null;
 		public var checkBindOwner:CheckBox = null;
+		public var comDealyTimeType:ComboBox = null;
 		public var btnTweenProp:Button = null;
 		public var txtTweenProp:Label = null;
 		public var btnTweenRefush:Button = null;
@@ -122,9 +122,9 @@ package com.cyj.app.view.ui.app {
 			    <TextInput text="0" skin="png.comp.textinput" x="249" y="347" color="0x0" width="30" height="22" var="inputScaley"/>
 			    <Label text="缩放X：" x="209" y="320" color="0xff9900" stroke="0" width="39" height="18"/>
 			    <TextInput text="0" skin="png.comp.textinput" x="250" y="319" color="0x0" width="29" height="22" var="inputScalex"/>
-			    <CheckBox label="范围内随机" skin="png.guidecomp.checkbox_单选" x="140" y="374" labelColors="0xc79a84,0xe0a98d,0x93827a" labelStroke="0" var="checkDelayRandom"/>
 			    <CheckBox label="屏幕坐标" skin="png.guidecomp.checkbox_单选" x="138" y="345" labelColors="0xc79a84,0xe0a98d,0x93827a" labelStroke="0" var="checkScreenPos"/>
 			    <CheckBox label="绑定拥有者" skin="png.guidecomp.checkbox_单选" x="189" y="56" labelColors="0xc79a84,0xe0a98d,0x93827a" labelStroke="0" var="checkBindOwner"/>
+			    <ComboBox skin="png.guidecomp.combobox" x="138" var="comDealyTimeType" width="112" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="固定,范围内随机,每个目标间隔" selectedIndex="0" y="374"/>
 			  </Box>
 			  <Button skin="png.guidecomp.btn_小按钮_1" labelColors="0xc79a84,0xe0a98d,0x93827a" var="btnTweenProp" labelStroke="0" width="67" height="28" x="12" label="缓动属性" y="568"/>
 			  <Label text="缓动属性：" x="81" y="571" color="0xc79a84" stroke="0" width="60" height="18"/>

@@ -114,7 +114,7 @@ package com.cyj.app.view.app.effect
 				}
 				for(var i:int=0; i<targets.length; i++)
 				{
-					getItem(data, _view.roleLayer.owner, targets[i], isPlayAll);
+					getItem(data, _view.roleLayer.owner, targets[i], isPlayAll, i);
 				}
 			}else if(defaultTagret && data.effOwnerType == EffectPlayOwnerType.OneTarget)
 			{
@@ -124,10 +124,10 @@ package com.cyj.app.view.app.effect
 			}
 		} 
 		
-		private function getItem(data:EffectPlayItemData, owner:Role, target:Role, isPlayAll:Boolean=false):EffectPlayItem
+		private function getItem(data:EffectPlayItemData, owner:Role, target:Role, isPlayAll:Boolean=false, index:int=0):EffectPlayItem
 		{
 			var item:EffectPlayItem = new EffectPlayItem();
-			item.setData(data, owner, target);
+			item.setData(data, owner, target, index);
 			if(isPlayAll)
 			{
 				_playEndItemDic[data.id] = false;

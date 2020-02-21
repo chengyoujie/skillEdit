@@ -36,7 +36,7 @@ package com.cyj.app.data.effect
 		/**延迟执行时间 */
 		public var delay:int;
 		/**是否延迟时间随机**/
-		public var delayRandom:int;
+		public var delayType:int;
 		/**旋转类型**/
 		public var rotationType:int = 0;
 		/**旋转角度**/

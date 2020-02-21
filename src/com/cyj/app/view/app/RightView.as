@@ -72,7 +72,7 @@ package com.cyj.app.view.app
 						new BindData(checkScreenPos, "useScreen", "selected", handleRefushScene),
 						new BindData(checkBindOwner, "bindOwner", "selected", handleRefushScene),
 						new BindData(inputDelay, "delay"),
-						new BindData(checkDelayRandom, "delayRandom", "selected", handleRefushScene),
+						new BindData(comDealyTimeType, "delayType", "selectedIndex", handleRefushScene),
 						new BindData(comRotation, "rotationType", "selectedIndex", handleRotationTypeChange),
 						new BindData(inputRotation, "rotation", "text", handleRefushRotation)
 					);
