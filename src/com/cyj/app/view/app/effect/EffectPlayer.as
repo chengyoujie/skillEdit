@@ -116,6 +116,9 @@ package com.cyj.app.view.app.effect
 				{
 					getItem(data, _view.roleLayer.owner, targets[i], isPlayAll, i);
 				}
+			}else if(defaultTagret && data.move.type == EffectPlayOwnerType.OneTarget)
+			{
+				getItem(data,_view.roleLayer.owner , defaultTagret,  isPlayAll);
 			}else if(defaultTagret && data.effOwnerType == EffectPlayOwnerType.OneTarget)
 			{
 				getItem(data, defaultTagret, _view.roleLayer.owner , isPlayAll);
@@ -285,7 +288,7 @@ package com.cyj.app.view.app.effect
 				return true;
 			if(info.disInfo.dir == Direction.TO_TARGET_DIR)
 				return true;
-			if(info.rotationType == RotationType.TARGET)
+			if(info.rotationType == RotationType.TARGET && info.move.type != EffectPlayOwnerType.OneTarget)
 				return true;
 			return false;
 		}

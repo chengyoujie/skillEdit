@@ -9,6 +9,10 @@ package com.cyj.app.data.effect
 		public var speed:int = 500;
 		// angle
 		public var distance:int;
+		
+		public var offx:int;
+		public var offy:int;
+		
 		/**移动类型**/
 		public var ease:int;
 		/**是否自动设置旋转方向 */

@@ -272,7 +272,10 @@ package com.cyj.app.view.app
 				if(e.data == "distance")
 					updateMoveCtrDistance(itemData.move.distance);
 				else if(e.data == "type")
+				{
 					refushMoveList();
+					
+				}
 			}
 		}
 		

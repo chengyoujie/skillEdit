@@ -247,8 +247,8 @@ package com.cyj.app.view.app.effect
 			if(move && move.type != EffectPlayOwnerType.None)
 			{
 				_display.rotation = 0;
-				var toRole:Avatar = getCaster(move.type);
-				var fromRole:Avatar = getCaster(_data.effOwnerType);
+				var toRole:Avatar = getCaster(move.type, true);
+				var fromRole:Avatar = getCaster(_data.effOwnerType, true);
 				if(_data.effOwnerType == EffectPlayOwnerType.OneTarget)
 				{
 					toRole = _target;
@@ -264,12 +264,12 @@ package com.cyj.app.view.app.effect
 					if(move.distance)
 					{
 						var angle:Number = Math.atan2(-fromRole.y+toRole.y, -fromRole.x+toRole.x);
-						pos.x +=(move.distance)*Math.cos(angle);
+						pos.x +=(move.distance)*Math.cos(angle) ;
 						pos.y  +=  (move.distance)*Math.sin(angle);
 					}
 				}
-				pos.x += _display.x;
-				pos.y += _display.y;
+				pos.x += _display.x + move.offx;
+				pos.y += _display.y + move.offy;
 //				if(move.rotation)
 //					_display.rotation = ComUtill.getAngle(_display, pos)/Math.PI*180;
 				refushRotation();
@@ -317,7 +317,7 @@ package com.cyj.app.view.app.effect
 			{
 				_display.rotation = _data.rotation;
 			}else if(_data.rotationType == RotationType.OWNER){
-				_display.rotation = Direction.getDegrees(_owner.dir);
+				_display.rotation = Direction.getDegrees(_owner.dir)+_data.rotation;
 			}else if(_data.rotationType == RotationType.TARGET)
 			{
 				if(_target)
@@ -325,7 +325,7 @@ package com.cyj.app.view.app.effect
 					var zeroPoint:Point = new Point();
 					var pos1:Point = _target.localToGlobal(zeroPoint);
 					var pos2:Point = _display.localToGlobal(zeroPoint);
-					_display.rotation = ComUtill.getAngle(pos2, pos1)/Math.PI*180;
+					_display.rotation = ComUtill.getAngle(pos2, pos1)/Math.PI*180+_data.rotation;
 				}
 			}
 		}
@@ -489,10 +489,10 @@ package com.cyj.app.view.app.effect
 			return _mouseEnable;
 		}
 		
-		private function getCaster(type:int):Avatar
+		private function getCaster(type:int, isMove:Boolean = false):Avatar
 		{
 			if(type == EffectPlayOwnerType.None)return null;
-			else if(type == EffectPlayOwnerType.Target)return _target;
+			else if(type == EffectPlayOwnerType.Target || (isMove&&type == EffectPlayOwnerType.OneTarget))return _target;
 			else if(type == EffectPlayOwnerType.Sender || type == EffectPlayOwnerType.OneTarget  || type == EffectPlayOwnerType.MyTeam) return _owner;
 			return null;
 		}

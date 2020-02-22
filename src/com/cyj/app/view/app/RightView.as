@@ -13,6 +13,7 @@ package com.cyj.app.view.app
 	import com.cyj.app.data.cost.EffectPlayOwnerType;
 	import com.cyj.app.data.cost.EffectPlayTiggerType;
 	import com.cyj.app.data.cost.RotationType;
+	import com.cyj.app.data.effect.EffectPlayData;
 	import com.cyj.app.data.effect.EffectPlayItemData;
 	import com.cyj.app.data.effect.EffectPlayMoveEndData;
 	import com.cyj.app.utils.BindData;
@@ -81,6 +82,8 @@ package com.cyj.app.view.app
 				new BindData(comMoveTo, "type", "selectedIndex", handleMoveTypeChange, handleCheckMoveType),
 				new BindData(inputSpeed, "speed"),
 				new BindData(inputDistance, "distance", "text", handleDistanceChange),
+				new BindData(inputMoveOffX, "offx", "text", handleDistanceChange),
+				new BindData(inputMoveOffY, "offy", "text", handleDistanceChange),
 //				new BindData(comAutoRotaion, "rotation", "selectedIndex",handleRefushScene),
 				new BindData(comMoveEase, "ease", "selectedIndex",handleRefushScene)
 			);
@@ -309,6 +312,7 @@ package com.cyj.app.view.app
 			}
 			toBind(_moveBindData, selectItem.move);
 			SimpleEvent.send(AppEvent.MOVE_CHANGE,"type");
+			handlePlayItem();
 		}
 		
 		private function handleCheckMoveType(index:int):Boolean
@@ -581,7 +585,8 @@ package com.cyj.app.view.app
 		{
 			var selectItem:EffectPlayItemData = listStep.selectedItem as EffectPlayItemData;
 			if(!selectItem)return;
-			inputRotation.visible = selectItem.rotationType == RotationType.COSTOM;
+//			inputRotation.visible = selectItem.rotationType == RotationType.COSTOM;
+			txtRotationOffsetDes.visible = selectItem.rotationType != RotationType.COSTOM;
 			if(refushScene)
 				ToolsApp.effectPlayer.playItem(selectItem, true);
 		}

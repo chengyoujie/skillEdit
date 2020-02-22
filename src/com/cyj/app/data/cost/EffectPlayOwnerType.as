@@ -14,6 +14,7 @@ package com.cyj.app.data.cost
 		public  static const  MyTeam:int = 4;
 		
 		
+		
 		public function EffectPlayOwnerType()
 		{
 		}
