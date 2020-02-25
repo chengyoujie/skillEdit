@@ -318,7 +318,7 @@ package com.cyj.app.view.app.effect
 				_display.rotation = _data.rotation;
 			}else if(_data.rotationType == RotationType.OWNER){
 				_display.rotation = Direction.getDegrees(_owner.dir)+_data.rotation;
-			}else if(_data.rotationType == RotationType.TARGET)
+			}else if(_data.rotationType == RotationType.TARGET || _data.rotationType == RotationType.ONE_TARGET)
 			{
 				if(_target)
 				{

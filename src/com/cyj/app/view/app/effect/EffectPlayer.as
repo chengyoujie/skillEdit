@@ -122,7 +122,11 @@ package com.cyj.app.view.app.effect
 			}else if(defaultTagret && data.effOwnerType == EffectPlayOwnerType.OneTarget)
 			{
 				getItem(data, defaultTagret, _view.roleLayer.owner , isPlayAll);
-			}else{
+			}else if(defaultTagret && data.rotationType == RotationType.ONE_TARGET)
+			{
+				getItem(data, _view.roleLayer.owner ,defaultTagret,  isPlayAll);
+			}
+			else{
 				getItem(data, _view.roleLayer.owner, null, isPlayAll);
 			}
 		} 
