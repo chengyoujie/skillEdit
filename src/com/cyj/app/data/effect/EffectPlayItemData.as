@@ -15,7 +15,7 @@ package com.cyj.app.data.effect
 		/**特效所有者 可以为空 */
 		public var effOwnerType:int = EffectPlayOwnerType.Sender;
 		/**特效所在的层级 */
-		public var layer:int = EffectPlayLayer.Top;
+		public var layer:int = EffectPlayLayer.MapTop;
 		/**结束条件 */
 		public var endType:int;
 		/**结束参数 */

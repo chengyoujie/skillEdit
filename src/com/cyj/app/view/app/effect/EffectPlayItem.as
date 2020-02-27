@@ -338,10 +338,10 @@ package com.cyj.app.view.app.effect
 			if(_display.parent)
 				_display.parent.removeChild(_display);
 			var caster:Avatar = getCaster(_data.effOwnerType);
-			if(_data.layer == EffectPlayLayer.Top)
+			if(_data.layer == EffectPlayLayer.MapTop || _data.layer == EffectPlayLayer.FllowTop)
 			{
 				_centerView.upLayer.addChild(_display);
-			}else if(_data.layer == EffectPlayLayer.Bottom)
+			}else if(_data.layer == EffectPlayLayer.MapBottom || _data.layer == EffectPlayLayer.FllowBottom)
 			{
 				_centerView.downLayer.addChild(_display);
 			}else if(_data.layer == EffectPlayLayer.RoleTop)
@@ -382,7 +382,7 @@ package com.cyj.app.view.app.effect
 		{
 			if(!_data || !_display)return;
 			var useCasterPos:Boolean = false;//是否使用 角色坐标
-			if(_data.layer == EffectPlayLayer.Top || _data.layer == EffectPlayLayer.Bottom || _data.layer == EffectPlayLayer.FiveDir)
+			if(_data.layer == EffectPlayLayer.MapTop || _data.layer == EffectPlayLayer.MapBottom || _data.layer == EffectPlayLayer.FiveDir  || _data.layer == EffectPlayLayer.FllowTop || _data.layer == EffectPlayLayer.FllowBottom)
 			{
 				useCasterPos = true;
 			}

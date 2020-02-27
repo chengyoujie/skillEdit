@@ -6,12 +6,21 @@ package com.cyj.app.data.cost
 		public static const RoleTop:int = 0;
 		/**角色底部 */
 		public static const RoleBottom:int = 1;
-		/**上层 */
-		public static const Top:int = 2;
-		/**底部 */
-		public static const Bottom:int = 3;
-		/**五方向 */
+		/**地图上层 */
+		public static const MapTop:int = 2;
+		/**地图下层 */
+		public static const MapBottom:int = 3;
+		/**根据方向改变层级 */
 		public static const FiveDir:int = 4;
+		
+		/**上层跟随角色**/
+		public static const FllowTop:int = 5;
+		
+		
+		/**下层跟随角色**/
+		public static const FllowBottom:int = 6;
+		
+		
 		public function EffectPlayLayer()
 		{
 		}
