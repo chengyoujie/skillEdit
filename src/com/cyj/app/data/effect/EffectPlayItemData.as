@@ -27,9 +27,9 @@ package com.cyj.app.data.effect
 		/**移动参数 如果设置为move 则图层不能选择在角色身上（要不）*/
 		public var move:EffectPlayMoveEndData = new EffectPlayMoveEndData();
 		/**偏移X */
-		public var offx:int;
+		public var offx:String;
 		/**偏移Y */
-		public var offy:int;
+		public var offy:String;
 		
 		public var scalex:Number = 1;
 		public var scaley:Number = 1;

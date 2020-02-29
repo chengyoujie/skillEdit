@@ -268,8 +268,10 @@ package com.cyj.app.view.app.effect
 						pos.y  +=  (move.distance)*Math.sin(angle);
 					}
 				}
-				pos.x += _display.x + move.offx;
-				pos.y += _display.y + move.offy;
+				var offx:int = move.offx.indexOf("%")==-1?int(move.offx):( toRole?(int(move.offx.replace("%", ""))/100*toRole.width):0 )
+				var offy:int = move.offy.indexOf("%")==-1?int(move.offy):( toRole?(int(move.offy.replace("%", ""))/100*toRole.height):0 )
+				pos.x += _display.x + offx;
+				pos.y += _display.y + offy;
 //				if(move.rotation)
 //					_display.rotation = ComUtill.getAngle(_display, pos)/Math.PI*180;
 				refushRotation();
@@ -387,25 +389,27 @@ package com.cyj.app.view.app.effect
 				useCasterPos = true;
 			}
 			var caster:Avatar = getCaster(_data.effOwnerType);
+			var offx:int = _data.offx.indexOf("%")==-1?int(_data.offx):(int(_data.offx.replace("%", ""))/100*caster.width);
+			var offy:int = _data.offy.indexOf("%")==-1?int(_data.offy):(int(_data.offy.replace("%", ""))/100*caster.height);
 			if(_data.useScreen)
 			{
 				var sw:int = _centerView.width;
 				var sh:int =  _centerView.height;
 				if(caster && useCasterPos)//使用layer作为图层
 				{
-					_display.x = sw/2+_data.offx;
-					_display.y = sh/2+_data.offy;
+					_display.x = sw/2+offx;
+					_display.y = sh/2+offy;
 				}else{
-					_display.x = caster.x -  sw/2+_data.offx;
-					_display.y = caster.y -  sh/2+_data.offy;
+					_display.x = caster.x -  sw/2+offx;
+					_display.y = caster.y -  sh/2+offy;
 				}
 			}else if(caster && useCasterPos)
 			{
-				_display.x = caster.x+_data.offx;
-				_display.y = caster.y+_data.offy;
+				_display.x = caster.x+offx;
+				_display.y = caster.y+offy;
 			}else{
-				_display.x = _data.offx;
-				_display.y = _data.offy;
+				_display.x = offx;
+				_display.y = offy;
 			}
 			_orginDisplayPos.x = _display.x;
 			_orginDisplayPos.y = _display.y;

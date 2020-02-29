@@ -10,8 +10,8 @@ package com.cyj.app.data.effect
 		// angle
 		public var distance:int;
 		
-		public var offx:int;
-		public var offy:int;
+		public var offx:String;
+		public var offy:String;
 		
 		/**移动类型**/
 		public var ease:int;

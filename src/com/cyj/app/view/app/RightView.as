@@ -425,8 +425,8 @@ package com.cyj.app.view.app
 						item = ToolsApp.effectPlayer.getEffectPlayItem(selectItem.id);
 						if(!item || !item.display)return;
 						pos2 = item.display.localToGlobal(_tempZeroPoint); 
-						selectItem.offx = pos2.x - pos1.x;
-						selectItem.offy = pos2.y - pos1.y;
+						selectItem.offx = (pos2.x - pos1.x)+"";
+						selectItem.offy = (pos2.y - pos1.y)+"";
 						toBind(_itemBindData, selectItem);
 					}
 				}else if(role.avaterType == EffectPlayOwnerType.Target || selectItem.effOwnerType ==EffectPlayOwnerType.OneTarget)
@@ -434,8 +434,8 @@ package com.cyj.app.view.app
 					item = ToolsApp.effectPlayer.getEffectPlayItem(selectItem.id, role);
 					if(!item || !item.display)return;
 					pos2 = item.display.localToGlobal(_tempZeroPoint);	
-					selectItem.offx = pos2.x - pos1.x;
-					selectItem.offy = pos2.y - pos1.y;
+					selectItem.offx = (pos2.x - pos1.x)+"";
+					selectItem.offy = (pos2.y - pos1.y)+"";
 					toBind(_itemBindData, selectItem);
 				}
 			}else if(display is Effect || display is EffectImage){
@@ -455,8 +455,8 @@ package com.cyj.app.view.app
 				}else{
 					pos1 = target.localToGlobal(_tempZeroPoint);
 				}
-				selectItem.offx = pos2.x - pos1.x;
-				selectItem.offy = pos2.y - pos1.y;
+				selectItem.offx = (pos2.x - pos1.x)+"";
+				selectItem.offy = (pos2.y - pos1.y)+"";
 				toBind(_itemBindData, selectItem);
 				ToolsApp.effectPlayer.refushPos();
 			}else if(display is MoveControlCell){
