@@ -47,6 +47,7 @@ package com.cyj.app.view.unit
 		protected var _loopEndFun:Function;
 		protected var _isDispose:Boolean = false;
 		protected var _data:AvaterData;
+		protected var _bodyHeight:Number = -1;//角色的身高   -1表示没有获取
 		
 		public function Avatar($data:AvaterData)//$path:String, isDirRes:Boolean = false, dir:int=-1, act:String=null)
 		{
@@ -57,6 +58,7 @@ package com.cyj.app.view.unit
 			_isDirRes = _data.isDirRes;
 			_dir = _data.dir;
 			_act = _data.act;
+			_bodyHeight = _data.getBodyHeight();
 			if(!_data.id)
 				_data.id = ComUtill.getOnlyId();
 			downLayer = new Sprite();
@@ -190,15 +192,20 @@ package com.cyj.app.view.unit
 				{
 					if(arr.length>1)//多方向的会进行五方向镜像及加上特殊方向
 					{
+						var hasRight:Boolean = false;
 						for(var i:int=0; i<arr.length; i++)
 						{
 							_showUseRes[act].push(arr[i]);
+							if(!hasRight && arr[i] == Direction.RIGHT)
+									hasRight = true;
 							var newDir:int = Direction.getReverseFiveDir(arr[i]);
 							if(newDir != arr[i])
 								_showUseRes[act].push(newDir);
 						}
 						_showUseRes[act].push(Direction.OWNER_DIR);
 						_showUseRes[act].push(Direction.TO_TARGET_DIR);
+						if(hasRight)
+							_showUseRes[act].push(Direction.RIGHT_LEFT);
 					}else if(arr.length == 1){
 						_showUseRes[act].push(arr[0]);
 					}	
@@ -379,6 +386,12 @@ package com.cyj.app.view.unit
 		
 		override public function get height():Number
 		{
+			if(_bodyHeight<0)
+			{
+				_bodyHeight = _data.getBodyHeight();
+				if(_bodyHeight>0)
+					return _bodyHeight;
+			}
 			if(!_res ||!_res.isReady)return super.height;
 			return _res.height;
 		}
@@ -417,6 +430,7 @@ package com.cyj.app.view.unit
 				this.parent.removeChild(this);
 			_loopEndFun = null;
 			_loop = 0;
+			_bodyHeight = -1;
 			_moviePlay.dispose();
 			_moviePlay = null;
 			

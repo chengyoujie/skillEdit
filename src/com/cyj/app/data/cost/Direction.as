@@ -28,6 +28,9 @@ package com.cyj.app.data.cost
 		/**受击者方向**/
 		public static const TO_TARGET_DIR:int = 9;
 		
+		/**左右两方向**/
+		public static const RIGHT_LEFT:int = 10;
+		
 		public static function getDirName(dir:int):String
 		{
 			//↑上,↗右上,→右,↘右下,↓下,↙左下,←左,↖左上,绑定者方向,受击者方向
@@ -42,6 +45,7 @@ package com.cyj.app.data.cost
 				case Direction.LEFTTOP:return "↖左上";
 				case Direction.OWNER_DIR:return "绑定者方向";
 				case Direction.TO_TARGET_DIR:return "受击者方向";
+				case Direction.RIGHT_LEFT:return "左右两方向";
 			}
 			return "None";
 		}
@@ -88,6 +92,13 @@ package com.cyj.app.data.cost
 			}
 			return newDire;
 		}
+		
+		/**方向是否右方向**/
+		public static function getIsRight(dir:int):Boolean
+		{
+			return dir==Direction.BOTTOM|| dir == Direction.RIGHT|| dir == Direction.RIGHT_LEFT || dir == Direction.RIGHTBOTTOM || dir == Direction.RIGHTTOP;
+		}
+		
 		
 		/**
 		 * 五方向反过来， 根据有资源的方向获取没有资源的方向 

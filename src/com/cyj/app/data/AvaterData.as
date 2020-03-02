@@ -1,5 +1,6 @@
 package com.cyj.app.data
 {
+	import com.cyj.app.ToolsApp;
 	import com.cyj.app.data.cost.EffectPlayOwnerType;
 	import com.cyj.app.utils.ComUtill;
 
@@ -39,6 +40,24 @@ package com.cyj.app.data
 			cd.parse(JSON.parse(JSON.stringify(this)));
 			cd.id = ComUtill.getOnlyId();
 			return cd;
+		}
+		
+		
+		/**
+		 * 
+		 * 获取body的高度  如没有找到则返回0
+		 * */
+		public function getBodyHeight():Number
+		{
+			var config:Object = ToolsApp.projectData.config;
+			if(!config)return 0;
+			var bodyHeightCfgs:Object = config['body_height'] || {};
+			var bodyCfg:Object = ComUtill.getResCfgByPath(path);
+			if(!bodyCfg)return 0;
+			var key:String = bodyCfg.resMenu + "_" + bodyCfg.res1;
+			if(bodyHeightCfgs[key])
+				return bodyHeightCfgs[key];
+			return 0;
 		}
 		
 	}

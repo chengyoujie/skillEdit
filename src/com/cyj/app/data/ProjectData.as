@@ -2,6 +2,7 @@ package com.cyj.app.data
 {
 	import com.cyj.app.data.effect.EffectPlayData;
 	import com.cyj.app.data.effect.EffectPlayItemData;
+	import com.cyj.app.utils.ComUtill;
 	import com.cyj.app.view.unit.Avatar;
 	import com.cyj.app.view.unit.AvaterRes;
 	import com.cyj.app.view.unit.SubImageInfo;
@@ -86,6 +87,8 @@ package com.cyj.app.data
 			}
 			return rect;
 		}
+		
+		
 		
 		public function ProjectData()
 		{

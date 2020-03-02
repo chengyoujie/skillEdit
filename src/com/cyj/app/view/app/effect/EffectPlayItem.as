@@ -214,6 +214,9 @@ package com.cyj.app.view.app.effect
 					dir2 = caster.dir;
 				else
 					dir2 = Direction.TOP;
+			}else if(dir2 == Direction.RIGHT_LEFT)
+			{
+				dir2 = Direction.RIGHT;
 			}else if(dir2 == Direction.TO_TARGET_DIR)
 			{
 				if(_target)
@@ -225,6 +228,10 @@ package com.cyj.app.view.app.effect
 				}
 			}
 			Avatar(_display).dir = dir2;
+			if(_data.disInfo.dir == Direction.RIGHT_LEFT)
+			{
+				refushScale();
+			}
 		}
 		
 		
@@ -413,14 +420,7 @@ package com.cyj.app.view.app.effect
 			}
 			_orginDisplayPos.x = _display.x;
 			_orginDisplayPos.y = _display.y;
-			if(_display is Avatar)
-			{
-				Avatar(_display).scalex = _data.scalex;
-				Avatar(_display).scaley = _data.scaley;
-			}else{
-				_display.scaleX = _data.scalex;
-				_display.scaleY = _data.scaley;
-			}
+			refushScale();
 			
 //			if(_data.move.type != EffectPlayOwnerType.None && _data.move.rotation)
 //			{
@@ -435,6 +435,28 @@ package com.cyj.app.view.app.effect
 //			}
 			refushDir();
 			refushRotation();
+		}
+		
+		private function refushScale():void
+		{
+			var extScaleX:int = 1;
+			if(_data.disInfo.dir == Direction.RIGHT_LEFT)
+			{
+				var caster:Avatar = getCaster(_data.effOwnerType);
+				var target:Avatar = caster==_owner?_target:_owner;
+				if(caster && target && target.x>caster.x)
+				{
+					extScaleX *= -1;
+				}
+			}
+			if(_display is Avatar)
+			{
+				Avatar(_display).scalex = _data.scalex*extScaleX;
+				Avatar(_display).scaley = _data.scaley;
+			}else{
+				_display.scaleX = _data.scalex*extScaleX;
+				_display.scaleY = _data.scaley;
+			}
 		}
 		
 		public function refushTween():void

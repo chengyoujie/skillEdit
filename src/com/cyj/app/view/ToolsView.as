@@ -139,7 +139,10 @@ package com.cyj.app.view
 				var key:String = byte.readUTF();
 //				var keyProp:Object = byte.readObject();
 				var obj:Object = byte.readObject();
-				zzp[name] = obj.unit;
+				if(obj.unit)
+					zzp[name] = obj.unit;
+				else
+					zzp[name] = obj;
 			}
 			ToolsApp.projectData.config = zzp;
 			Log.log("config.zzp加载完毕");

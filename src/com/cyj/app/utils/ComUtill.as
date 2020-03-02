@@ -84,6 +84,29 @@ package com.cyj.app.utils
 			return null;
 		}
 		
+		/**获取Body的配置**/
+		public static function getResCfgByPath(path:String):Object
+		{
+			var cfgs:Array = ToolsApp.projectData.config.resBody;
+			path = commonPath(path);
+			var root:String = ToolsApp.localCfg.localWebPath+"/avatarres/";
+			for(var i:int=0; i<cfgs.length; i++)
+			{
+				var p1:String = commonPath(root + cfgs[i].resMenu+"/"+cfgs[i].res1);
+				if(p1 == path)
+				{
+					return cfgs[i];			
+				}else{
+					p1 =  commonPath(root + cfgs[i].resMenu+"/"+cfgs[i].res2);
+					if(p1 == path)
+					{
+						return cfgs[i];			
+					}
+				}
+			}
+			return null;
+		}
+		
 		/** 通过两点获得角度 */
 		public static function  getAngle(pointA:*, pointB:*):Number {//通过两点获得角度
 			var mx:Number = pointA.x;
