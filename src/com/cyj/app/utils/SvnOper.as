@@ -82,7 +82,7 @@ package com.cyj.app.utils
 		{
 			if(oper)
 			{
-				var svnop:String  = ToolsApp.config.svnpath+" "+oper;//+" --username chengyoujie --password chengyoujie   --no-auth-cache";
+				var svnop:String  = '"'+ToolsApp.config.svnpath+'"'+" "+oper;//+" --username chengyoujie --password chengyoujie   --no-auth-cache";
 			}
 			cmdOper(svnop, completeFun, isClear);
 		}
@@ -108,6 +108,7 @@ package com.cyj.app.utils
 		public static function handleCmdResult(type:int, cmd:String):void
 		{
 			trace(cmd);
+			Log.log("cmdReuslt:  "+cmd);
 			_catchCmd += cmd;
 			if(_catchCmd.indexOf("|TAG|") != -1)
 			{

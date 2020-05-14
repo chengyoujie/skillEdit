@@ -80,7 +80,9 @@ package com.cyj.app.view.app
 			_moveBindData = new Vector.<BindData>( );
 			_moveBindData.splice(0, 0,		
 				new BindData(comMoveTo, "type", "selectedIndex", handleMoveTypeChange, handleCheckMoveType),
-				new BindData(inputSpeed, "speed"),
+				new BindData(inputSpeed, "speed", "text", handleRefushScene),
+				new BindData(inputMoveRotation, "rotation", "text", handleRefushScene),
+				new BindData(comMoveRotation, "rotationType", "selectedIndex", handleRefushScene),
 				new BindData(inputDistance, "distance", "text", handleDistanceChange),
 				new BindData(inputMoveOffX, "offx", "text", handleDistanceChange),
 				new BindData(inputMoveOffY, "offy", "text", handleDistanceChange),
@@ -255,7 +257,7 @@ package com.cyj.app.view.app
 				{
 					TipMsg.show("当前设置移动完成，需要设置移动信息， 设置默认移动");
 					selectItem.move.type = (selectItem.effOwnerType==EffectPlayOwnerType.Sender || selectItem.effOwnerType == EffectPlayOwnerType.MyTeam)?EffectPlayOwnerType.Target:EffectPlayOwnerType.Sender;
-					selectItem.move.rotation = true;
+//					selectItem.move.rotation = true;
 					selectItem.move.speed = 500;
 					toBind(_moveBindData, selectItem.move);
 					handleMoveTypeChange();

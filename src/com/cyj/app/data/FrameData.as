@@ -13,6 +13,7 @@ package com.cyj.app.data
 		public var oy:int;
 		
 		public var name:String;
+		public var scale:Number=1;
 		public var visible:Boolean = true;
 		
 		public function FrameData(data:Object=null)

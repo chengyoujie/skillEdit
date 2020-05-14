@@ -58,10 +58,15 @@ package com.cyj.app.view.app.movectr
 		{
 			this._fromCell.x = _fromCell.target.x;
 			this._fromCell.y = _fromCell.target.y;
-
 			var angle:Number = Math.atan2(-fromCell.target.y+toCell.target.y, -fromCell.target.x+toCell.target.x);
-			this._toCell.x = toCell.target.x + (_distance)*Math.cos(angle);//_toCell.target.x;
-			this._toCell.y = toCell.target.y + (_distance)*Math.sin(angle);//_toCell.target.x;
+			if(_distance)
+			{
+				this._toCell.x = _fromCell.target.x + (_distance)*Math.cos(angle);//_toCell.target.x;
+				this._toCell.y = _fromCell.target.y + (_distance)*Math.sin(angle);//_toCell.target.x;
+			}else{
+				this._toCell.x = toCell.target.x + (_distance)*Math.cos(angle);//_toCell.target.x;
+				this._toCell.y = toCell.target.y + (_distance)*Math.sin(angle);//_toCell.target.x;
+			}
 			updateLine();
 		}
 		

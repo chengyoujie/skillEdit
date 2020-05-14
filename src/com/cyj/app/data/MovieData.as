@@ -3,11 +3,12 @@ package com.cyj.app.data
 	public class MovieData
 	{
 		public var dir:int;
-		public var subtexture:Object;
-		public var resName:String;
-		public var len:int;
+		public var sub:Array;
+//		public var resName:String;
+//		public var len:int;
 		public var speed:int;
-		public var acts:String;
+		public var scale:Number = 1;
+//		public var acts:String;
 		
 		public var frames:Array = [];//FrameData[]
 		

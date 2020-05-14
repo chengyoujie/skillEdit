@@ -154,7 +154,7 @@ package com.cyj.app.view.app
 			}
 			xml+= "</root>";
 			treeRole.dataSource = new XML(xml);
-			
+			Log.log("目录读取"+root+"完毕");
 			loadConfig();
 		}
 		

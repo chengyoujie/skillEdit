@@ -10,13 +10,17 @@ package com.cyj.app.data.effect
 		// angle
 		public var distance:int;
 		
-		public var offx:String;
-		public var offy:String;
+		public var offx:String  = "0";
+		public var offy:String = "0";
 		
 		/**移动类型**/
 		public var ease:int;
-		/**是否自动设置旋转方向 */
-		public var rotation:Boolean = false;
+		/**旋转角度**/
+		public var rotation:int = 0;
+		/**旋转角度类型**/
+		public var rotationType:int = 0;
+//		/**是否自动设置旋转方向 */
+//		public var rotation:Boolean = false;
 		
 		public function EffectPlayMoveEndData()
 		{

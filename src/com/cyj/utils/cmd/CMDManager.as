@@ -1,5 +1,7 @@
 package com.cyj.utils.cmd
 {
+	import com.cyj.utils.Log;
+	
 	import flash.desktop.NativeProcess;
 	import flash.desktop.NativeProcessStartupInfo;
 	import flash.events.IOErrorEvent;
@@ -111,6 +113,7 @@ package com.cyj.utils.cmd
 //			var byte:ByteArray = new ByteArray();
 //			byte.writeUTFBytes(cmd);
 //			process.standardInput.writeBytes(byte);
+			Log.log("CMD: "+cmd);
 			process.standardInput.writeMultiByte(cmd+"\n", coding);
 		}
 		

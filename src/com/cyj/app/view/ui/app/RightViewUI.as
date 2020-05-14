@@ -31,6 +31,8 @@ package com.cyj.app.view.ui.app {
 		public var comMoveEase:ComboBox = null;
 		public var inputMoveOffX:TextInput = null;
 		public var inputMoveOffY:TextInput = null;
+		public var inputMoveRotation:TextInput = null;
+		public var comMoveRotation:ComboBox = null;
 		public var boxTigglerParam:Box = null;
 		public var inputTigglerParam:TextInput = null;
 		public var boxEndParam:Box = null;
@@ -84,32 +86,35 @@ package com.cyj.app.view.ui.app {
 			    <Label text="结束条件：" x="6" y="142" color="0xff9900" stroke="0"/>
 			    <ComboBox skin="png.guidecomp.combobox" x="70" y="85" var="comTigglerType" width="115" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="开始,某一特效播放结束" selectedIndex="0"/>
 			    <Label text="开始条件：" x="7" y="87" color="0xff9900" stroke="0"/>
-			    <Label text="偏移X：" x="23" y="315" color="0xff9900" stroke="0"/>
-			    <TextInput text="0" skin="png.comp.textinput" x="70" y="314" color="0x0" width="65" height="22" var="inputOffx"/>
-			    <Label text="偏移Y：" x="22" y="345" color="0xff9900" stroke="0"/>
-			    <TextInput text="0" skin="png.comp.textinput" x="70" y="344" color="0x0" width="65" height="22" var="inputOffy"/>
-			    <Label text="延迟时间：" x="7" y="375" color="0xff9900" stroke="0"/>
-			    <TextInput text="0" skin="png.comp.textinput" x="70" y="374" color="0x0" width="65" height="22" var="inputDelay"/>
+			    <Label text="偏移X：" x="23" y="323" color="0xff9900" stroke="0"/>
+			    <TextInput text="0" skin="png.comp.textinput" x="70" y="322" color="0x0" width="65" height="22" var="inputOffx"/>
+			    <Label text="偏移Y：" x="22" y="353" color="0xff9900" stroke="0"/>
+			    <TextInput text="0" skin="png.comp.textinput" x="70" y="352" color="0x0" width="65" height="22" var="inputOffy"/>
+			    <Label text="延迟时间：" x="7" y="383" color="0xff9900" stroke="0"/>
+			    <TextInput text="0" skin="png.comp.textinput" x="70" y="382" color="0x0" width="65" height="22" var="inputDelay"/>
 			    <Image skin="png.guidecomp.分割线_2px" y="81" width="280"/>
 			    <Image skin="png.guidecomp.分割线_2px" x="3" y="193" width="280"/>
 			    <ComboBox skin="png.guidecomp.combobox" x="70" var="comMoveTo" width="115" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="无,施法者,受击者,目标其中一个" selectedIndex="0" y="196"/>
 			    <Label text="移动到：" x="18" y="198" color="0xff9900" stroke="0" height="19"/>
-			    <Box x="7" y="224" var="boxMove">
-			      <Label text="速度：" x="23" y="1" color="0xff9900" stroke="0" align="right"/>
-			      <TextInput text="0" skin="png.comp.textinput" x="63" color="0x0" width="65" height="22" var="inputSpeed"/>
-			      <Label text="移动偏移：" y="29" color="0xff9900" stroke="0" align="right"/>
-			      <TextInput text="0" skin="png.comp.textinput" x="84" y="27" color="0x0" width="38" height="22" var="inputDistance"/>
-			      <Button skin="png.guidecomp.btn_小按钮_1" labelColors="0xc79a84,0xe0a98d,0x93827a" var="btnResetMoveDis" labelStroke="0" width="38" height="28" x="231" label="置零" y="24"/>
-			      <Label text="移动类型：" y="59" color="0xff9900" stroke="0" align="right" height="18" x="1"/>
-			      <ComboBox skin="png.guidecomp.combobox" x="65" y="57" var="comMoveEase" width="115" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="直线,二次方加速,二次方减速,二次方加减速,三次方加速,三次方减速,三次方加减速,四次方加速,四次方减速,四次方加减速,五次方加速,五次方减速,五次方加减速,正弦加速,正弦减速,正弦加减速,超范围加速,超范围减速,超范围加减速,圆形加速,圆形减速,圆形加减速,指数反弹加速,指数反弹减速,指数反弹加减速,指数衰减加速,指数衰减减速,指数衰减加减速" selectedIndex="0"/>
-			      <Label text="x" y="28.5" color="0xff9900" stroke="0" align="right" x="123"/>
-			      <TextInput text="0" skin="png.comp.textinput" x="133" y="27" color="0x0" width="44" height="22" var="inputMoveOffX"/>
-			      <Label text="y" y="28.5" color="0xff9900" stroke="0" align="right" x="178"/>
-			      <TextInput text="0" skin="png.comp.textinput" x="186" y="27" color="0x0" width="41" height="22" var="inputMoveOffY"/>
-			      <Label text="前后" y="28.5" color="0xff9900" stroke="0" align="right" x="56"/>
+			    <Box x="4" y="223" var="boxMove">
+			      <Label text="速度：" x="26" y="2" color="0xff9900" stroke="0" align="right"/>
+			      <TextInput text="0" skin="png.comp.textinput" x="66" color="0x0" width="65" height="22" var="inputSpeed" y="1"/>
+			      <Label text="移动偏移：" y="30" color="0xff9900" stroke="0" align="right" x="3"/>
+			      <TextInput text="0" skin="png.comp.textinput" x="66" y="55" color="0x0" width="65" height="22" var="inputDistance"/>
+			      <Button skin="png.guidecomp.btn_小按钮_1" labelColors="0xc79a84,0xe0a98d,0x93827a" var="btnResetMoveDis" labelStroke="0" width="38" height="28" x="139" label="置零" y="49"/>
+			      <Label text="缓动类型：" y="2" color="0xff9900" stroke="0" align="right" height="18" x="133"/>
+			      <ComboBox skin="png.guidecomp.combobox" x="192" var="comMoveEase" width="84" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="直线,二次方加速,二次方减速,二次方加减速,三次方加速,三次方减速,三次方加减速,四次方加速,四次方减速,四次方加减速,五次方加速,五次方减速,五次方加减速,正弦加速,正弦减速,正弦加减速,超范围加速,超范围减速,超范围加减速,圆形加速,圆形减速,圆形加减速,指数反弹加速,指数反弹减速,指数反弹加减速,指数衰减加速,指数衰减减速,指数衰减加减速" selectedIndex="0"/>
+			      <Label text="x" y="29" color="0xff9900" stroke="0" align="right" x="62"/>
+			      <TextInput text="0" skin="png.comp.textinput" x="72" y="28" color="0x0" width="44" height="22" var="inputMoveOffX"/>
+			      <Label text="y" y="29" color="0xff9900" stroke="0" align="right" x="117"/>
+			      <TextInput text="0" skin="png.comp.textinput" x="125" y="28" color="0x0" width="41" height="22" var="inputMoveOffY"/>
+			      <Label text="固定距离：" y="56" color="0xff9900" stroke="0" align="right" x="3"/>
+			      <Label text="移动偏移：" y="79" color="0xff9900" stroke="0"/>
+			      <TextInput text="0" skin="png.comp.textinput" x="153" color="0x0" width="65" height="22" var="inputMoveRotation" y="75"/>
+			      <ComboBox skin="png.guidecomp.combobox" x="63" var="comMoveRotation" width="86" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="自定义,拥有者方向" selectedIndex="0" y="75"/>
 			    </Box>
-			    <Image skin="png.guidecomp.分割线_2px" x="3" y="308" width="280"/>
-			    <Image skin="png.guidecomp.分割线_2px" x="5" y="369" width="280"/>
+			    <Image skin="png.guidecomp.分割线_2px" x="3" y="319" width="280"/>
+			    <Image skin="png.guidecomp.分割线_2px" x="5" y="378" width="280"/>
 			    <Box x="7" y="113" var="boxTigglerParam">
 			      <Label text="开始参数：" y="1" color="0xff9900" stroke="0"/>
 			      <TextInput text="0" skin="png.comp.textinput" x="63" color="0x0" width="65" height="22" var="inputTigglerParam"/>
@@ -118,22 +123,22 @@ package com.cyj.app.view.ui.app {
 			      <Label text="结束参数：" y="1" color="0xff9900" stroke="0" var="txtEndParamDes"/>
 			      <TextInput text="0" skin="png.comp.textinput" x="64" color="0x0" width="65" height="22" var="inputEndParam"/>
 			    </Box>
-			    <Button skin="png.guidecomp.btn_小按钮_1" labelColors="0xc79a84,0xe0a98d,0x93827a" var="btnResetOffset" labelStroke="0" width="38" height="28" x="146" label="置零" y="314"/>
+			    <Button skin="png.guidecomp.btn_小按钮_1" labelColors="0xc79a84,0xe0a98d,0x93827a" var="btnResetOffset" labelStroke="0" width="38" height="28" x="146" label="置零" y="322"/>
 			    <Box x="31" var="boxDir" y="54">
 			      <ComboBox skin="png.guidecomp.combobox" x="39" var="comDisDir" width="115" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="↑上,↗右上,→右,↘右下,↓下,↙左下,←左,↖左上,绑定者方向,受击者方向,左右两方向(需右图)" selectedIndex="0" y="0"/>
 			      <Label text="方向：" y="2" color="0xff9900" stroke="0" x="0" align="right"/>
 			    </Box>
-			    <Label text="旋转角度：" x="8" y="402.5" color="0xff9900" stroke="0"/>
-			    <TextInput text="0" skin="png.comp.textinput" x="185" y="401" color="0x0" width="65" height="22" var="inputRotation"/>
-			    <ComboBox skin="png.guidecomp.combobox" x="68" var="comRotation" width="86" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="自定义,拥有者方向,目标方向,目标中的一个" selectedIndex="0" y="400.5"/>
-			    <Label text="缩放Y：" x="209" y="349" color="0xff9900" stroke="0" width="41" height="18"/>
-			    <TextInput text="0" skin="png.comp.textinput" x="249" y="347" color="0x0" width="30" height="22" var="inputScaley"/>
-			    <Label text="缩放X：" x="209" y="320" color="0xff9900" stroke="0" width="39" height="18"/>
-			    <TextInput text="0" skin="png.comp.textinput" x="250" y="319" color="0x0" width="29" height="22" var="inputScalex"/>
-			    <CheckBox label="屏幕坐标" skin="png.guidecomp.checkbox_单选" x="138" y="345" labelColors="0xc79a84,0xe0a98d,0x93827a" labelStroke="0" var="checkScreenPos"/>
+			    <Label text="旋转角度：" x="8" y="411.5" color="0xff9900" stroke="0"/>
+			    <TextInput text="0" skin="png.comp.textinput" x="185" y="410" color="0x0" width="65" height="22" var="inputRotation"/>
+			    <ComboBox skin="png.guidecomp.combobox" x="68" var="comRotation" width="86" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="自定义,拥有者方向,目标方向,目标中的一个" selectedIndex="0" y="409.5"/>
+			    <Label text="缩放Y：" x="209" y="357" color="0xff9900" stroke="0" width="41" height="18"/>
+			    <TextInput text="0" skin="png.comp.textinput" x="249" y="355" color="0x0" width="30" height="22" var="inputScaley"/>
+			    <Label text="缩放X：" x="209" y="328" color="0xff9900" stroke="0" width="39" height="18"/>
+			    <TextInput text="0" skin="png.comp.textinput" x="250" y="327" color="0x0" width="29" height="22" var="inputScalex"/>
+			    <CheckBox label="屏幕坐标" skin="png.guidecomp.checkbox_单选" x="138" y="353" labelColors="0xc79a84,0xe0a98d,0x93827a" labelStroke="0" var="checkScreenPos"/>
 			    <CheckBox label="绑定拥有者" skin="png.guidecomp.checkbox_单选" x="189" y="56" labelColors="0xc79a84,0xe0a98d,0x93827a" labelStroke="0" var="checkBindOwner"/>
-			    <ComboBox skin="png.guidecomp.combobox" x="138" var="comDealyTimeType" width="112" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="固定,范围内随机,每个目标间隔" selectedIndex="0" y="374"/>
-			    <Label text="偏移" x="155" y="402" color="0xff9900" stroke="0" width="27" height="18" var="txtRotationOffsetDes"/>
+			    <ComboBox skin="png.guidecomp.combobox" x="138" var="comDealyTimeType" width="112" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="固定,范围内随机,每个目标间隔" selectedIndex="0" y="382"/>
+			    <Label text="偏移" x="155" y="411" color="0xff9900" stroke="0" width="27" height="18" var="txtRotationOffsetDes"/>
 			  </Box>
 			  <Button skin="png.guidecomp.btn_小按钮_1" labelColors="0xc79a84,0xe0a98d,0x93827a" var="btnTweenProp" labelStroke="0" width="67" height="28" x="12" label="缓动属性" y="568"/>
 			  <Label text="缓动属性：" x="81" y="571" color="0xc79a84" stroke="0" width="60" height="18"/>

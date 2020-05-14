@@ -6,6 +6,7 @@ package com.cyj.utils
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
 	import flash.events.Event;
+	import flash.filesystem.File;
 	import flash.utils.clearTimeout;
 	import flash.utils.setTimeout;
 	
@@ -55,6 +56,7 @@ package com.cyj.utils
 			if(_delayMarkTimeId)
 				clearTimeout(_delayMarkTimeId);
 			_delayMarkTimeId = 0;
+			ToolsApp.file.saveFile(File.applicationDirectory.nativePath+"/res/log.txt", content);
 		}
 		
 		public static function get content():String

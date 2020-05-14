@@ -264,21 +264,43 @@ package com.cyj.app.view.app.effect
 				{
 					_tempPoint2.x = 0;
 					_tempPoint2.y = 0;
-					_tempPoint2 = toRole.localToGlobal(_tempPoint2);//角色的坐标转为特效的坐标
-					_tempPoint2 = _display.globalToLocal(_tempPoint2);
-					pos.x += _tempPoint2.x;
-					pos.y += _tempPoint2.y;
+					
 					if(move.distance)
 					{
 						var angle:Number = Math.atan2(-fromRole.y+toRole.y, -fromRole.x+toRole.x);
 						pos.x +=(move.distance)*Math.cos(angle) ;
 						pos.y  +=  (move.distance)*Math.sin(angle);
+					}else{
+						_tempPoint2 = toRole.localToGlobal(_tempPoint2);//角色的坐标转为特效的坐标
+						_tempPoint2 = _display.globalToLocal(_tempPoint2);
+						pos.x += _tempPoint2.x;
+						pos.y += _tempPoint2.y;
 					}
+				}
+				
+				
+				
+				if(move.rotation)//偏移位置
+				{
+					var angle2:Number = 0;
+					if(move.rotationType == RotationType.OWNER)
+					{
+						angle2 = Direction.getDegrees(_owner.dir)/180*Math.PI;
+					}else{
+						angle2 = Math.atan2(pos.y, pos.x);
+					}
+					
+					angle2 += (move.rotation/180*Math.PI);
+					var dis:Number = Math.sqrt(pos.x*pos.x+pos.y*pos.y);
+					pos.x  = dis*Math.cos(angle2) ;
+					pos.y = dis*Math.sin(angle2);
 				}
 				var offx:int = move.offx.indexOf("%")==-1?int(move.offx):( toRole?(int(move.offx.replace("%", ""))/100*toRole.width):0 )
 				var offy:int = move.offy.indexOf("%")==-1?int(move.offy):( toRole?(int(move.offy.replace("%", ""))/100*toRole.height):0 )
+					
 				pos.x += _display.x + offx;
 				pos.y += _display.y + offy;
+				
 //				if(move.rotation)
 //					_display.rotation = ComUtill.getAngle(_display, pos)/Math.PI*180;
 				refushRotation();
@@ -322,6 +344,15 @@ package com.cyj.app.view.app.effect
 		{
 			if(!_data)return;
 			if(!_display)return;
+			var move:EffectPlayMoveEndData = _data.move;
+//			var addMoveRotation:Number = 0;
+//			if(move && move.type != EffectPlayOwnerType.None)
+//			{
+//				if(move.rotation)
+//				{
+//					addMoveRotation = move.rotation/180*Math.PI;
+//				}
+//			}
 			if(_data.rotationType == RotationType.COSTOM)
 			{
 				_display.rotation = _data.rotation;
@@ -442,11 +473,20 @@ package com.cyj.app.view.app.effect
 			var extScaleX:int = 1;
 			if(_data.disInfo.dir == Direction.RIGHT_LEFT)
 			{
-				var caster:Avatar = getCaster(_data.effOwnerType);
-				var target:Avatar = caster==_owner?_target:_owner;
-				if(caster && target && target.x>caster.x)
+				if(_owner && _target)
 				{
-					extScaleX *= -1;
+					if(_data.effOwnerType == EffectPlayOwnerType.OneTarget)
+					{
+						if(_owner.x<_target.x)
+						{
+							extScaleX *= -1;
+						}
+					}else{
+						if( _owner.x>_target.x)
+						{
+							extScaleX *= -1;
+						}	
+					}
 				}
 			}
 			if(_display is Avatar)

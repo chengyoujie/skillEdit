@@ -36,6 +36,12 @@ package com.cyj.app.view.unit
 //			_sx = 1;
 //			_sy = 1;	
 			_frameData = data;
+			if(_frameData && _frameData.scale && _frameData.scale!=1)
+			{
+				bmp.scaleX = bmp.scaleY = 1/_frameData.scale;
+			}else{
+				bmp.scaleX = bmp.scaleY = 1;
+			}
 		}
 		
 		public function get frameData():FrameData
@@ -77,8 +83,11 @@ package com.cyj.app.view.unit
 				}else{
 					bmp.bitmapData = null;
 				}
-				bmp.x = frameData.x + frameData.ox;
-				bmp.y =  frameData.y + frameData.oy;
+				var scale:Number = 1;
+				if(_frameData.scale)
+					scale = 1/_frameData.scale;
+				bmp.x = frameData.x + frameData.ox *scale;
+				bmp.y =  frameData.y + frameData.oy *scale;
 				bmp.width = frameData.w;
 				bmp.height = frameData.h;
 			}else{
@@ -139,11 +148,17 @@ package com.cyj.app.view.unit
 		
 		public function get ox():int
 		{
-			return _frameData.ox;
+			var scale:Number = 1;
+			if(_frameData && _frameData.scale)
+				scale = 1/_frameData.scale;
+			return _frameData.ox*scale;
 		}
 		public function get oy():int
 		{
-			return _frameData.oy;
+			var scale:Number = 1;
+			if(_frameData && _frameData.scale)
+				scale = 1/_frameData.scale;
+			return _frameData.oy*scale;
 		}
 		
 		public function get framey():int
