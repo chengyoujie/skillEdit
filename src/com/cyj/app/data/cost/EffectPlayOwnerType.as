@@ -12,6 +12,8 @@ package com.cyj.app.data.cost
 		public static const OneTarget:int = 3;
 		/**我方全体**/
 		public  static const  MyTeam:int = 4;
+		/**圣物**/
+		public static const ShengWu:int = 5;
 		
 		
 		

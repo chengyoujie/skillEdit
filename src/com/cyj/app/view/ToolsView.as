@@ -77,7 +77,8 @@ package com.cyj.app.view
 			centerPanel.hScrollBar.touchScrollEnable = false;
 			btnSetting.clickHandler = new Handler(handleOpenSettingView);
 			btnSave.clickHandler = new Handler(handleSaveData);
-			btnOpenDir.clickHandler = new Handler(handleOpenDir);
+			btnOpenWebDir.clickHandler = new Handler(handleOpenWebDir);
+			btnOpenDataDir.clickHandler = new Handler(handleOpenDataDir);
 			btnSvnCommit.clickHandler = new Handler(handleSvnCommit);
 			btnSvnUpdate.clickHandler = new Handler(handleSvnUpdate);
 			App.stage.addEventListener(KeyboardEvent.KEY_DOWN, handleKeyDown);
@@ -131,19 +132,20 @@ package com.cyj.app.view
 		{
 			var byte:ByteArray = res.data as ByteArray;
 			byte.uncompress();
-			var allLen:int = byte.readShort();
-			var zzp:Object = {};
-			for(var i:int=0; i<allLen; i++)
-			{
-				var name:String = byte.readUTF();
-				var key:String = byte.readUTF();
-//				var keyProp:Object = byte.readObject();
-				var obj:Object = byte.readObject();
-				if(obj.unit)
-					zzp[name] = obj.unit;
-				else
-					zzp[name] = obj;
-			}
+			var zzp:Object = byte.readObject();
+//			var allLen:int = byte.readShort();
+//			var zzp:Object = {};
+//			for(var i:int=0; i<allLen; i++)
+//			{
+//				var name:String = byte.readUTF();
+//				var key:String = byte.readUTF();
+////				var keyProp:Object = byte.readObject();
+//				var obj:Object = byte.readObject();
+//				if(obj.unit)
+//					zzp[name] = obj.unit;
+//				else
+//					zzp[name] = obj;
+//			}
 			ToolsApp.projectData.config = zzp;
 			Log.log("config.zzp加载完毕");
 			initProject();
@@ -241,7 +243,7 @@ package com.cyj.app.view
 				handleSvnCommit();
 			}else if(e.keyCode == Keyboard.E && e.ctrlKey)//目录
 			{
-				handleOpenDir();
+				handleOpenWebDir();
 			}
 		}
 		
@@ -318,7 +320,10 @@ package com.cyj.app.view
 		{
 			ToolsApp.saveConfig();
 		}
-		public function handleOpenDir():void
+		/**
+		 * 打开web对应的数据目录
+		 * **/
+		public function handleOpenWebDir():void
 		{
 			var file:File = new File(ToolsApp.localCfg.localWebPath + "/resource/config/");
 			if(file.exists)
@@ -328,20 +333,48 @@ package com.cyj.app.view
 				TipMsg.show("没有找到目录"+file.nativePath);
 			}
 		}
+		
+		/**打开数据文件对应的目录  完整数据版**/
+		public function handleOpenDataDir():void
+		{
+			var file:File = new File(ToolsApp.localCfg.localDataPath + "/XmlData/export/");
+			if(file.exists)
+			{
+				file.openWithDefaultApplication();
+			}else{
+				TipMsg.show("没有找到目录"+file.nativePath);
+			}
+		}
 		public function handleSvnCommit():void
 		{
-			SvnOper.svnCommit(ToolsApp.localCfg.localWebPath + "/resource/config/", handleSvnCommitComplete);
+			SvnOper.svnCommit(ToolsApp.localCfg.localDataPath + "/XmlData/export/effect.json", handleSvnLocalDataCommitComplete);
 		}
-		
-		public function handleSvnUpdate():void
+		private function handleSvnLocalDataCommitComplete(success:Boolean):void
 		{
-			SvnOper.svnUpdata(ToolsApp.localCfg.localWebPath + "/resource/config/", handleSvnUpdateComplete);
+			if(success)
+			{
+				SvnOper.svnCommit(ToolsApp.localCfg.localWebPath + "/resource/config/", handleSvnCommitComplete);
+			}
 		}
 		private function handleSvnCommitComplete(success:Boolean):void
 		{
 			if(success)
+			{
 				Alert.show("提交成功");
+			}
 		}
+		
+		public function handleSvnUpdate():void
+		{
+			SvnOper.svnUpdata(ToolsApp.localCfg.localDataPath + "//XmlData/export/effect.json", handleSvnDataUpdateComplete);
+		}
+		
+		private function handleSvnDataUpdateComplete(success:Boolean):void
+		{
+			if(success)
+				SvnOper.svnUpdata(ToolsApp.localCfg.localWebPath + "/resource/config/", handleSvnUpdateComplete);
+		}
+		
 		private function handleSvnUpdateComplete(success:Boolean):void
 		{
 			if(success)

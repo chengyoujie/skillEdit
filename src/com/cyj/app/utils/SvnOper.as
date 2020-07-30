@@ -26,6 +26,7 @@ package com.cyj.app.utils
 					return;
 				}
 				svnOper("commit  "+path +"  -m 特效编辑器上传", function (stdout:String):void{
+					if(checkAccess(stdout, path)){completeFun(false);return;}
 					completeFun(true);
 				});
 			});
@@ -40,6 +41,18 @@ package com.cyj.app.utils
 					completeFun(true);
 				});
 			});
+		}
+		
+		private static function checkAccess(stdout:String, path:String):Boolean
+		{
+			var accessReg:RegExp = /Access\s+to\s+.*?\s+forbidden/gi;
+			var acceArr:Array = accessReg.exec(stdout);
+			if(acceArr)
+			{
+				Alert.show("当前文件没有操作权限："+path);
+				return true;
+			}
+			return false;
 		}
 		
 		private static function checkConfilt(stdout:String, path:String):Boolean

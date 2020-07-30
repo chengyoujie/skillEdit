@@ -90,6 +90,7 @@ package com.cyj.app.view.unit
 				bmp.y =  frameData.y + frameData.oy *scale;
 				bmp.width = frameData.w;
 				bmp.height = frameData.h;
+				bmp.scaleX = bmp.scaleY = scale;
 			}else{
 				bmp.bitmapData = null;
 			}

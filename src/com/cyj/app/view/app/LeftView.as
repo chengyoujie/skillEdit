@@ -41,20 +41,31 @@ package com.cyj.app.view.app
 		{
 			if(ToolsApp.localCfg.autoCheck)
 			{
-				SvnOper.svnUpdata(ToolsApp.localCfg.localWebPath+"/resource/config/effect.json", handleLoadConfig);
+				SvnOper.svnUpdata(ToolsApp.localCfg.localWebPath+"/resource/config/effect.json", handleEffectUpdate);
+				SvnOper.svnUpdata(ToolsApp.localCfg.localDataPath+"/XmlData/export/effect.json", handleLoadConfig);
 			}else{
 				handleLoadConfig();
 			}
 		}
+		
+		private function handleEffectUpdate(success:Boolean=true):void
+		{
+			if(!success)
+			{
+				Alert.show("svn 更新"+ToolsApp.localCfg.localWebPath+"/resource/config/effect.json"+"失败");
+			}
+		}
+		
+		
 		private function handleLoadConfig(success:Boolean=true):void{
-			var configPath:String = ToolsApp.localCfg.localWebPath+"/resource/config/effect.json"
+			var configPath:String = ToolsApp.localCfg.localDataPath+"/XmlData/export/effect.json"
 			configPath = ComUtill.commonPath(configPath);
 			ToolsApp.loader.loadSingleRes(configPath, ResLoader.TXT, handleConfigLoaded, null, handleConfigError);
 		}
 		
 		private function handleConfigError(res:ResData, msg:String):void
 		{
-			Alert.show(ToolsApp.localCfg.localWebPath+"/resource/config/effect.json\n"+"加载失败");
+			Alert.show(ToolsApp.localCfg.localDataPath+"/XmlData/export/effect.json"+"加载失败");
 		}
 		
 		private function handleConfigLoaded(res:ResData):void
@@ -63,7 +74,7 @@ package com.cyj.app.view.app
 			try{
 				effData = JSON.parse(res.data);
 			}catch(e:*){
-				Alert.show(ToolsApp.localCfg.localWebPath+"/resource/config/effect.json\n"+"解析失败,请检查Json格式是否正确");
+				Alert.show(ToolsApp.localCfg.localDataPath+"/XmlData/export/effect.json\n"+"解析失败,请检查Json格式是否正确");
 				return;
 			}
 			var data:EffectPlayData = new EffectPlayData();
@@ -253,6 +264,7 @@ package com.cyj.app.view.app
 			_mask.graphics.beginFill(0xff0000, 0.5);
 			_mask.graphics.drawRect(0, 0, w, h-1);
 			_mask.graphics.endFill();
+			listEffect.height = Math.max(1, h-5-listEffect.y);;
 			bg.width = w;
 			bg.height = h;
 		}

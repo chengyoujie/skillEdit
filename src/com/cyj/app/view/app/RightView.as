@@ -256,7 +256,7 @@ package com.cyj.app.view.app
 				if(comMoveTo.selectedIndex == EffectPlayOwnerType.None)
 				{
 					TipMsg.show("当前设置移动完成，需要设置移动信息， 设置默认移动");
-					selectItem.move.type = (selectItem.effOwnerType==EffectPlayOwnerType.Sender || selectItem.effOwnerType == EffectPlayOwnerType.MyTeam)?EffectPlayOwnerType.Target:EffectPlayOwnerType.Sender;
+					selectItem.move.type = (selectItem.effOwnerType==EffectPlayOwnerType.Sender || selectItem.effOwnerType == EffectPlayOwnerType.MyTeam || selectItem.effOwnerType == EffectPlayOwnerType.ShengWu)?EffectPlayOwnerType.Target:EffectPlayOwnerType.Sender;
 //					selectItem.move.rotation = true;
 					selectItem.move.speed = 500;
 					toBind(_moveBindData, selectItem.move);
@@ -325,14 +325,16 @@ package com.cyj.app.view.app
 			{
 				TipMsg.show("当前没有设定拥有者");
 				return false;
-			}else if(selectItem.effOwnerType == index)
+			}
+			else if(selectItem.effOwnerType == index)
 			{
-				TipMsg.show("当前移动类型与拥有者类型相同");
-				return false;
-			}else if(selectItem.effOwnerType == EffectPlayOwnerType.OneTarget && index == EffectPlayOwnerType.Target)
+				TipMsg.show("移动类型与拥有者类型相同， 请确保设置偏移，否则可能不会移动");
+//				return false;
+			}
+			else if(selectItem.effOwnerType == EffectPlayOwnerType.OneTarget && index == EffectPlayOwnerType.Target)
 			{
-				TipMsg.show("拥有者类型不能喝移动目标一致");
-				return false;
+				TipMsg.show("移动类型与拥有者类型相同， 请确保设置偏移，否则可能不会移动");
+//				return false;
 			}
 			if(index != EffectPlayOwnerType.None)
 			{
@@ -420,9 +422,9 @@ package com.cyj.app.view.app
 				var role:Role = display as Role;
 				pos1 = role.localToGlobal(_tempZeroPoint);
 				if(role.avaterType == EffectPlayOwnerType.None || role.avaterType != selectItem.effOwnerType)return;//旁观者不管 类型不关的不管
-				else if(role.avaterType == EffectPlayOwnerType.Sender || role.avaterType == EffectPlayOwnerType.MyTeam)
+				else if(role.avaterType == EffectPlayOwnerType.Sender || role.avaterType == EffectPlayOwnerType.MyTeam || role.avaterType == EffectPlayOwnerType.ShengWu)
 				{	
-					if(selectItem.effOwnerType ==EffectPlayOwnerType.Sender || selectItem.effOwnerType ==EffectPlayOwnerType.MyTeam)
+					if(selectItem.effOwnerType ==EffectPlayOwnerType.Sender || selectItem.effOwnerType ==EffectPlayOwnerType.MyTeam || role.avaterType == EffectPlayOwnerType.ShengWu)
 					{	
 						item = ToolsApp.effectPlayer.getEffectPlayItem(selectItem.id);
 						if(!item || !item.display)return;
@@ -444,7 +446,7 @@ package com.cyj.app.view.app
 				var eff:DisplayObject = display as DisplayObject;
 				item = ToolsApp.effectPlayer.getEffectPlayByDisplay(eff);
 				if(!item)return;
-				if(selectItem.effOwnerType == EffectPlayOwnerType.Sender ||selectItem.effOwnerType == EffectPlayOwnerType.OneTarget || selectItem.effOwnerType == EffectPlayOwnerType.MyTeam)
+				if(selectItem.effOwnerType == EffectPlayOwnerType.Sender ||selectItem.effOwnerType == EffectPlayOwnerType.OneTarget || selectItem.effOwnerType == EffectPlayOwnerType.MyTeam)//|| role.avaterType == EffectPlayOwnerType.ShengWu)
 					target = item.owner;
 				else if(selectItem.effOwnerType == EffectPlayOwnerType.Target)
 					target = item.target;
@@ -733,6 +735,7 @@ package com.cyj.app.view.app
 			_mask.graphics.beginFill(0xff0000, 0.5);
 			_mask.graphics.drawRect(0, 0, w, h-1);
 			_mask.graphics.endFill();
+			listStep.height = Math.max(1, h-5-listStep.y);
 			bg.width = w;
 			bg.height = h;
 		}

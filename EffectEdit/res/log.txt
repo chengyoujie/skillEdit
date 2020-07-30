@@ -2,7 +2,7 @@
 [记录]开始加载local.json
 [记录]开始加载config.zzp
 [记录]系统启动成功
-[记录]cmdReuslt:  Microsoft Windows [版本 10.0.17763.1217]
+[记录]cmdReuslt:  Microsoft Windows [版本 10.0.17763.1282]
 (c) 2018 Microsoft Corporation。保留所有权利。
 
 D:\FlashBuilder\SkillEdit\EffectEdit>
@@ -12,6 +12,9 @@ D:\FlashBuilder\SkillEdit\EffectEdit>
 [记录]CMD: "D:\FlashBuilder\SkillEdit\EffectEdit//res/bin/svnbin/svn.exe" stat D:/web/resource/config/effect.json
 [记录]CMD: |TAG|1|TAG|
 [记录]CMD: cls
+[记录]CMD: "D:\FlashBuilder\SkillEdit\EffectEdit//res/bin/svnbin/svn.exe" stat D:/cehua/Data/XmlData/export/effect.json
+[记录]CMD: |TAG|2|TAG|
+[记录]CMD: cls
 [记录]cmdReuslt:  "D:\FlashBuilder\SkillEdit\EffectEdit//res/bin/svnbin/svn.exe" stat D:/web/resource/config/effect.json
 
 [记录]cmdReuslt:  
@@ -20,19 +23,50 @@ D:\FlashBuilder\SkillEdit\EffectEdit>|TAG|1|TAG|
 D:\FlashBuilder\SkillEdit\EffectEdit>cls
 
 [记录]CMD: "D:\FlashBuilder\SkillEdit\EffectEdit//res/bin/svnbin/svn.exe" update D:/web/resource/config/effect.json
-[记录]CMD: |TAG|2|TAG|
+[记录]CMD: |TAG|3|TAG|
 [记录]CMD: cls
 [记录]CMD: cls
 [记录]cmdReuslt:  
-D:\FlashBuilder\SkillEdit\EffectEdit>"D:\FlashBuilder\SkillEdit\EffectEdit//res/bin/svnbin/svn.exe" update D:/web/resource/config/effect.json
+D:\FlashBuilder\SkillEdit\EffectEdit>"D:\FlashBuilder\SkillEdit\EffectEdit//res/bin/svnbin/svn.exe" stat D:/cehua/Data/XmlData/export/effect.json
 
-[记录]cmdReuslt:  Updating 'D:\web\resource\config\effect.json':
-
-[记录]cmdReuslt:  At revision 10793.
+[记录]cmdReuslt:  M       D:\cehua\Data\XmlData\export\effect.json
 
 [记录]cmdReuslt:  
 D:\FlashBuilder\SkillEdit\EffectEdit>|TAG|2|TAG|
 
+D:\FlashBuilder\SkillEdit\EffectEdit>
+[记录]CMD: "D:\FlashBuilder\SkillEdit\EffectEdit//res/bin/svnbin/svn.exe" update D:/cehua/Data/XmlData/export/effect.json
+[记录]CMD: |TAG|4|TAG|
+[记录]CMD: cls
+[记录]CMD: cls
+[记录]cmdReuslt:  cls
+
+D:\FlashBuilder\SkillEdit\EffectEdit>"D:\FlashBuilder\SkillEdit\EffectEdit//res/bin/svnbin/svn.exe" update D:/web/resource/config/effect.json
+
+[记录]cmdReuslt:  Updating 'D:\web\resource\config\effect.json':
+
+[记录]cmdReuslt:  At revision 14433.
+
+[记录]cmdReuslt:  
+D:\FlashBuilder\SkillEdit\EffectEdit>|TAG|3|TAG|
+
+D:\FlashBuilder\SkillEdit\EffectEdit>
+[记录]CMD: cls
+[记录]cmdReuslt:  cls
+
+D:\FlashBuilder\SkillEdit\EffectEdit>cls
+
+D:\FlashBuilder\SkillEdit\EffectEdit>"D:\FlashBuilder\SkillEdit\EffectEdit//res/bin/svnbin/svn.exe" update D:/cehua/Data/XmlData/export/effect.json
+
+[记录]cmdReuslt:  Updating 'D:\cehua\Data\XmlData\export\effect.json':
+
+[记录]cmdReuslt:  At revision 18124.
+
+[记录]cmdReuslt:  
+D:\FlashBuilder\SkillEdit\EffectEdit>|TAG|4|TAG|
+
+D:\FlashBuilder\SkillEdit\EffectEdit>cls
+
 D:\FlashBuilder\SkillEdit\EffectEdit>cls
 
 [记录]CMD: cls
@@ -45,7 +79,7 @@ D:\FlashBuilder\SkillEdit\EffectEdit>
 [记录]cmdReuslt:  
 [记录]cmdReuslt:  
 D:\FlashBuilder\SkillEdit\EffectEdit>
-[记录]当前选择  特效组：71
-[记录]当前选择  特效组：69
-[记录]当前选择  特效组：68
-[记录]当前选择角色-1703933278
+[记录]当前选择  特效组：94
+[记录]当前选择 特效项: 3
+[记录]移动类型与拥有者类型相同， 请确保设置偏移，否则可能不会移动
+[记录]退出系统

@@ -289,14 +289,15 @@ package com.cyj.app
 		public static function saveConfig():void
 		{
 			var data:String = JSON.stringify(projectData.allEffectPlayData.data);
-			if(localCfg.localDataPath)
+			var thinData:String = JSON.stringify(projectData.allEffectPlayData.thinData);
+			if(localCfg.localDataPath)//保存全数据
 			{
-				file.saveFile(localCfg.localWebPath+"/resource/config/effect.json", data); 
+				file.saveFile(localCfg.localDataPath+"/XmlData/export/effect.json", data); 
 			}
-			if(localCfg.localWebPath)
+			if(localCfg.localWebPath)//保存瘦身过的数据
 			{
 //				var file:File = new File(localCfg.localWebPath+"/resource/config/effect.json");
-				file.saveFile(localCfg.localWebPath+"/resource/config/effect.json", data); 
+				file.saveFile(localCfg.localWebPath+"/resource/config/effect.json", thinData); 
 			}
 			projectData.lastSaveEffectData = projectData.allEffectPlayData.copy() as EffectPlayData;
 			TipMsg.show("保存成功");

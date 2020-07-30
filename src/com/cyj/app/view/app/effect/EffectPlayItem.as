@@ -426,9 +426,15 @@ package com.cyj.app.view.app.effect
 			{
 				useCasterPos = true;
 			}
+			var offx:int = 0;
+			var offy:int = 0;
 			var caster:Avatar = getCaster(_data.effOwnerType);
-			var offx:int = _data.offx.indexOf("%")==-1?int(_data.offx):(int(_data.offx.replace("%", ""))/100*caster.width);
-			var offy:int = _data.offy.indexOf("%")==-1?int(_data.offy):(int(_data.offy.replace("%", ""))/100*caster.height);
+			if(_data.effOwnerType == EffectPlayOwnerType.ShengWu)
+			{
+				offy = -caster.height;
+			}
+			offx += _data.offx.indexOf("%")==-1?int(_data.offx):(int(_data.offx.replace("%", ""))/100*caster.width);
+			offy += _data.offy.indexOf("%")==-1?int(_data.offy):(int(_data.offy.replace("%", ""))/100*caster.height);
 			if(_data.useScreen)
 			{
 				var sw:int = _centerView.width;
@@ -559,7 +565,7 @@ package com.cyj.app.view.app.effect
 		{
 			if(type == EffectPlayOwnerType.None)return null;
 			else if(type == EffectPlayOwnerType.Target || (isMove&&type == EffectPlayOwnerType.OneTarget))return _target;
-			else if(type == EffectPlayOwnerType.Sender || type == EffectPlayOwnerType.OneTarget  || type == EffectPlayOwnerType.MyTeam) return _owner;
+			else if(type == EffectPlayOwnerType.Sender || type == EffectPlayOwnerType.OneTarget  || type == EffectPlayOwnerType.MyTeam || type == EffectPlayOwnerType.ShengWu) return _owner;
 			return null;
 		}
 		

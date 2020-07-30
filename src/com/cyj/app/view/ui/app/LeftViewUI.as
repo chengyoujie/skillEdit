@@ -13,13 +13,13 @@ package com.cyj.app.view.ui.app {
 		public var inputId:TextInput = null;
 		public var inputName:TextInput = null;
 		protected static var uiView:XML =
-			<View width="197" height="830">
-			  <Image skin="png.guidecomp.购买类控件底_1" x="0" y="0" width="197" height="828" sizeGrid="10,10,10,10,1" var="bg"/>
+			<View width="197" height="870">
+			  <Image skin="png.guidecomp.购买类控件底_1" x="0" y="0" width="197" height="870" sizeGrid="10,10,10,10,1" var="bg"/>
 			  <Label text="特效组列表" x="37" y="608" width="99" height="18" color="0x990000" align="center"/>
 			  <Tree x="16" y="237" width="162" height="308" scrollBarSkin="png.comp.vscroll" spaceBottom="3" var="treeEffect">
 			    <FileItem name="render" runtime="com.cyj.app.view.app.FileItem" x="10" y="10"/>
 			  </Tree>
-			  <List x="15" y="631" vScrollBarSkin="png.comp.vscroll" width="173" height="188" spaceY="2" var="listEffect">
+			  <List x="15" y="631" vScrollBarSkin="png.comp.vscroll" width="173" height="230" spaceY="2" var="listEffect">
 			    <EffectItem name="render" runtime="com.cyj.app.view.app.EffectItem"/>
 			  </List>
 			  <Label text="特效资源列表" x="49" y="219" width="99" height="18" color="0x990000" align="center"/>

@@ -1,10 +1,10 @@
-<View sceneColor="0x0" layers="1,1,0,0,第 1 层" width="197" height="830">
-  <Image skin="png.guidecomp.购买类控件底_1" x="0" y="0" layer="1" width="197" height="828" sizeGrid="10,10,10,10,1" var="bg"/>
+<View sceneColor="0x0" layers="1,1,0,0,第 1 层" width="197" height="870">
+  <Image skin="png.guidecomp.购买类控件底_1" x="0" y="0" layer="1" width="197" height="870" sizeGrid="10,10,10,10,1" var="bg"/>
   <Label text="特效组列表" styleSkin="png.comp.label" x="37" y="608" layer="1" width="99" height="18" color="0x990000" align="center"/>
   <Tree layers="1,1,0" layer="1" x="16" y="237" width="162" height="308" scrollBarSkin="png.comp.vscroll" spaceBottom="3" var="treeEffect">
     <UIView source="app/FileItem.xml" layer="1" name="render" runtime="com.cyj.app.view.app.FileItem" x="10" y="10"/>
   </Tree>
-  <List layers="1,1,0,0,第 1 层" layer="1" x="15" y="631" vScrollBarSkin="png.comp.vscroll" width="173" height="188" spaceY="2" var="listEffect">
+  <List layers="1,1,0,0,第 1 层" layer="1" x="15" y="631" vScrollBarSkin="png.comp.vscroll" width="173" height="230" spaceY="2" var="listEffect">
     <UIView source="app/EffectItem.xml" layer="1" name="render" runtime="com.cyj.app.view.app.EffectItem"/>
   </List>
   <Label text="特效资源列表" styleSkin="png.comp.label" x="49" y="219" layer="1" width="99" height="18" color="0x990000" align="center"/>
