@@ -288,6 +288,12 @@ package com.cyj.app
 		
 		public static function saveConfig():void
 		{
+			var errStr:String = projectData.allEffectPlayData.getErrStr();
+			if(errStr)
+			{
+				Alert.show(errStr);
+				return;
+			}
 			var data:String = JSON.stringify(projectData.allEffectPlayData.data);
 			var thinData:String = JSON.stringify(projectData.allEffectPlayData.thinData);
 			if(localCfg.localDataPath)//保存全数据

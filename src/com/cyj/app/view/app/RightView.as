@@ -289,6 +289,9 @@ package com.cyj.app.view.app
 			var selectItem:EffectPlayItemData = listStep.selectedItem as EffectPlayItemData;
 			if(!selectItem)return;
 			ToolsApp.effectPlayer.playItem(selectItem, true);
+			var items:Vector.<EffectPlayItem> = ToolsApp.effectPlayer.items;
+			if(items.length>0 && items[0].display is Avatar)
+				handleSetCanUseDir(Avatar(items[0].display));
 		}
 		
 		private function onDisplayTypeChange():void
@@ -566,7 +569,7 @@ package com.cyj.app.view.app
 				toBind(_disPlayBindData, selectItem.disInfo);
 			}else if(e.data == "dir")
 			{
-				if(selectItem.disInfo.dir == Direction.TO_TARGET_DIR)//需要重置下对象
+				if(selectItem.disInfo.dir == Direction.TO_TARGET_DIR || selectItem.disInfo.dir == Direction.TO_TARGET_ONE_DIR)//需要重置下对象
 				{
 					ToolsApp.effectPlayer.playItem(selectItem);
 				}else{
@@ -654,9 +657,11 @@ package com.cyj.app.view.app
 				_dir2Dirindex[canUseDirs[i]] = i;
 				_dirIndex2Dir[i] = canUseDirs[i];
 			}
-			comDisDir.labels = dirStrs.join(",");
+//			comDisDir.labels = dirStrs.join(",");//会重置索引为-1
+			var newIdx:int = _dir2Dirindex[dir];
+			comDisDir.setLabelsAndSelectIdx(dirStrs.join(","),newIdx); 
 			
-			if((dir == Direction.OWNER_DIR || dir == Direction.TO_TARGET_DIR) )
+			if((dir == Direction.OWNER_DIR || dir == Direction.TO_TARGET_DIR || dir == Direction.TO_TARGET_ONE_DIR) )
 			{
 				if(canUseDirs.length==1)//只有一个方向的
 				{
@@ -669,6 +674,9 @@ package com.cyj.app.view.app
 				TipMsg.show("因为当前特效没有方向"+Direction.getDirName(selectItem.disInfo.dir)+" 自动修改为"+Direction.getDirName(dir));	
 			}
 			selectItem.disInfo.dir = dir;
+//			var newIdx:int = _dir2Dirindex[dir];
+//			if(newIdx != comDisDir.selectedIndex)
+//				comDisDir.selectedIndex = newIdx;
 			toBind(_disPlayBindData, selectItem.disInfo);
 		}
 		

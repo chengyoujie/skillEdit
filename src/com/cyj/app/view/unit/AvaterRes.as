@@ -81,6 +81,7 @@ package com.cyj.app.view.unit
 				var arr:Array = _data.sub;
 				var i:int=0;
 				var key:int = 0;
+				var maxSize:int = 0;
 				while(arr.length>i)
 				{
 					var size:int = arr[i];
@@ -103,10 +104,18 @@ package com.cyj.app.view.unit
 					fd.oy = arr[i+6];
 					fd.key = keyNum;
 					_subImgInfos[keyNum] = fd;
-					if(_w< arr[i+3])_w =arr[i+3];
-					if(_h< arr[i+4])_h = arr[i+4];
-					if(_ox>fd.ox)_ox = fd.ox;
-					if(_oy>fd.oy)_oy = fd.oy;
+					if(arr[i+3]+arr[i+4]>maxSize)
+					{
+						_w =arr[i+3];
+						_h = arr[i+4];
+						_ox = fd.ox;
+						_oy = fd.oy;
+						maxSize = _w+_h;
+					}
+//					if(_w< arr[i+3])_w =arr[i+3];
+//					if(_h< arr[i+4])_h = arr[i+4];
+//					if(_ox>fd.ox)_ox = fd.ox;
+//					if(_oy>fd.oy)_oy = fd.oy;
 					//default frame
 					var frameItem:FrameItemData = new FrameItemData();
 					frameItem.ox = fd.ox;

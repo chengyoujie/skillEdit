@@ -31,6 +31,9 @@ package com.cyj.app.data.cost
 		/**左右两方向**/
 		public static const RIGHT_LEFT:int = 10;
 		
+		/**受击者的其中一个的方向**/
+		public static const TO_TARGET_ONE_DIR:int = 11;
+		
 		public static function getDirName(dir:int):String
 		{
 			//↑上,↗右上,→右,↘右下,↓下,↙左下,←左,↖左上,绑定者方向,受击者方向
@@ -46,6 +49,7 @@ package com.cyj.app.data.cost
 				case Direction.OWNER_DIR:return "绑定者方向";
 				case Direction.TO_TARGET_DIR:return "受击者方向";
 				case Direction.RIGHT_LEFT:return "左右两方向";
+				case Direction.TO_TARGET_ONE_DIR:return "受击者其中一个方向";
 			}
 			return "None";
 		}

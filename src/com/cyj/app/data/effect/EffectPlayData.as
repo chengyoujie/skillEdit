@@ -4,6 +4,7 @@ package com.cyj.app.data.effect
 	import com.cyj.app.data.ICopyData;
 	import com.cyj.app.data.cost.EffectPlayOwnerType;
 	import com.cyj.app.data.cost.EffectPlayTiggerType;
+	import com.cyj.app.view.common.Alert;
 	
 	import flash.utils.Dictionary;
 
@@ -74,6 +75,21 @@ package com.cyj.app.data.effect
 				dic[item.id] = JSON.stringify(item).replace(/"/gi, "'");
 			}
 			return dic;
+		}
+		
+		public function getErrStr():String
+		{
+			var err:String = "";
+			for(var i:int=0; i<_items.length; i++)
+			{
+				var item:EffectGroupItemData = _items[i];
+				var str:String = item.getErrStr();
+				if(str)
+				{
+					err += item.id+":"+item.name+" -> "+str+"\n";
+				}
+			}
+			return err;
 		}
 		
 		/**

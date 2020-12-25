@@ -34,7 +34,7 @@ package com.cyj.app.utils
 			root = root.replace(/[\\\/]+/gi, "/");
 			var cfgs:Array = ToolsApp.projectData.config.resBody;
 			if (String(resId).indexOf('/') >= 0) return {path:String(resId), isDirRes:false};
-			var cfg:* = getCfg(cfgs, "id", resId);
+			var cfg:* = getCfg(cfgs, "id", int(resId));
 			if (!cfg)
 			{
 				var p:String = root +'effect/' + resId;

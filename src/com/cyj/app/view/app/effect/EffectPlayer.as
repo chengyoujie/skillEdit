@@ -125,6 +125,9 @@ package com.cyj.app.view.app.effect
 			}else if(defaultTagret && data.rotationType == RotationType.ONE_TARGET)
 			{
 				getItem(data, _view.roleLayer.owner ,defaultTagret,  isPlayAll);
+			}else if(data.disInfo.dir == Direction.TO_TARGET_ONE_DIR)
+			{
+				getItem(data, _view.roleLayer.owner ,defaultTagret,  isPlayAll);
 			}
 			else{
 				getItem(data, _view.roleLayer.owner, null, isPlayAll);

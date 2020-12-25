@@ -9,6 +9,7 @@ package morn.core.components {
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	import flash.text.TextFormat;
+	
 	import morn.core.handlers.Handler;
 	import morn.core.utils.ObjectUtils;
 	import morn.core.utils.StringUtils;
@@ -156,6 +157,19 @@ package morn.core.components {
 				_labels = value.split(",");
 			} else {
 				_labels.length = 0;
+			}
+			callLater(changeItem);
+		}
+		
+		public function setLabelsAndSelectIdx(value:String, idx:int):void{
+			
+			if (Boolean(value)) {
+				_labels = value.split(",");
+			} else {
+				_labels.length = 0;
+			}
+			if (_labels.length > 0) {
+				selectedIndex = idx;
 			}
 			callLater(changeItem);
 		}

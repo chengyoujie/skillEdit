@@ -204,6 +204,7 @@ package com.cyj.app.view.unit
 						}
 						_showUseRes[act].push(Direction.OWNER_DIR);
 						_showUseRes[act].push(Direction.TO_TARGET_DIR);
+						_showUseRes[act].push(Direction.TO_TARGET_ONE_DIR);
 						if(hasRight)
 							_showUseRes[act].push(Direction.RIGHT_LEFT);
 					}else if(arr.length == 1){

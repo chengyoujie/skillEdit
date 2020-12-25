@@ -34,6 +34,20 @@ package com.cyj.app.data
 			}
 		}
 		
+		public function getErrStr():String
+		{
+			var err:String = "";
+			for(var i:int=0; i<data.length; i++)
+			{
+				var item:EffectPlayItemData = data[i];
+				if(!item.disInfo || !item.disInfo.data)
+				{
+					err += item.id+"没有对应的数据";
+				}
+			}
+			return err;
+		}
+		
 		public function copy():ICopyData
 		{
 			var cd:EffectGroupItemData = new EffectGroupItemData();

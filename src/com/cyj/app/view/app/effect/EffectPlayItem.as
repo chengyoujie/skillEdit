@@ -226,6 +226,15 @@ package com.cyj.app.view.app.effect
 					var targetPos:Point =  Role(caster==_owner?_target:_owner).localToGlobal(pos);
 					dir2 = Direction.getDir(casterPos, targetPos);
 				}
+			}else if(dir2 == Direction.TO_TARGET_ONE_DIR)//目标中其中一个
+			{
+				if(_target)
+				{
+					var pos1:Point = new Point();
+					var casterPos1:Point = _display.localToGlobal(pos1);
+					var targetPos1:Point =  Role(caster==_owner?_target:_owner).localToGlobal(pos1);
+					dir2 = Direction.getDir(casterPos1, targetPos1);
+				}
 			}
 			Avatar(_display).dir = dir2;
 			if(_data.disInfo.dir == Direction.RIGHT_LEFT)
@@ -510,6 +519,7 @@ package com.cyj.app.view.app.effect
 			App.timer.clearTimer(handleTweenEnd);
 			if(!_display)return;
 			if(!_data)return;
+			refushPos();
 			var delay:int = 0;
 			for(var i:int=0; i<_data.tweenProps.length; i++)
 			{
