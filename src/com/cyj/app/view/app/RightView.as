@@ -10,6 +10,7 @@ package com.cyj.app.view.app
 	import com.cyj.app.data.cost.Direction;
 	import com.cyj.app.data.cost.EffectPlayDisplayType;
 	import com.cyj.app.data.cost.EffectPlayEndType;
+	import com.cyj.app.data.cost.EffectPlayOffsetType;
 	import com.cyj.app.data.cost.EffectPlayOwnerType;
 	import com.cyj.app.data.cost.EffectPlayTiggerType;
 	import com.cyj.app.data.cost.RotationType;
@@ -66,6 +67,8 @@ package com.cyj.app.view.app
 						new BindData(inputEndParam, "endParam", "text", null, handleCheckEndData),
 						new BindData(comTigglerType, "tiggler", "selectedIndex", handleStarChange),
 						new BindData(inputTigglerParam, "tigglerParam","text",  null , handleCheckStartData),
+						new BindData(comOffsetXType, "offXType", "selectedIndex",handleRefushScene),
+						new BindData(comOffsetYType, "offYType", "selectedIndex",handleRefushScene),
 						new BindData(inputOffx, "offx", "text",handleRefushScene),
 						new BindData(inputOffy, "offy", "text", handleRefushScene),
 						new BindData(inputScalex, "scalex", "text",handleRefushScene),
@@ -84,6 +87,8 @@ package com.cyj.app.view.app
 				new BindData(inputMoveRotation, "rotation", "text", handleRefushScene),
 				new BindData(comMoveRotation, "rotationType", "selectedIndex", handleRefushScene),
 				new BindData(inputDistance, "distance", "text", handleDistanceChange),
+				new BindData(comMoveOffsetXType, "offXType", "selectedIndex",handleRefushScene),
+				new BindData(comMoveOffsetYType, "offYType", "selectedIndex",handleRefushScene),
 				new BindData(inputMoveOffX, "offx", "text", handleDistanceChange),
 				new BindData(inputMoveOffY, "offy", "text", handleDistanceChange),
 //				new BindData(comAutoRotaion, "rotation", "selectedIndex",handleRefushScene),
@@ -432,8 +437,8 @@ package com.cyj.app.view.app
 						item = ToolsApp.effectPlayer.getEffectPlayItem(selectItem.id);
 						if(!item || !item.display)return;
 						pos2 = item.display.localToGlobal(_tempZeroPoint); 
-						selectItem.offx = (pos2.x - pos1.x)+"";
-						selectItem.offy = (pos2.y - pos1.y)+"";
+						selectItem.offx = (pos2.x - pos1.x);
+						selectItem.offy = (pos2.y - pos1.y);
 						toBind(_itemBindData, selectItem);
 					}
 				}else if(role.avaterType == EffectPlayOwnerType.Target || selectItem.effOwnerType ==EffectPlayOwnerType.OneTarget)
@@ -441,14 +446,15 @@ package com.cyj.app.view.app
 					item = ToolsApp.effectPlayer.getEffectPlayItem(selectItem.id, role);
 					if(!item || !item.display)return;
 					pos2 = item.display.localToGlobal(_tempZeroPoint);	
-					selectItem.offx = (pos2.x - pos1.x)+"";
-					selectItem.offy = (pos2.y - pos1.y)+"";
+					selectItem.offx = (pos2.x - pos1.x);
+					selectItem.offy = (pos2.y - pos1.y);
 					toBind(_itemBindData, selectItem);
 				}
 			}else if(display is Effect || display is EffectImage){
 				var eff:DisplayObject = display as DisplayObject;
 				item = ToolsApp.effectPlayer.getEffectPlayByDisplay(eff);
 				if(!item)return;
+				
 				if(selectItem.effOwnerType == EffectPlayOwnerType.Sender ||selectItem.effOwnerType == EffectPlayOwnerType.OneTarget || selectItem.effOwnerType == EffectPlayOwnerType.MyTeam)//|| role.avaterType == EffectPlayOwnerType.ShengWu)
 					target = item.owner;
 				else if(selectItem.effOwnerType == EffectPlayOwnerType.Target)
@@ -462,8 +468,18 @@ package com.cyj.app.view.app
 				}else{
 					pos1 = target.localToGlobal(_tempZeroPoint);
 				}
-				selectItem.offx = (pos2.x - pos1.x)+"";
-				selectItem.offy = (pos2.y - pos1.y)+"";
+				if(selectItem.offXType != EffectPlayOffsetType.NONE)
+				{
+					Log.log("只有固定高度的时候才能拖动X特效");
+				}else{
+					selectItem.offx = (pos2.x - pos1.x);
+				}
+				if(selectItem.offXType != EffectPlayOffsetType.NONE)
+				{
+					Log.log("只有固定高度的时候才能拖动Y特效");
+				}else{
+					selectItem.offy = (pos2.y - pos1.y);
+				}
 				toBind(_itemBindData, selectItem);
 				ToolsApp.effectPlayer.refushPos();
 			}else if(display is MoveControlCell){

@@ -32,7 +32,7 @@ package com.cyj.app.utils
 			if (!resId) return {path:'', isDirRes:false};
 			var root:String = ToolsApp.localCfg.localWebPath+"/avatarres/";
 			root = root.replace(/[\\\/]+/gi, "/");
-			var cfgs:Array = ToolsApp.projectData.config.resBody;
+			var cfgs:Array = ToolsApp.projectData.config.resBody.data;
 			if (String(resId).indexOf('/') >= 0) return {path:String(resId), isDirRes:false};
 			var cfg:* = getCfg(cfgs, "id", int(resId));
 			if (!cfg)
@@ -64,7 +64,7 @@ package com.cyj.app.utils
 		
 		public static function getResCfg(path:String):String
 		{
-			var cfgs:Array = ToolsApp.projectData.config.resBody;
+			var cfgs:Array = ToolsApp.projectData.config.resBody.data;
 			path = commonPath(path);
 			var root:String = ToolsApp.localCfg.localWebPath+"/avatarres/";
 			for(var i:int=0; i<cfgs.length; i++)
@@ -87,7 +87,7 @@ package com.cyj.app.utils
 		/**获取Body的配置**/
 		public static function getResCfgByPath(path:String):Object
 		{
-			var cfgs:Array = ToolsApp.projectData.config.resBody;
+			var cfgs:Array = ToolsApp.projectData.config.resBody.data;
 			path = commonPath(path);
 			var root:String = ToolsApp.localCfg.localWebPath+"/avatarres/";
 			for(var i:int=0; i<cfgs.length; i++)

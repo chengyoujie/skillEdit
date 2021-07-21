@@ -9,6 +9,7 @@ package com.cyj.app.view.app.effect
 	import com.cyj.app.data.cost.EffectPlayDisplayType;
 	import com.cyj.app.data.cost.EffectPlayEndType;
 	import com.cyj.app.data.cost.EffectPlayLayer;
+	import com.cyj.app.data.cost.EffectPlayOffsetType;
 	import com.cyj.app.data.cost.EffectPlayOwnerType;
 	import com.cyj.app.data.cost.EffectPlayTiggerType;
 	import com.cyj.app.data.cost.RotationType;
@@ -304,8 +305,11 @@ package com.cyj.app.view.app.effect
 					pos.x  = dis*Math.cos(angle2) ;
 					pos.y = dis*Math.sin(angle2);
 				}
-				var offx:int = move.offx.indexOf("%")==-1?int(move.offx):( toRole?(int(move.offx.replace("%", ""))/100*toRole.width):0 )
-				var offy:int = move.offy.indexOf("%")==-1?int(move.offy):( toRole?(int(move.offy.replace("%", ""))/100*toRole.height):0 )
+//				var offx:int = move.offx.indexOf("%")==-1?int(move.offx):( toRole?(int(move.offx.replace("%", ""))/100*toRole.width):0 )
+//				var offy:int = move.offy.indexOf("%")==-1?int(move.offy):( toRole?(int(move.offy.replace("%", ""))/100*toRole.height):0 )
+				
+				var offx:int = getOffsetPos(move.offx, move.offXType, toRole, false);
+				var offy:int = getOffsetPos(move.offy, move.offYType, toRole, true);
 					
 				pos.x += _display.x + offx;
 				pos.y += _display.y + offy;
@@ -442,8 +446,28 @@ package com.cyj.app.view.app.effect
 			{
 				offy = -caster.height;
 			}
-			offx += _data.offx.indexOf("%")==-1?int(_data.offx):(int(_data.offx.replace("%", ""))/100*caster.width);
-			offy += _data.offy.indexOf("%")==-1?int(_data.offy):(int(_data.offy.replace("%", ""))/100*caster.height);
+			//X轴偏移计算
+//			if(_data.offXType == EffectPlayOffsetType.BODY_HEIGHT)//含有方向的偏移X
+//			{
+//				offx += _data.offx/100*caster.width;
+//			}else if(_data.offXType == EffectPlayOffsetType.OWNER_DIR){
+//				var targetXAngle:Number = Direction.getDegrees(caster.dir)*Math.PI/180;
+//				offx += Math.cos(targetXAngle)*_data.offx;
+//			}else{
+//				offx += _data.offx;
+//			}
+			offx += getOffsetPos(_data.offx, _data.offXType, caster, false);
+			//Y轴偏移计算
+//			if(_data.offYType == EffectPlayOffsetType.BODY_HEIGHT)//含有方向的偏移Y
+//			{
+//				offy += _data.offy/100*caster.height;
+//			}else if(_data.offYType == EffectPlayOffsetType.OWNER_DIR){
+//				var targetYAngle:Number = Direction.getDegrees(caster.dir)*Math.PI/180;
+//				offy += Math.sin(targetYAngle)*_data.offy;
+//			}else{
+//				offy += _data.offy;
+//			}
+			offy += getOffsetPos(_data.offy, _data.offYType, caster, true);
 			if(_data.useScreen)
 			{
 				var sw:int = _centerView.width;
@@ -481,6 +505,19 @@ package com.cyj.app.view.app.effect
 //			}
 			refushDir();
 			refushRotation();
+		}
+		
+		private function getOffsetPos(offset:int, offXType:int, target:Avatar=null, isY:Boolean=false):int{
+			if(offXType == EffectPlayOffsetType.BODY_HEIGHT)//含有方向的偏移X
+			{
+				if(!target)return 0;
+				return offset/100*(isY?target.height:target.width);
+			}else if(offXType == EffectPlayOffsetType.OWNER_DIR){
+				var targetXAngle:Number = Direction.getDegrees(target?target.dir:Direction.LEFT)*Math.PI/180;
+				return Math.cos(targetXAngle)*offset;
+			}else{
+				return offset;
+			}
 		}
 		
 		private function refushScale():void

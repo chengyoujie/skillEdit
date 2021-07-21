@@ -54,7 +54,7 @@ package com.cyj.app.data
 		public function getResCfgByMenu(...menu):Array
 		{
 			if(!config)return [];
-			var resCfgs:Array = config["resBody"];
+			var resCfgs:Array = config["resBody"].data;
 			var rect:Array = [];
 			for(var i:int=0; i<resCfgs.length; i++)
 			{
@@ -72,7 +72,7 @@ package com.cyj.app.data
 		public function getResCfgDicByMenu(...menu):Object
 		{
 			if(!config)return {};
-			var resCfgs:Array = config["resBody"];
+			var resCfgs:Array = config["resBody"].data;
 			var rect:Object = {};
 			for(var j:int=0; j<menu.length; j++)
 			{

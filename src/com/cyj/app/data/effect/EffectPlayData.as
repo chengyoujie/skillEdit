@@ -131,8 +131,10 @@ package com.cyj.app.data.effect
 			if(!data["rotationType"]) delete data["rotationType"];//旋转类型 rotationType:int = 0;
 			if(data["scalex"]==1) delete data["scalex"];// scalex:Number = 1
 			if(data["scaley"]==1) delete data["scaley"];// scaley:Number = 1;
-			if(data["offx"]=="0") delete data["offx"];// 偏移X offx:String = "0"
-			if(data["offy"]=="0") delete data["offy"];//偏移Y offy:String = "0";
+			if(data["offx"]==0) delete data["offx"];// 偏移X offx:String = "0"
+			if(data["offy"]==0) delete data["offy"];//偏移Y offy:String = "0";
+			if(data["offXType"]==0) delete data["offXType"];// 偏移X offx:String = "0"
+			if(data["offYType"]==0) delete data["offYType"];//偏移Y offy:String = "0";
 			
 			if(!data["endParam"]) delete data["endParam"];//结束参数 endParam:* = 0
 			if(!data["tigglerParam"]) delete data["tigglerParam"];//开始参数 tigglerParam:*=0
@@ -162,9 +164,11 @@ package com.cyj.app.data.effect
 				}else{
 					if(!move["rotationType"]) delete move["rotationType"];//旋转角度类型   rotationType = 0;
 					if(!move["rotation"]) delete move["rotation"];//旋转角度   rotation:int = 0;
-					if(!move["ease"]) delete move["ease"];//移动类型   ease:int = 0;
-					if(move["offx"]=="0") delete move["offx"];// 偏移X offx:String = "0"
-					if(move["offy"]=="0") delete move["offy"];//偏移Y offy:String = "0";
+					if(!move["ease"]) delete move["ease"];//移动类型   ease:int = 0;if(data["offx"]==0) delete data["offx"];// 偏移X offx:String = "0"
+					if(move["offx"]==0) delete move["offx"];// 偏移X offx:String = "0"
+					if(move["offy"]==0) delete move["offy"];//偏移Y offy:String = "0";
+					if(move["offXType"]==0) delete move["offXType"];// 偏移X offx:String = "0"
+					if(move["offYType"]==0) delete move["offYType"];//偏移Y offy:String = "0";
 					if(!move["distance"]) delete move["distance"];//移动类型   distance:int = 0;
 					if(move["speed"]==500) delete move["speed"];//移动速度 与time二选一  优先time   distance:int = 0;
 				}

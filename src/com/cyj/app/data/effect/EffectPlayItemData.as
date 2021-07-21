@@ -26,10 +26,14 @@ package com.cyj.app.data.effect
 		public var tigglerParam:*=0;
 		/**移动参数 如果设置为move 则图层不能选择在角色身上（要不）*/
 		public var move:EffectPlayMoveEndData = new EffectPlayMoveEndData();
+		/**偏移X的类型  **/
+		public var offXType:int = 0;
 		/**偏移X */
-		public var offx:String = "0";
+		public var offx:int = 0;
+		/**偏移Y的类型  **/
+		public var offYType:int = 0;
 		/**偏移Y */
-		public var offy:String = "0";
+		public var offy:int = 0;
 		
 		public var scalex:Number = 1;
 		public var scaley:Number = 1;

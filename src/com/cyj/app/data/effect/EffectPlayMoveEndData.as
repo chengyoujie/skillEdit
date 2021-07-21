@@ -9,9 +9,14 @@ package com.cyj.app.data.effect
 		public var speed:int = 500;
 		// angle
 		public var distance:int;
-		
-		public var offx:String  = "0";
-		public var offy:String = "0";
+		/**偏移X的类型  **/
+		public var offXType:int = 0;
+		/**偏移X */
+		public var offx:int = 0;
+		/**偏移Y的类型  **/
+		public var offYType:int = 0;
+		/**偏移Y */
+		public var offy:int = 0;
 		
 		/**移动类型**/
 		public var ease:int;
