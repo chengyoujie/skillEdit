@@ -11,6 +11,8 @@ package com.cyj.app.data
 //		public var acts:String;
 		
 		public var frames:Array = [];//FrameData[]
+		/**子图片的个数**/
+		public var imgLen:int=1;
 		
 		public function MovieData(data:Object)
 		{

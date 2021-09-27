@@ -85,7 +85,7 @@ package com.cyj.app.view.ui.app {
 			    <Image skin="png.guidecomp.kuang" x="5" y="357" sizeGrid="10,10,10,10" width="275" height="160"/>
 			    <ComboBox skin="png.guidecomp.combobox" x="70" var="comOwner" width="115" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="无,施法者,受击者,受击者其中一个,我方全体,圣物" selectedIndex="0"/>
 			    <Label text="拥有者：" x="18" y="2" color="0xff9900" stroke="0" align="right"/>
-			    <ComboBox skin="png.guidecomp.combobox" x="70" y="28" var="comLayer" width="115" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="角色顶部,角色底部,地图上层,地图下层,五方向自动改变层级,上层跟随角色,下层跟随角色" selectedIndex="0"/>
+			    <ComboBox skin="png.guidecomp.combobox" x="70" y="28" var="comLayer" width="115" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="角色顶部,角色底部,地图上层,地图下层,五方向自动改变层级,上层跟随角色,下层跟随角色,反五方向" selectedIndex="0"/>
 			    <Label text="图层：" x="23" y="31" color="0xff9900" stroke="0" width="47" height="18" align="right"/>
 			    <ComboBox skin="png.guidecomp.combobox" x="70" y="139" var="comEndType" width="115" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="特效播放结束,特效移动结束,特效播放时间,使用插件" selectedIndex="0"/>
 			    <Label text="结束条件：" x="6" y="141" color="0xff9900" stroke="0"/>

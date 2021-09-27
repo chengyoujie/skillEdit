@@ -422,6 +422,17 @@ package com.cyj.app.view.app.effect
 				else{
 					TipMsg.show("不能添加五方向, 因为没有设置该项的目标");
 				}
+			}else if(_data.layer == EffectPlayLayer.Reverse_FiveDir)//与五方向相反的方向
+			{
+				if(caster)
+				{
+					var layer2:Sprite = _centerView.getSceneLayerByDir(caster.dir);
+					layer2 = layer2==_centerView.upLayer?_centerView.downLayer:_centerView.upLayer;
+					layer2.addChild(_display);
+				}
+				else{
+					TipMsg.show("不能添加（反五方向）, 因为没有设置该项的目标");
+				}
 			}
 			if(_display is Avatar)
 			{
@@ -435,7 +446,7 @@ package com.cyj.app.view.app.effect
 		{
 			if(!_data || !_display)return;
 			var useCasterPos:Boolean = false;//是否使用 角色坐标
-			if(_data.layer == EffectPlayLayer.MapTop || _data.layer == EffectPlayLayer.MapBottom || _data.layer == EffectPlayLayer.FiveDir  || _data.layer == EffectPlayLayer.FllowTop || _data.layer == EffectPlayLayer.FllowBottom)
+			if(_data.layer == EffectPlayLayer.MapTop || _data.layer == EffectPlayLayer.MapBottom || _data.layer == EffectPlayLayer.FiveDir || _data.layer == EffectPlayLayer.Reverse_FiveDir  || _data.layer == EffectPlayLayer.FllowTop || _data.layer == EffectPlayLayer.FllowBottom)
 			{
 				useCasterPos = true;
 			}
@@ -513,11 +524,27 @@ package com.cyj.app.view.app.effect
 				if(!target)return 0;
 				return offset/100*(isY?target.height:target.width);
 			}else if(offXType == EffectPlayOffsetType.OWNER_DIR){
-				var targetXAngle:Number = Direction.getDegrees(target?target.dir:Direction.LEFT)*Math.PI/180;
-				return Math.cos(targetXAngle)*offset;
+				if(isY)
+				{
+					var dirY:int = target?target.dir:Direction.LEFT;
+					var targetYAngle:Number = Direction.getDegrees(dirY)*Math.PI/180;
+					return -Math.sin(targetYAngle)*offset/2 +offset;
+				}else{
+					var dir:int = target?target.dir:Direction.LEFT;
+					var targetXAngle:Number = Direction.getDegrees(dir)*Math.PI/180;
+					return Math.cos(targetXAngle)*offset*getOffsetScale(dir);
+				}
+				
 			}else{
 				return offset;
 			}
+		}
+		
+		private function getOffsetScale(dir:int):Number{
+			if(dir == Direction.LEFT || dir == Direction.RIGHT)return 1;
+			if(dir == Direction.TOP || dir == Direction.BOTTOM) return 0.25;
+			return 0.75;
+//			return 1;
 		}
 		
 		private function refushScale():void

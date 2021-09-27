@@ -24,7 +24,7 @@ package com.cyj.app.view.app
 	{
 		private var _avt:Avatar;
 		private var _dirCtrShow:Boolean = true;//在createChildre中会取反下
-		private var _actArr:Array = [Action.ACTION_TYPE_STAND, Action.ACTION_TYPE_MOVE, Action.ACTION_TYPE_ACT0, Action.ACTION_TYPE_ACT1 , Action.ACTION_TYPE_ACT2 , Action.ACTION_TYPE_ACT3 , Action.ACTION_TYPE_ACT4];
+		private var _actArr:Array = [Action.ACTION_TYPE_STAND, Action.ACTION_TYPE_MOVE,Action.ACTION_TYPE_ACT, Action.ACTION_TYPE_ACT0, Action.ACTION_TYPE_ACT1 , Action.ACTION_TYPE_ACT2 , Action.ACTION_TYPE_ACT3 , Action.ACTION_TYPE_ACT4];
 		private var _actBtnDic:Object = {};
 		private var _loopBind:BindData;
 		private var _layerBind:BindData;

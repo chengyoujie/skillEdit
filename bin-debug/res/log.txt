@@ -2,7 +2,7 @@
 [记录]开始加载local.json
 [记录]开始加载config.zzp
 [记录]系统启动成功
-[记录]cmdReuslt:  Microsoft Windows [版本 10.0.17763.1879]
+[记录]cmdReuslt:  Microsoft Windows [版本 10.0.17763.1935]
 (c) 2018 Microsoft Corporation。保留所有权利。
 
 E:\Soft\FlashBuilder\Adobe Flash Builder 4.6>
@@ -17,77 +17,60 @@ E:\Soft\FlashBuilder\Adobe Flash Builder 4.6>
 [记录]CMD: cls
 [记录]cmdReuslt:  "D:\FlashBuilder\SkillEdit\bin-debug//res/bin/svnbin/svn.exe" stat D:/web/resource/config/effect.json
 
-[记录]cmdReuslt:  M       D:\web\resource\config\effect.json
-
 [记录]cmdReuslt:  
 E:\Soft\FlashBuilder\Adobe Flash Builder 4.6>|TAG|1|TAG|
 
 E:\Soft\FlashBuilder\Adobe Flash Builder 4.6>cls
+
+E:\Soft\FlashBuilder\Adobe Flash Builder 4.6>"D:\FlashBuilder\SkillEdit\bin-debug//res/bin/svnbin/svn.exe" stat D:/cehua/Data/XmlData/export/effect.json
 
 [记录]CMD: "D:\FlashBuilder\SkillEdit\bin-debug//res/bin/svnbin/svn.exe" update D:/web/resource/config/effect.json
 [记录]CMD: |TAG|3|TAG|
 [记录]CMD: cls
 [记录]CMD: cls
-[记录]cmdReuslt:  
-E:\Soft\FlashBuilder\Adobe Flash Builder 4.6>"D:\FlashBuilder\SkillEdit\bin-debug//res/bin/svnbin/svn.exe" stat D:/cehua/Data/XmlData/export/effect.json
-
-[记录]cmdReuslt:  M       D:\cehua\Data\XmlData\export\effect.json
-
 [记录]cmdReuslt:  
 E:\Soft\FlashBuilder\Adobe Flash Builder 4.6>|TAG|2|TAG|
 
 E:\Soft\FlashBuilder\Adobe Flash Builder 4.6>cls
+
+E:\Soft\FlashBuilder\Adobe Flash Builder 4.6>"D:\FlashBuilder\SkillEdit\bin-debug//res/bin/svnbin/svn.exe" update D:/web/resource/config/effect.json
 
 [记录]CMD: "D:\FlashBuilder\SkillEdit\bin-debug//res/bin/svnbin/svn.exe" update D:/cehua/Data/XmlData/export/effect.json
 [记录]CMD: |TAG|4|TAG|
 [记录]CMD: cls
 [记录]CMD: cls
-[记录]cmdReuslt:  
-E:\Soft\FlashBuilder\Adobe Flash Builder 4.6>"D:\FlashBuilder\SkillEdit\bin-debug//res/bin/svnbin/svn.exe" update D:/web/resource/config/effect.json
-
 [记录]cmdReuslt:  Updating 'D:\web\resource\config\effect.json':
 
-[记录]cmdReuslt:  At revision 28670.
+[记录]cmdReuslt:  At revision 31028.
 
 [记录]cmdReuslt:  
 E:\Soft\FlashBuilder\Adobe Flash Builder 4.6>|TAG|3|TAG|
 
 E:\Soft\FlashBuilder\Adobe Flash Builder 4.6>cls
-
-[记录]CMD: cls
-[记录]cmdReuslt:  
+
 E:\Soft\FlashBuilder\Adobe Flash Builder 4.6>cls
 
 E:\Soft\FlashBuilder\Adobe Flash Builder 4.6>"D:\FlashBuilder\SkillEdit\bin-debug//res/bin/svnbin/svn.exe" update D:/cehua/Data/XmlData/export/effect.json
 
+[记录]CMD: cls
 [记录]cmdReuslt:  Updating 'D:\cehua\Data\XmlData\export\effect.json':
 
-[记录]cmdReuslt:  At revision 41470.
+[记录]cmdReuslt:  At revision 44347.
 
 [记录]cmdReuslt:  
 E:\Soft\FlashBuilder\Adobe Flash Builder 4.6>|TAG|4|TAG|
 
 E:\Soft\FlashBuilder\Adobe Flash Builder 4.6>cls
-
-[记录]CMD: cls
-[记录]cmdReuslt:  
-E:\Soft\FlashBuilder\Adobe Flash Builder 4.6>cls
 
 E:\Soft\FlashBuilder\Adobe Flash Builder 4.6>cls
 
-[记录]cmdReuslt:  
 E:\Soft\FlashBuilder\Adobe Flash Builder 4.6>cls
 
-[记录]cmdReuslt:  
 E:\Soft\FlashBuilder\Adobe Flash Builder 4.6>
-[记录]当前选择  特效组：137
-[记录]当前选择  特效组：21
-[记录]当前选择 特效项: 2
-[记录]当前选择 特效项: 3
-[记录]当前选择 特效项: 2
-[记录]当前选择 特效项: 3
-[记录]当前选择  特效组：50
-[记录]当前选择 特效项: 2
-[记录]当前选择  特效组：71
-[记录]当前选择  特效组：70
+[记录]CMD: cls
+[记录]cmdReuslt:  cls
+
+E:\Soft\FlashBuilder\Adobe Flash Builder 4.6>
+[记录]当前选择  特效组：142
+[记录]当前选择角色-870701511
 [记录]退出系统

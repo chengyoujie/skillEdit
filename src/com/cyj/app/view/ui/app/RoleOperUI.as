@@ -27,16 +27,16 @@ package com.cyj.app.view.ui.app {
 		protected static var uiView:XML =
 			<View width="200" height="80">
 			  <Image skin="png.comp.blank" x="0" y="0" width="201" height="80" var="imgBg"/>
-			  <Box x="139" y="3" var="boxDir">
-			    <Button label="↑" skin="png.guidecomp.btn_小按钮_1" x="18" width="20" height="22" var="btnUp" labelColors="0xc79a84,0xe0a98d,0x93827a" y="-1"/>
-			    <Button label="↗" skin="png.guidecomp.btn_小按钮_1" x="38" width="20" height="22" var="btnUpRight" labelColors="0xc79a84,0xe0a98d,0x93827a" y="-1"/>
-			    <Button label="→" skin="png.guidecomp.btn_小按钮_1" x="39" y="22" width="20" height="25" var="btnRight" labelColors="0xc79a84,0xe0a98d,0x93827a"/>
-			    <Button label="↘" skin="png.guidecomp.btn_小按钮_1" x="38" y="48" width="20" height="22" var="btnRightDown" labelColors="0xc79a84,0xe0a98d,0x93827a"/>
-			    <Button label="↓" skin="png.guidecomp.btn_小按钮_1" x="18" y="48" var="btnDown" width="20" height="22" labelColors="0xc79a84,0xe0a98d,0x93827a"/>
-			    <Button label="↙" skin="png.guidecomp.btn_小按钮_1" y="48" var="btnLeftDown" width="20" height="22" x="-2" labelColors="0xc79a84,0xe0a98d,0x93827a"/>
-			    <Button label="←" skin="png.guidecomp.btn_小按钮_1" y="22" width="20" height="25" var="btnLeft" labelColors="0xc79a84,0xe0a98d,0x93827a" x="-2"/>
-			    <Button label="↖" skin="png.guidecomp.btn_小按钮_1" width="20" height="22" var="btnLeftUp" labelColors="0xc79a84,0xe0a98d,0x93827a" x="-2" y="-1"/>
-			    <Box x="17" y="18" var="boxEffectOper">
+			  <Box x="137" y="2" var="boxDir">
+			    <Button label="↑" skin="png.guidecomp.btn_小按钮_1" x="20" width="20" height="22" var="btnUp" labelColors="0xc79a84,0xe0a98d,0x93827a"/>
+			    <Button label="↗" skin="png.guidecomp.btn_小按钮_1" x="40" width="20" height="22" var="btnUpRight" labelColors="0xc79a84,0xe0a98d,0x93827a"/>
+			    <Button label="→" skin="png.guidecomp.btn_小按钮_1" x="41" y="23" width="20" height="25" var="btnRight" labelColors="0xc79a84,0xe0a98d,0x93827a"/>
+			    <Button label="↘" skin="png.guidecomp.btn_小按钮_1" x="40" y="49" width="20" height="22" var="btnRightDown" labelColors="0xc79a84,0xe0a98d,0x93827a"/>
+			    <Button label="↓" skin="png.guidecomp.btn_小按钮_1" x="20" y="49" var="btnDown" width="20" height="22" labelColors="0xc79a84,0xe0a98d,0x93827a"/>
+			    <Button label="↙" skin="png.guidecomp.btn_小按钮_1" y="49" var="btnLeftDown" width="20" height="22" labelColors="0xc79a84,0xe0a98d,0x93827a"/>
+			    <Button label="←" skin="png.guidecomp.btn_小按钮_1" y="23" width="20" height="25" var="btnLeft" labelColors="0xc79a84,0xe0a98d,0x93827a"/>
+			    <Button label="↖" skin="png.guidecomp.btn_小按钮_1" width="20" height="22" var="btnLeftUp" labelColors="0xc79a84,0xe0a98d,0x93827a"/>
+			    <Box x="19" y="19" var="boxEffectOper">
 			      <Button label="主" skin="png.guidecomp.btn_小按钮_1" width="22" height="17" var="btnOwnerDir" labelColors="0xc79a84,0xe0a98d,0x93827a"/>
 			      <Button skin="png.guidecomp.btn_小按钮_1" y="16" width="22" height="17" var="btnTargetDir" labelColors="0xc79a84,0xe0a98d,0x93827a" label="受"/>
 			    </Box>
@@ -53,7 +53,7 @@ package com.cyj.app.view.ui.app {
 			    <Box var="boxRole">
 			      <ComboBox labels="旁观者,施法者,受击者" skin="png.comp.combobox" x="57" var="comRoleType" width="65" height="23"/>
 			      <Label text="角色类型" y="2" width="55" height="18" align="center" color="0xffff00" x="0"/>
-			      <ComboBox labels="站立,移动,攻击,攻击1,攻击2,攻击3,攻击4" skin="png.comp.combobox" x="57" var="comAct" width="64" height="23" y="28"/>
+			      <ComboBox labels="站立,移动,攻击,攻击0,攻击1,攻击2,攻击3,攻击4" skin="png.comp.combobox" x="57" var="comAct" width="64" height="23" y="28"/>
 			      <Label text="动作" y="30" width="55" height="18" align="center" color="0xffff00" x="0"/>
 			    </Box>
 			  </Box>

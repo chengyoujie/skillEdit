@@ -293,6 +293,15 @@ package com.cyj.app.view.app
 			if(!_effectPlayItemDatas)return;
 			var selectItem:EffectPlayItemData = listStep.selectedItem as EffectPlayItemData;
 			if(!selectItem)return;
+			if(selectItem.disInfo.data){
+				var endType:String = selectItem.disInfo.data.substr(-4);
+				if(endType == "_png" || endType == "_jpg" || endType == ".png" || endType == ".jpg")
+				{
+					selectItem.disInfo.type = EffectPlayDisplayType.Image; 
+				}else{
+					selectItem.disInfo.type = EffectPlayDisplayType.MovieClip;
+				}
+			}
 			ToolsApp.effectPlayer.playItem(selectItem, true);
 			var items:Vector.<EffectPlayItem> = ToolsApp.effectPlayer.items;
 			if(items.length>0 && items[0].display is Avatar)
@@ -589,7 +598,8 @@ package com.cyj.app.view.app
 				{
 					ToolsApp.effectPlayer.playItem(selectItem);
 				}else{
-					ToolsApp.effectPlayer.refushDisplay();	
+//					ToolsApp.effectPlayer.refushDisplay();	
+					ToolsApp.effectPlayer.playItem(selectItem);
 				}
 				if(selectItem.rotationType != RotationType.COSTOM)
 				{

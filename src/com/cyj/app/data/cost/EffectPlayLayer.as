@@ -19,6 +19,8 @@ package com.cyj.app.data.cost
 		
 		/**下层跟随角色**/
 		public static const FllowBottom:int = 6;
+		/**根据方向改变层级  与五方向相反 */
+		public static const Reverse_FiveDir:int = 7;
 		
 		
 		public function EffectPlayLayer()

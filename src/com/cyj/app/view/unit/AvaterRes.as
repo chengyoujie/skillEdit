@@ -32,7 +32,7 @@ package com.cyj.app.view.unit
 //		public static var cache:AvaterCache = new AvaterCache();
 		private var _path:String;
 		private var _data:MovieData;
-		private var _image:BitmapData;
+		private var _imgs:Object = {};
 		private var _subImgInfos:Object;
 		private var _maxFrame:int=-1;
 		private var _isReady:Boolean = false;
@@ -42,6 +42,8 @@ package com.cyj.app.view.unit
 		private var _oy:Number = 0;
 		private var _defaultFrameData:FrameData;
 		private var _resKeys:Array = [];
+		private var _loadNum:int = 0;
+		private var _curLoad:int = 0;
 		
 		public function AvaterRes(path:String)
 		{
@@ -52,25 +54,35 @@ package com.cyj.app.view.unit
 		private function load():void
 		{
 			ToolsApp.loader.loadSingleRes(_path+".json", ResLoader.TXT, handleDataLoaded);
-			ToolsApp.loader.loadSingleRes(_path+".png", ResLoader.IMG, handleImageLoaded);
 		}
 		
 		private function handleDataLoaded(res:ResData):void
 		{
 			var json:Object = JSON.parse(res.data);
 			_data = new MovieData(json);
-			checkComplete();
+			_loadNum = 1;
+			if(_data.imgLen>1)
+			{
+				_loadNum = _data.imgLen;
+				for(var i:int=1; i<_data.imgLen; i++)
+				{
+					ToolsApp.loader.loadSingleRes(_path+"_"+i+".png", ResLoader.IMG, handleImageLoaded, null, null, i);
+				}
+			}
+			ToolsApp.loader.loadSingleRes(_path+".png", ResLoader.IMG, handleImageLoaded);
 		}
 		
 		private function handleImageLoaded(res:ResData):void
 		{
-			_image = res.data;
+			var idx:int = res.param;
+			_imgs[idx] = res.data;
+			_curLoad ++;
 			checkComplete();
 		} 
 		
 		private function checkComplete():void
 		{
-			if(_data && _image)
+			if(_curLoad >= _loadNum)
 			{
 				_subImgInfos ={};
 				_defaultFrameData = new FrameData();
@@ -86,8 +98,11 @@ package com.cyj.app.view.unit
 				{
 					var size:int = arr[i];
 					var rotated:Boolean = false;
+					var childIdx:int = 0;
 					if(size>=7)
 						rotated = arr[i+7];
+					if(size>=8)
+						childIdx = arr[i+8];
 //					if(size>=6)
 //						movie.addSubTexture(arr[i+1], arr[i+2], arr[i+3], arr[i+4], arr[i+5], arr[i+6], rotated);
 					if(size<0)
@@ -99,7 +114,7 @@ package com.cyj.app.view.unit
 					key ++;
 					var keyNum:int = int(key)%100;
 					var fd:SubImageInfo = new SubImageInfo();
-					fd.img = subImg(_image, arr[i+1], arr[i+2], arr[i+3], arr[i+4] , rotated);
+					fd.img = subImg(_imgs[childIdx], arr[i+1], arr[i+2], arr[i+3], arr[i+4] , rotated, childIdx);
 					fd.ox = arr[i+5];
 					fd.oy = arr[i+6];
 					fd.key = keyNum;
@@ -224,7 +239,7 @@ package com.cyj.app.view.unit
 		} 
 		
 		
-		private function subImg(img:BitmapData, x:int, y:int, w:int, h:int, rotated:Boolean=false):BitmapData
+		private function subImg(img:BitmapData, x:int, y:int, w:int, h:int, rotated:Boolean=false, childIdx:int=0):BitmapData
 		{
 			var bd:BitmapData;
 			if(rotated)
