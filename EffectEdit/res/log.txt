@@ -5,75 +5,86 @@
 [记录]cmdReuslt:  Microsoft Windows [版本 10.0.17763.1935]
 (c) 2018 Microsoft Corporation。保留所有权利。
 
-D:\FlashBuilder\SkillEdit\SkillEdit>
+D:\FlashBuilder\SkillEdit\EffectEdit>
 [记录]config.zzp加载完毕
 [记录]项目初始化完毕
 [记录]目录读取D:/web/avatarres/完毕
-[记录]CMD: "D:\FlashBuilder\SkillEdit\SkillEdit//res/bin/svnbin/svn.exe" stat D:/web/resource/config/effect.json
+[记录]CMD: "D:\FlashBuilder\SkillEdit\EffectEdit//res/bin/svnbin/svn.exe" stat D:/web/resource/config/effect.json
 [记录]CMD: |TAG|1|TAG|
 [记录]CMD: cls
-[记录]CMD: "D:\FlashBuilder\SkillEdit\SkillEdit//res/bin/svnbin/svn.exe" stat D:/cehua/Data/XmlData/export/effect.json
+[记录]CMD: "D:\FlashBuilder\SkillEdit\EffectEdit//res/bin/svnbin/svn.exe" stat D:/cehua/Data/XmlData/export/effect.json
 [记录]CMD: |TAG|2|TAG|
 [记录]CMD: cls
-[记录]cmdReuslt:  "D:\FlashBuilder\SkillEdit\SkillEdit//res/bin/svnbin/svn.exe" stat D:/web/resource/config/effect.json
+[记录]cmdReuslt:  "D:\FlashBuilder\SkillEdit\EffectEdit//res/bin/svnbin/svn.exe" stat D:/web/resource/config/effect.json
+
+[记录]cmdReuslt:  M       D:\web\resource\config\effect.json
 
 [记录]cmdReuslt:  
-D:\FlashBuilder\SkillEdit\SkillEdit>|TAG|1|TAG|
+D:\FlashBuilder\SkillEdit\EffectEdit>|TAG|1|TAG|
 
-D:\FlashBuilder\SkillEdit\SkillEdit>cls
-
-D:\FlashBuilder\SkillEdit\SkillEdit>"D:\FlashBuilder\SkillEdit\SkillEdit//res/bin/svnbin/svn.exe" stat D:/cehua/Data/XmlData/export/effect.json
 
-[记录]CMD: "D:\FlashBuilder\SkillEdit\SkillEdit//res/bin/svnbin/svn.exe" update D:/web/resource/config/effect.json
+[记录]CMD: "D:\FlashBuilder\SkillEdit\EffectEdit//res/bin/svnbin/svn.exe" update D:/web/resource/config/effect.json
 [记录]CMD: |TAG|3|TAG|
 [记录]CMD: cls
 [记录]CMD: cls
+[记录]cmdReuslt:  D:\FlashBuilder\SkillEdit\EffectEdit>cls
+
+D:\FlashBuilder\SkillEdit\EffectEdit>"D:\FlashBuilder\SkillEdit\EffectEdit//res/bin/svnbin/svn.exe" stat D:/cehua/Data/XmlData/export/effect.json
+
+[记录]cmdReuslt:  M       D:\cehua\Data\XmlData\export\effect.json
+
 [记录]cmdReuslt:  
-D:\FlashBuilder\SkillEdit\SkillEdit>|TAG|2|TAG|
+D:\FlashBuilder\SkillEdit\EffectEdit>|TAG|2|TAG|
 
-D:\FlashBuilder\SkillEdit\SkillEdit>cls
+D:\FlashBuilder\SkillEdit\EffectEdit>cls
 
-[记录]CMD: "D:\FlashBuilder\SkillEdit\SkillEdit//res/bin/svnbin/svn.exe" update D:/cehua/Data/XmlData/export/effect.json
+[记录]CMD: "D:\FlashBuilder\SkillEdit\EffectEdit//res/bin/svnbin/svn.exe" update D:/cehua/Data/XmlData/export/effect.json
 [记录]CMD: |TAG|4|TAG|
 [记录]CMD: cls
 [记录]CMD: cls
 [记录]cmdReuslt:  
-D:\FlashBuilder\SkillEdit\SkillEdit>"D:\FlashBuilder\SkillEdit\SkillEdit//res/bin/svnbin/svn.exe" update D:/web/resource/config/effect.json
+D:\FlashBuilder\SkillEdit\EffectEdit>"D:\FlashBuilder\SkillEdit\EffectEdit//res/bin/svnbin/svn.exe" update D:/web/resource/config/effect.json
 
 [记录]cmdReuslt:  Updating 'D:\web\resource\config\effect.json':
 
-[记录]cmdReuslt:  At revision 31028.
+[记录]cmdReuslt:  At revision 32551.
 
 [记录]cmdReuslt:  
-D:\FlashBuilder\SkillEdit\SkillEdit>|TAG|3|TAG|
+D:\FlashBuilder\SkillEdit\EffectEdit>|TAG|3|TAG|
 
-[记录]CMD: cls
-[记录]cmdReuslt:  
-D:\FlashBuilder\SkillEdit\SkillEdit>cls
-
-D:\FlashBuilder\SkillEdit\SkillEdit>cls
-
-D:\FlashBuilder\SkillEdit\SkillEdit>
-[记录]cmdReuslt:  "D:\FlashBuilder\SkillEdit\SkillEdit//res/bin/svnbin/svn.exe" update D:/cehua/Data/XmlData/export/effect.json
-
-[记录]cmdReuslt:  Updating 'D:\cehua\Data\XmlData\export\effect.json':
-
-[记录]cmdReuslt:  At revision 44347.
-
-[记录]cmdReuslt:  
-D:\FlashBuilder\SkillEdit\SkillEdit>|TAG|4|TAG|
-
-D:\FlashBuilder\SkillEdit\SkillEdit>cls
-
-D:\FlashBuilder\SkillEdit\SkillEdit>cls
-
-D:\FlashBuilder\SkillEdit\SkillEdit>cls
-
-D:\FlashBuilder\SkillEdit\SkillEdit>
+D:\FlashBuilder\SkillEdit\EffectEdit>
 [记录]CMD: cls
 [记录]cmdReuslt:  cls
 
+D:\FlashBuilder\SkillEdit\EffectEdit>cls
+
+D:\FlashBuilder\SkillEdit\EffectEdit>
+[记录]cmdReuslt:  "D:\FlashBuilder\SkillEdit\EffectEdit//res/bin/svnbin/svn.exe" update D:/cehua/Data/XmlData/export/effect.json
+
+[记录]cmdReuslt:  Updating 'D:\cehua\Data\XmlData\export\effect.json':
+
+[记录]cmdReuslt:  At revision 46398.
+
 [记录]cmdReuslt:  
-D:\FlashBuilder\SkillEdit\SkillEdit>
-[记录]当前选择  特效组：142
+D:\FlashBuilder\SkillEdit\EffectEdit>|TAG|4|TAG|
+
+
+[记录]CMD: cls
+[记录]cmdReuslt:  D:\FlashBuilder\SkillEdit\EffectEdit>cls
+
+D:\FlashBuilder\SkillEdit\EffectEdit>cls
+
+D:\FlashBuilder\SkillEdit\EffectEdit>
+[记录]cmdReuslt:  cls
+
+[记录]cmdReuslt:  
+[记录]cmdReuslt:  
+D:\FlashBuilder\SkillEdit\EffectEdit>cls
+
+[记录]cmdReuslt:  
+[记录]cmdReuslt:  
+D:\FlashBuilder\SkillEdit\EffectEdit>
+[记录]当前选择  特效组：156
+[记录]当前选择 特效项: 3
+[记录]当前选择 特效项: 5
 [记录]退出系统

@@ -76,7 +76,7 @@
     </Box>
     <Label text="特效旋转角度：" styleSkin="png.comp.label" x="7" y="465" layer="1" color="0xff9900" stroke="0"/>
     <TextInput text="0" skin="png.comp.textinput" x="210" y="464" layer="1" color="0x0" width="65" height="22" var="inputRotation"/>
-    <ComboBox skin="png.guidecomp.combobox" x="93" layer="1" var="comRotation" width="86" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="自定义,拥有者方向,目标方向,目标中的一个" selectedIndex="0" y="463"/>
+    <ComboBox skin="png.guidecomp.combobox" x="93" layer="1" var="comRotation" width="86" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="自定义,拥有者方向,目标方向,目标中的一个,从施法者到目标,从目标到施法者" selectedIndex="0" y="463"/>
     <Label text="Y:" styleSkin="png.comp.label" x="109" y="408" layer="1" color="0xff9900" stroke="0" width="19" height="18"/>
     <TextInput text="0" skin="png.comp.textinput" x="129" y="406" layer="1" color="0x0" width="30" height="22" var="inputScaley"/>
     <Label text="特效缩放 X:" styleSkin="png.comp.label" x="8" y="407" layer="1" color="0xff9900" stroke="0" width="65" height="18"/>

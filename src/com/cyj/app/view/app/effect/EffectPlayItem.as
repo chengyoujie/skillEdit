@@ -380,6 +380,22 @@ package com.cyj.app.view.app.effect
 					var pos2:Point = _display.localToGlobal(zeroPoint);
 					_display.rotation = ComUtill.getAngle(pos2, pos1)/Math.PI*180+_data.rotation;
 				}
+			}else if(_data.rotationType == RotationType.SEND_TO_TARGET){
+				if(_target && _owner)
+				{
+					var zeroPointSTT:Point = new Point();
+					var pos1STT:Point = _target.localToGlobal(zeroPointSTT);
+					var pos2STT:Point = _owner.localToGlobal(zeroPointSTT);
+					_display.rotation = ComUtill.getAngle(pos2STT, pos1STT)/Math.PI*180+_data.rotation;
+				}
+			}else if(_data.rotationType == RotationType.TARGET_TO_SEND){
+				if(_target && _owner)
+				{
+					var zeroPointTTS:Point = new Point();
+					var pos1TTS:Point = _owner.localToGlobal(zeroPointTTS);
+					var pos2TTS:Point = _target.localToGlobal(zeroPointTTS);
+					_display.rotation = ComUtill.getAngle(pos2TTS, pos1TTS)/Math.PI*180+_data.rotation;
+				}
 			}
 		}
 		
