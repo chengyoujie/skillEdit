@@ -12,6 +12,7 @@ package com.cyj.app.view.app.effect
 	import com.cyj.app.data.cost.EffectPlayOffsetType;
 	import com.cyj.app.data.cost.EffectPlayOwnerType;
 	import com.cyj.app.data.cost.EffectPlayTiggerType;
+	import com.cyj.app.data.cost.MoveDistanceType;
 	import com.cyj.app.data.cost.RotationType;
 	import com.cyj.app.data.effect.EffectPlayItemData;
 	import com.cyj.app.data.effect.EffectPlayMoveEndData;
@@ -274,12 +275,13 @@ package com.cyj.app.view.app.effect
 				{
 					_tempPoint2.x = 0;
 					_tempPoint2.y = 0;
-					
-					if(move.distance)
+					var distance:int = move.distanceType == MoveDistanceType.FixedDistance?0:ComUtill.getDistance(fromRole, toRole);
+					distance += (distance>=0?1:-1)*move.distance;
+					if(distance)
 					{
 						var angle:Number = Math.atan2(-fromRole.y+toRole.y, -fromRole.x+toRole.x);
-						pos.x +=(move.distance)*Math.cos(angle) ;
-						pos.y  +=  (move.distance)*Math.sin(angle);
+						pos.x +=(distance)*Math.cos(angle) ;
+						pos.y  +=  (distance)*Math.sin(angle);
 					}else{
 						_tempPoint2 = toRole.localToGlobal(_tempPoint2);//角色的坐标转为特效的坐标
 						_tempPoint2 = _display.globalToLocal(_tempPoint2);
@@ -540,15 +542,26 @@ package com.cyj.app.view.app.effect
 				if(!target)return 0;
 				return offset/100*(isY?target.height:target.width);
 			}else if(offXType == EffectPlayOffsetType.OWNER_DIR){
+				var dir:int = target?target.dir:Direction.LEFT;
 				if(isY)
 				{
-					var dirY:int = target?target.dir:Direction.LEFT;
-					var targetYAngle:Number = Direction.getDegrees(dirY)*Math.PI/180;
+					var targetYAngle:Number = Direction.getDegrees(dir)*Math.PI/180;
 					return -Math.sin(targetYAngle)*offset/2 +offset;
 				}else{
-					var dir:int = target?target.dir:Direction.LEFT;
 					var targetXAngle:Number = Direction.getDegrees(dir)*Math.PI/180;
 					return Math.cos(targetXAngle)*offset*getOffsetScale(dir);
+				}
+			}else if(offXType == EffectPlayOffsetType.OWNER_CIRCLE_DIR){
+				var dir2:int = target?target.dir:Direction.LEFT;
+				var angle2:Number = (-Direction.getDegrees(dir2)+45*(offset>=0?1:3));
+//				trace(Direction.getDirName(dir2)+" angle: "+Direction.getDegrees(dir2));
+//				trace("offset "+offset+" 角度: "+angle2);
+				angle2 = angle2*Math.PI/180
+				if(isY)
+				{
+					return Math.cos(angle2)*Math.abs(offset);
+				}else{
+					return Math.sin(angle2)*Math.abs(offset);
 				}
 				
 			}else{

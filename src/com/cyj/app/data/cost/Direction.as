@@ -5,21 +5,21 @@ package com.cyj.app.data.cost
 	public class Direction
 	{
 		
-		/** 向上 */
+		/** 向上   0*/
 		public static const TOP:int = 0;	
-		/** 朝右上 */
+		/** 朝右上  1*/
 		public static const RIGHTTOP:int = 1;	
-		/** 朝右 */
+		/** 朝右 2*/
 		public static const RIGHT:int = 2;			
-		/** 朝右下 */
+		/** 朝右下 3*/
 		public static const RIGHTBOTTOM:int = 3;
-		/** 向下 */
+		/** 向下 4*/
 		public static const BOTTOM:int = 4;			
-		/** 朝左下 */
+		/** 朝左下5 */
 		public static const LEFTBOTTOM:int = 5;
-		/** 朝左 */
+		/** 朝左 6*/
 		public static const LEFT:int = 6;			
-		/** 朝左上 */
+		/** 朝左上7 */
 		public static const LEFTTOP:int = 7;		
 		
 		/**绑定者的方向**/

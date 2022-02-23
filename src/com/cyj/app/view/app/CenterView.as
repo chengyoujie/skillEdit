@@ -9,6 +9,7 @@ package com.cyj.app.view.app
 	import com.cyj.app.data.cost.Direction;
 	import com.cyj.app.data.cost.EffectPlayDisplayType;
 	import com.cyj.app.data.cost.EffectPlayOwnerType;
+	import com.cyj.app.data.cost.MoveDistanceType;
 	import com.cyj.app.data.effect.EffectPlayItemData;
 	import com.cyj.app.utils.ComUtill;
 	import com.cyj.app.view.app.effect.EffectPlayer;
@@ -270,7 +271,12 @@ package com.cyj.app.view.app
 			if(itemData)
 			{
 				if(e.data == "distance")
-					updateMoveCtrDistance(itemData.move.distance);
+				{
+					if(itemData.move.type ==MoveDistanceType.FixedDistance)
+						updateMoveCtrDistance(itemData.move.distance);
+					else
+						updateMoveCtrDistance(0);
+				}
 				else if(e.data == "type")
 				{
 					refushMoveList();

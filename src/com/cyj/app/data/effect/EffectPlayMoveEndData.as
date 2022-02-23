@@ -7,6 +7,8 @@ package com.cyj.app.data.effect
 		public var type:int;
 		/**移动速度 与time二选一  优先time*/
 		public var speed:int = 500;
+		/**距离的类型**/
+		public var distanceType:int = 0;
 		// angle
 		public var distance:int;
 		/**偏移X的类型  **/

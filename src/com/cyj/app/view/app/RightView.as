@@ -86,6 +86,7 @@ package com.cyj.app.view.app
 				new BindData(inputSpeed, "speed", "text", handleRefushScene),
 				new BindData(inputMoveRotation, "rotation", "text", handleRefushScene),
 				new BindData(comMoveRotation, "rotationType", "selectedIndex", handleRefushScene),
+				new BindData(comMoveDistanceType, "distanceType", "selectedIndex", handleRefushScene),
 				new BindData(inputDistance, "distance", "text", handleDistanceChange),
 				new BindData(comMoveOffsetXType, "offXType", "selectedIndex",handleRefushScene),
 				new BindData(comMoveOffsetYType, "offYType", "selectedIndex",handleRefushScene),

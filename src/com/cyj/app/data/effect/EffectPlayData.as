@@ -169,6 +169,7 @@ package com.cyj.app.data.effect
 					if(move["offy"]==0) delete move["offy"];//偏移Y offy:String = "0";
 					if(move["offXType"]==0) delete move["offXType"];// 偏移X offx:String = "0"
 					if(move["offYType"]==0) delete move["offYType"];//偏移Y offy:String = "0";
+					if(move["distanceType"]==0) delete move["distanceType"];//偏移类型  
 					if(!move["distance"]) delete move["distance"];//移动类型   distance:int = 0;
 					if(move["speed"]==500) delete move["speed"];//移动速度 与time二选一  优先time   distance:int = 0;
 				}

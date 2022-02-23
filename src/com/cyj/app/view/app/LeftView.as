@@ -90,6 +90,7 @@ package com.cyj.app.view.app
 			var list:Array = effData.list;
 			listEffect.dataSource = list;
 			listEffect.selectedIndex = list.length - 1;
+			listEffect.scrollTo(listEffect.selectedIndex);
 			handleListEffectChange();
 			SimpleEvent.send(AppEvent.REFUSH_RIGHT);
 		}
