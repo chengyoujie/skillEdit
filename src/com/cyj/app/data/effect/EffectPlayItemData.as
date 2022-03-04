@@ -29,11 +29,11 @@ package com.cyj.app.data.effect
 		/**偏移X的类型  **/
 		public var offXType:int = 0;
 		/**偏移X */
-		public var offx:int = 0;
+		public var offx:String = "0";
 		/**偏移Y的类型  **/
 		public var offYType:int = 0;
 		/**偏移Y */
-		public var offy:int = 0;
+		public var offy:String = "0";
 		
 		public var scalex:Number = 1;
 		public var scaley:Number = 1;

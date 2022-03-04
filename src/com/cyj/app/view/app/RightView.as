@@ -36,6 +36,8 @@ package com.cyj.app.view.app
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	
+	import morn.core.components.ComboBox;
+	import morn.core.components.TextInput;
 	import morn.core.handlers.Handler;
 	
 	public class RightView extends RightViewUI
@@ -67,8 +69,8 @@ package com.cyj.app.view.app
 						new BindData(inputEndParam, "endParam", "text", null, handleCheckEndData),
 						new BindData(comTigglerType, "tiggler", "selectedIndex", handleStarChange),
 						new BindData(inputTigglerParam, "tigglerParam","text",  null , handleCheckStartData),
-						new BindData(comOffsetXType, "offXType", "selectedIndex",handleRefushScene),
-						new BindData(comOffsetYType, "offYType", "selectedIndex",handleRefushScene),
+						new BindData(comOffsetXType, "offXType", "selectedIndex",handleOffsetXTypeChange),
+						new BindData(comOffsetYType, "offYType", "selectedIndex",handleOffsetYTypeChange),
 						new BindData(inputOffx, "offx", "text",handleRefushScene),
 						new BindData(inputOffy, "offy", "text", handleRefushScene),
 						new BindData(inputScalex, "scalex", "text",handleRefushScene),
@@ -88,8 +90,8 @@ package com.cyj.app.view.app
 				new BindData(comMoveRotation, "rotationType", "selectedIndex", handleRefushScene),
 				new BindData(comMoveDistanceType, "distanceType", "selectedIndex", handleRefushScene),
 				new BindData(inputDistance, "distance", "text", handleDistanceChange),
-				new BindData(comMoveOffsetXType, "offXType", "selectedIndex",handleRefushScene),
-				new BindData(comMoveOffsetYType, "offYType", "selectedIndex",handleRefushScene),
+				new BindData(comMoveOffsetXType, "offXType", "selectedIndex",handleMoveOffsetXTypeChange),
+				new BindData(comMoveOffsetYType, "offYType", "selectedIndex",handleMoveOffsetYTypeChange),
 				new BindData(inputMoveOffX, "offx", "text", handleDistanceChange),
 				new BindData(inputMoveOffY, "offy", "text", handleDistanceChange),
 //				new BindData(comAutoRotaion, "rotation", "selectedIndex",handleRefushScene),
@@ -107,7 +109,6 @@ package com.cyj.app.view.app
 		
 		public function initProject():void
 		{
-			
 		}
 		
 		
@@ -130,6 +131,50 @@ package com.cyj.app.view.app
 			SimpleEvent.on(AppEvent.AVATER_TYPE_CHANGE, handleRefushScene);
 			SimpleEvent.on(AppEvent.REFUSH_SCENE, handleRefushScene);
 			SimpleEvent.on(AppEvent.SET_TWEEN_PROP, handleTweenChange);
+		}
+		
+		private function handleOffsetXTypeChange():void{
+			handleOffsetTypeChange(comOffsetXType, inputOffx);
+		}
+		private function handleOffsetYTypeChange():void{
+			handleOffsetTypeChange(comOffsetYType, inputOffy);
+		}
+		private function handleMoveOffsetXTypeChange():void{
+			handleOffsetTypeChange(comMoveOffsetXType, inputMoveOffX);
+		}
+		private function handleMoveOffsetYTypeChange():void{
+			handleOffsetTypeChange(comMoveOffsetYType, inputMoveOffY);
+		}
+		private function handleOffsetTypeChange(combox:ComboBox, input:TextInput):void{
+			var text:String = input.text;
+			switch(combox.selectedIndex)
+			{
+				case EffectPlayOffsetType.NONE:
+					if(text.indexOf(",")!=-1)
+					{
+						input.text = text.split(",")[0];
+					}else{
+						input.text = text;
+					}
+					break;
+				case EffectPlayOffsetType.BODY_HEIGHT:
+					if(text.indexOf(",")!=-1)
+					{
+						input.text = text.split(",")[0];
+					}else{
+						input.text = text;
+					}
+					break;
+				case EffectPlayOffsetType.FIVE_DIR:
+					if(text.indexOf(",")!=-1)
+					{
+						input.text = text;
+					}else{
+						input.text = text+","+text+","+text+","+text+","+text+","+text;
+					}
+				break;
+			}
+			handleRefushScene();
 		}
 		
 		private var _setTweenView:SetTweenView = new SetTweenView();
@@ -447,17 +492,17 @@ package com.cyj.app.view.app
 						item = ToolsApp.effectPlayer.getEffectPlayItem(selectItem.id);
 						if(!item || !item.display)return;
 						pos2 = item.display.localToGlobal(_tempZeroPoint); 
-						selectItem.offx = (pos2.x - pos1.x);
-						selectItem.offy = (pos2.y - pos1.y);
+						selectItem.offx = (pos2.x - pos1.x)+"";
+						selectItem.offy = (pos2.y - pos1.y)+"";
 						toBind(_itemBindData, selectItem);
 					}
-				}else if(role.avaterType == EffectPlayOwnerType.Target || selectItem.effOwnerType ==EffectPlayOwnerType.OneTarget)
+				}else if(role.avaterType == EffectPlayOwnerType.Target || selectItem.effOwnerType ==EffectPlayOwnerType.OneTarget|| selectItem.effOwnerType ==EffectPlayOwnerType.Master)
 				{
 					item = ToolsApp.effectPlayer.getEffectPlayItem(selectItem.id, role);
 					if(!item || !item.display)return;
 					pos2 = item.display.localToGlobal(_tempZeroPoint);	
-					selectItem.offx = (pos2.x - pos1.x);
-					selectItem.offy = (pos2.y - pos1.y);
+					selectItem.offx = (pos2.x - pos1.x)+"";
+					selectItem.offy = (pos2.y - pos1.y)+"";
 					toBind(_itemBindData, selectItem);
 				}
 			}else if(display is Effect || display is EffectImage){
@@ -465,7 +510,7 @@ package com.cyj.app.view.app
 				item = ToolsApp.effectPlayer.getEffectPlayByDisplay(eff);
 				if(!item)return;
 				
-				if(selectItem.effOwnerType == EffectPlayOwnerType.Sender ||selectItem.effOwnerType == EffectPlayOwnerType.OneTarget || selectItem.effOwnerType == EffectPlayOwnerType.MyTeam)//|| role.avaterType == EffectPlayOwnerType.ShengWu)
+				if(selectItem.effOwnerType == EffectPlayOwnerType.Sender ||selectItem.effOwnerType == EffectPlayOwnerType.OneTarget||selectItem.effOwnerType == EffectPlayOwnerType.Master || selectItem.effOwnerType == EffectPlayOwnerType.MyTeam)//|| role.avaterType == EffectPlayOwnerType.ShengWu)
 					target = item.owner;
 				else if(selectItem.effOwnerType == EffectPlayOwnerType.Target)
 					target = item.target;
@@ -482,13 +527,13 @@ package com.cyj.app.view.app
 				{
 					Log.log("只有固定高度的时候才能拖动X特效");
 				}else{
-					selectItem.offx = (pos2.x - pos1.x);
+					selectItem.offx = (pos2.x - pos1.x)+"";
 				}
 				if(selectItem.offXType != EffectPlayOffsetType.NONE)
 				{
 					Log.log("只有固定高度的时候才能拖动Y特效");
 				}else{
-					selectItem.offy = (pos2.y - pos1.y);
+					selectItem.offy = (pos2.y - pos1.y)+"";
 				}
 				toBind(_itemBindData, selectItem);
 				ToolsApp.effectPlayer.refushPos();

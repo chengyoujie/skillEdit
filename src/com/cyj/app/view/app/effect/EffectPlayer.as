@@ -55,12 +55,12 @@ package com.cyj.app.view.app.effect
 				{
 					for(var j:int=0; j<targets.length; j++)
 					{
-						getItem(item, _view.roleLayer.owner, targets[j], true);
+						getItem(item, _view.roleLayer.owner, targets[j], true, j);
 					}
-				}else if(defaultTagret && item.effOwnerType == EffectPlayOwnerType.OneTarget){
-					getItem(item,  defaultTagret,_view.roleLayer.owner, true);
+				}else if(defaultTagret && (item.effOwnerType == EffectPlayOwnerType.OneTarget ||  item.effOwnerType == EffectPlayOwnerType.Master)){
+					getItem(item,  defaultTagret,_view.roleLayer.owner, true, 0);
 				}else{
-					getItem(item, _view.roleLayer.owner, defaultTagret, true);
+					getItem(item, _view.roleLayer.owner, defaultTagret, true, 0);
 				}
 			}
 		}
@@ -116,10 +116,10 @@ package com.cyj.app.view.app.effect
 				{
 					getItem(data, _view.roleLayer.owner, targets[i], isPlayAll, i);
 				}
-			}else if(defaultTagret && data.move.type == EffectPlayOwnerType.OneTarget)
+			}else if(defaultTagret && (data.move.type == EffectPlayOwnerType.OneTarget ||  data.move.type == EffectPlayOwnerType.Master))
 			{
 				getItem(data,_view.roleLayer.owner , defaultTagret,  isPlayAll);
-			}else if(defaultTagret && data.effOwnerType == EffectPlayOwnerType.OneTarget)
+			}else if(defaultTagret && (data.effOwnerType == EffectPlayOwnerType.OneTarget ||  data.effOwnerType == EffectPlayOwnerType.Master))
 			{
 				getItem(data, defaultTagret, _view.roleLayer.owner , isPlayAll);
 			}else if(defaultTagret && data.rotationType == RotationType.ONE_TARGET)
@@ -295,7 +295,7 @@ package com.cyj.app.view.app.effect
 				return true;
 			if(info.disInfo.dir == Direction.TO_TARGET_DIR)
 				return true;
-			if(info.rotationType == RotationType.TARGET && info.move.type != EffectPlayOwnerType.OneTarget)
+			if(info.rotationType == RotationType.TARGET && info.move.type != EffectPlayOwnerType.OneTarget && info.move.type != EffectPlayOwnerType.Master)
 				return true;
 			return false;
 		}

@@ -238,7 +238,7 @@ package com.cyj.app.view.app
 				{
 					var targets:Vector.<Role>;
 					var sends:Vector.<Role>;
-					if(roles.length>0 && data.effOwnerType == EffectPlayOwnerType.OneTarget)
+					if(roles.length>0 && (data.effOwnerType == EffectPlayOwnerType.OneTarget || data.effOwnerType == EffectPlayOwnerType.Master))
 					{
 						sends = new Vector.<Role>();
 						sends.push(roles[0]);

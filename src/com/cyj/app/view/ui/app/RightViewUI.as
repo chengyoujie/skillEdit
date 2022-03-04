@@ -84,7 +84,7 @@ package com.cyj.app.view.ui.app {
 			  <TextInput text="0" skin="png.comp.textinput" x="67" y="33" color="0x0" var="inputName" width="130" height="22"/>
 			  <Box x="-2" y="126" var="boxEffectCtr">
 			    <Image skin="png.guidecomp.kuang" x="5" y="357" sizeGrid="10,10,10,10" width="275" height="160"/>
-			    <ComboBox skin="png.guidecomp.combobox" x="70" var="comOwner" width="115" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="无,施法者,受击者,受击者其中一个,我方全体,圣物" selectedIndex="0"/>
+			    <ComboBox skin="png.guidecomp.combobox" x="70" var="comOwner" width="115" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="无,施法者,受击者,受击者其中一个,我方全体,圣物,主人" selectedIndex="0"/>
 			    <Label text="拥有者：" x="18" y="2" color="0xff9900" stroke="0" align="right"/>
 			    <ComboBox skin="png.guidecomp.combobox" x="70" y="28" var="comLayer" width="115" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="角色顶部,角色底部,地图上层,地图下层,五方向自动改变层级,上层跟随角色,下层跟随角色,反五方向" selectedIndex="0"/>
 			    <Label text="图层：" x="23" y="31" color="0xff9900" stroke="0" width="47" height="18" align="right"/>
@@ -100,7 +100,7 @@ package com.cyj.app.view.ui.app {
 			    <TextInput text="0" skin="png.comp.textinput" x="184" y="436" color="0x0" width="65" height="22" var="inputDelay"/>
 			    <Image skin="png.guidecomp.分割线_2px" y="81" width="280"/>
 			    <Image skin="png.guidecomp.分割线_2px" y="191" width="280" x="4"/>
-			    <ComboBox skin="png.guidecomp.combobox" x="71" var="comMoveTo" width="115" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="无,施法者,受击者,目标其中一个" selectedIndex="0" y="215"/>
+			    <ComboBox skin="png.guidecomp.combobox" x="71" var="comMoveTo" width="115" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="无,施法者,受击者,受击者其中一个,我方全体,圣物,主人" selectedIndex="0" y="215"/>
 			    <Label text="移动到：" x="19" y="217" color="0xff9900" stroke="0" height="19"/>
 			    <Box x="5" y="242" var="boxMove">
 			      <Label text="速度：" x="26" y="2" color="0xff9900" stroke="0" align="right"/>
@@ -116,8 +116,8 @@ package com.cyj.app.view.ui.app {
 			      <Label text="移动旋转角度：" y="85" color="0xff9900" stroke="0" x="0"/>
 			      <TextInput text="0" skin="png.comp.textinput" x="184" color="0x0" width="65" height="22" var="inputMoveRotation" y="81"/>
 			      <ComboBox skin="png.guidecomp.combobox" x="94" var="comMoveRotation" width="86" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="自定义,拥有者方向" selectedIndex="0" y="81"/>
-			      <ComboBox skin="png.guidecomp.combobox" x="72" var="comMoveOffsetXType" width="51" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="固定X,高度百分比X,五方向X,五方圆X" selectedIndex="0" y="28"/>
-			      <ComboBox skin="png.guidecomp.combobox" x="174" var="comMoveOffsetYType" width="51" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="固定Y,高度百分比Y,五方向Y,五方圆Y" selectedIndex="0" y="26"/>
+			      <ComboBox skin="png.guidecomp.combobox" x="72" var="comMoveOffsetXType" width="51" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="固定X,高度百分比X,五方向↑↗.." selectedIndex="0" y="28"/>
+			      <ComboBox skin="png.guidecomp.combobox" x="174" var="comMoveOffsetYType" width="51" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="固定X,高度百分比X,五方向↑↗.." selectedIndex="0" y="26"/>
 			      <ComboBox skin="png.guidecomp.combobox" x="83" var="comMoveDistanceType" width="62" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="固定距离,到目标距离" selectedIndex="0" y="53.5"/>
 			    </Box>
 			    <Image skin="png.guidecomp.分割线_2px" x="2" y="373" width="280"/>
@@ -152,8 +152,8 @@ package com.cyj.app.view.ui.app {
 			    <Label text="缓动属性：" x="73" y="494" color="0xc79a84" stroke="0" width="60" height="18"/>
 			    <Label text="无" x="135" y="494" color="0xff9900" stroke="0" width="77" height="18" var="txtTweenProp"/>
 			    <Button skin="png.guidecomp.btn_小按钮_1" labelColors="0xc79a84,0xe0a98d,0x93827a" var="btnTweenRefush" labelStroke="0" width="68" height="28" x="212" label="刷新缓动" y="489"/>
-			    <ComboBox skin="png.guidecomp.combobox" x="69" var="comOffsetXType" width="51" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="固定X,高度百分比X,五方向X,五方圆X" selectedIndex="0" y="376.5"/>
-			    <ComboBox skin="png.guidecomp.combobox" x="162" var="comOffsetYType" width="51" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="固定Y,高度百分比Y,五方向Y,五方圆Y" selectedIndex="0" y="376.5"/>
+			    <ComboBox skin="png.guidecomp.combobox" x="69" var="comOffsetXType" width="51" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="固定X,高度百分比X,五方向↑↗.." selectedIndex="0" y="376.5"/>
+			    <ComboBox skin="png.guidecomp.combobox" x="162" var="comOffsetYType" width="51" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="固定X,高度百分比X,五方向↑↗.." selectedIndex="0" y="376.5"/>
 			  </Box>
 			</View>;
 		public function RightViewUI(){}

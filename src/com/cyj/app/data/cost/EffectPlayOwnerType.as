@@ -14,6 +14,8 @@ package com.cyj.app.data.cost
 		public  static const  MyTeam:int = 4;
 		/**圣物**/
 		public static const ShengWu:int = 5;
+		/**主人**/
+		public static const Master:int = 6;
 		
 		
 		

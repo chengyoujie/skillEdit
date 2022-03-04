@@ -267,7 +267,7 @@ package com.cyj.app.view.app.effect
 				_display.rotation = 0;
 				var toRole:Avatar = getCaster(move.type, true);
 				var fromRole:Avatar = getCaster(_data.effOwnerType, true);
-				if(_data.effOwnerType == EffectPlayOwnerType.OneTarget)
+				if(_data.effOwnerType == EffectPlayOwnerType.OneTarget || _data.effOwnerType == EffectPlayOwnerType.Master)
 				{
 					toRole = _target;
 				}
@@ -536,26 +536,26 @@ package com.cyj.app.view.app.effect
 			refushRotation();
 		}
 		
-		private function getOffsetPos(offset:int, offXType:int, target:Avatar=null, isY:Boolean=false):int{
+		private function getOffsetPos(offset:String, offXType:int, target:Avatar=null, isY:Boolean=false):int{
 			if(offXType == EffectPlayOffsetType.BODY_HEIGHT)//含有方向的偏移X
 			{
 				if(!target)return 0;
-				return offset/100*(isY?target.height:target.width);
-			}else if(offXType == EffectPlayOffsetType.OWNER_DIR){
+				return int(offset)/100*(isY?target.height:target.width);
+			}else if(offXType == EffectPlayOffsetType.FIVE_DIR){
 				var dir:int = target?target.dir:Direction.LEFT;
-				if(isY)
-				{
-					var targetYAngle:Number = Direction.getDegrees(dir)*Math.PI/180;
-					return -Math.sin(targetYAngle)*offset/2 +offset;
-				}else{
-					var targetXAngle:Number = Direction.getDegrees(dir)*Math.PI/180;
-					return Math.cos(targetXAngle)*offset*getOffsetScale(dir);
-				}
-			}else if(offXType == EffectPlayOffsetType.OWNER_CIRCLE_DIR){
+				var offsetArr:Array = offset.split(",");
+				return int(offsetArr[dir%offsetArr.length]);
+//				if(isY)
+//				{
+//					var targetYAngle:Number = Direction.getDegrees(dir)*Math.PI/180;
+//					return -Math.sin(targetYAngle)*offset/2 +offset;
+//				}else{
+//					var targetXAngle:Number = Direction.getDegrees(dir)*Math.PI/180;
+//					return Math.cos(targetXAngle)*offset*getOffsetScale(dir);
+//				}
+			/**else if(offXType == EffectPlayOffsetType.OWNER_CIRCLE_DIR){
 				var dir2:int = target?target.dir:Direction.LEFT;
 				var angle2:Number = (-Direction.getDegrees(dir2)+45*(offset>=0?1:3));
-//				trace(Direction.getDirName(dir2)+" angle: "+Direction.getDegrees(dir2));
-//				trace("offset "+offset+" 角度: "+angle2);
 				angle2 = angle2*Math.PI/180
 				if(isY)
 				{
@@ -564,8 +564,9 @@ package com.cyj.app.view.app.effect
 					return Math.sin(angle2)*Math.abs(offset);
 				}
 				
+			}**/
 			}else{
-				return offset;
+				return int(offset);
 			}
 		}
 		
@@ -583,7 +584,7 @@ package com.cyj.app.view.app.effect
 			{
 				if(_owner && _target)
 				{
-					if(_data.effOwnerType == EffectPlayOwnerType.OneTarget)
+					if(_data.effOwnerType == EffectPlayOwnerType.OneTarget || _data.effOwnerType == EffectPlayOwnerType.Master)
 					{
 						if(_owner.x<_target.x)
 						{
@@ -667,8 +668,8 @@ package com.cyj.app.view.app.effect
 		private function getCaster(type:int, isMove:Boolean = false):Avatar
 		{
 			if(type == EffectPlayOwnerType.None)return null;
-			else if(type == EffectPlayOwnerType.Target || (isMove&&type == EffectPlayOwnerType.OneTarget))return _target;
-			else if(type == EffectPlayOwnerType.Sender || type == EffectPlayOwnerType.OneTarget  || type == EffectPlayOwnerType.MyTeam || type == EffectPlayOwnerType.ShengWu) return _owner;
+			else if(type == EffectPlayOwnerType.Target || (isMove&&type == EffectPlayOwnerType.OneTarget) || (type == EffectPlayOwnerType.Master))return _target;
+			else if(type == EffectPlayOwnerType.Sender || type == EffectPlayOwnerType.OneTarget  || type == EffectPlayOwnerType.MyTeam || type == EffectPlayOwnerType.ShengWu ) return _owner;
 			return null;
 		}
 		
