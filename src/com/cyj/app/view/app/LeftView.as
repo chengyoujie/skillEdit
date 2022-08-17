@@ -41,7 +41,7 @@ package com.cyj.app.view.app
 		{
 			if(ToolsApp.localCfg.autoCheck)
 			{
-				SvnOper.svnUpdata(ToolsApp.localCfg.localWebPath+"/resource/config/effect.json", handleEffectUpdate);
+				SvnOper.svnUpdata(ToolsApp.localCfg.localWebPath+ComUtill.getCfgPath()+"effect.json", handleEffectUpdate);
 				SvnOper.svnUpdata(ToolsApp.localCfg.localDataPath+"/XmlData/export/effect.json", handleLoadConfig);
 			}else{
 				handleLoadConfig();
@@ -52,7 +52,7 @@ package com.cyj.app.view.app
 		{
 			if(!success)
 			{
-				Alert.show("svn 更新"+ToolsApp.localCfg.localWebPath+"/resource/config/effect.json"+"失败");
+				Alert.show("svn 更新"+ToolsApp.localCfg.localWebPath+ComUtill.getCfgPath()+"effect.json"+"失败");
 			}
 		}
 		

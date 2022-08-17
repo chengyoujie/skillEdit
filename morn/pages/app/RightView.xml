@@ -56,8 +56,8 @@
       <Label text="移动旋转角度：" styleSkin="png.comp.label" y="85" layer="1" color="0xff9900" stroke="0" x="0"/>
       <TextInput text="0" skin="png.comp.textinput" x="184" layer="1" color="0x0" width="65" height="22" var="inputMoveRotation" y="81"/>
       <ComboBox skin="png.guidecomp.combobox" x="94" layer="1" var="comMoveRotation" width="86" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="自定义,拥有者方向" selectedIndex="0" y="81"/>
-      <ComboBox skin="png.guidecomp.combobox" x="69" layer="1" var="comMoveOffsetXType" width="58" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="固定X,高度百分比X,五方向↑↗.." selectedIndex="0" y="28"/>
-      <ComboBox skin="png.guidecomp.combobox" x="172" layer="1" var="comMoveOffsetYType" width="55" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="固定X,高度百分比X,五方向↑↗.." selectedIndex="0" y="26"/>
+      <ComboBox skin="png.guidecomp.combobox" x="69" layer="1" var="comMoveOffsetXType" width="58" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="固定X,高度百分比X,八方向↑↗.." selectedIndex="0" y="28"/>
+      <ComboBox skin="png.guidecomp.combobox" x="172" layer="1" var="comMoveOffsetYType" width="55" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="固定X,高度百分比X,八方向↑↗.." selectedIndex="0" y="26"/>
       <ComboBox skin="png.guidecomp.combobox" x="83" layer="1" var="comMoveDistanceType" width="62" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="固定距离,到目标距离" selectedIndex="0" y="53.5"/>
     </Box>
     <Image skin="png.guidecomp.分割线_2px" x="2" y="373" layer="1" width="280"/>
@@ -92,7 +92,7 @@
     <Label text="缓动属性：" styleSkin="png.comp.label" x="73" y="494" layer="1" color="0xc79a84" stroke="0" width="60" height="18"/>
     <Label text="无" styleSkin="png.comp.label" x="135" y="494" layer="1" color="0xff9900" stroke="0" width="77" height="18" var="txtTweenProp"/>
     <Button skin="png.guidecomp.btn_小按钮_1" layer="1" labelColors="0xc79a84,0xe0a98d,0x93827a" var="btnTweenRefush" labelStroke="0" width="68" height="28" x="212" label="刷新缓动" y="489"/>
-    <ComboBox skin="png.guidecomp.combobox" x="69" layer="1" var="comOffsetXType" width="54" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="固定X,高度百分比X,五方向↑↗.." selectedIndex="0" y="376.5"/>
-    <ComboBox skin="png.guidecomp.combobox" x="162" layer="1" var="comOffsetYType" width="54" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="固定X,高度百分比X,五方向↑↗.." selectedIndex="0" y="376.5"/>
+    <ComboBox skin="png.guidecomp.combobox" x="69" layer="1" var="comOffsetXType" width="54" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="固定X,高度百分比X,八方向↑↗.." selectedIndex="0" y="376.5"/>
+    <ComboBox skin="png.guidecomp.combobox" x="162" layer="1" var="comOffsetYType" width="54" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="固定X,高度百分比X,八方向↑↗.." selectedIndex="0" y="376.5"/>
   </Box>
 </View>

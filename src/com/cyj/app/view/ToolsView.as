@@ -155,7 +155,7 @@ package com.cyj.app.view
 		private function loadConfigZzp(e:Event=null):void
 		{
 			Log.log("开始加载config.zzp");
-			var configPath:String = ToolsApp.localCfg.localWebPath+"/resource/config/config.zzp";
+			var configPath:String = ToolsApp.localCfg.localWebPath+ComUtill.getCfgPath()+"config.zzp";
 			configPath = ComUtill.commonPath(configPath);
 			var file:File = new File(configPath);
 			if(file.exists)
@@ -325,7 +325,7 @@ package com.cyj.app.view
 		 * **/
 		public function handleOpenWebDir():void
 		{
-			var file:File = new File(ToolsApp.localCfg.localWebPath + "/resource/config/");
+			var file:File = new File(ToolsApp.localCfg.localWebPath + ComUtill.getCfgPath());
 			if(file.exists)
 			{
 				file.openWithDefaultApplication();
@@ -353,7 +353,7 @@ package com.cyj.app.view
 		{
 			if(success)
 			{
-				SvnOper.svnCommit(ToolsApp.localCfg.localWebPath + "/resource/config/", handleSvnCommitComplete);
+				SvnOper.svnCommit(ToolsApp.localCfg.localWebPath + ComUtill.getCfgPath(), handleSvnCommitComplete);
 			}
 		}
 		private function handleSvnCommitComplete(success:Boolean):void
@@ -372,7 +372,7 @@ package com.cyj.app.view
 		private function handleSvnDataUpdateComplete(success:Boolean):void
 		{
 			if(success)
-				SvnOper.svnUpdata(ToolsApp.localCfg.localWebPath + "/resource/config/", handleSvnUpdateComplete);
+				SvnOper.svnUpdata(ToolsApp.localCfg.localWebPath + ComUtill.getCfgPath(), handleSvnUpdateComplete);
 		}
 		
 		private function handleSvnUpdateComplete(success:Boolean):void

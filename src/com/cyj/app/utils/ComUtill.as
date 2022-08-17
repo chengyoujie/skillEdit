@@ -28,6 +28,16 @@ package com.cyj.app.utils
 			return path.replace(/[\\\/]+/gi, "/");
 		}
 		
+		public static function getCfgPath():String{
+			var file:File = new File(ToolsApp.localCfg.localWebPath + "/resource/config/");
+			if(file.exists)
+			{
+				return "/resource/config/";
+			}else{
+				return "/mainRes/config/";
+			}
+		}
+		
 		public static function getAvtResPath(resId:*, sex:int = Sex.Male): Object {
 			if (!resId) return {path:'', isDirRes:false};
 			var root:String = ToolsApp.localCfg.localWebPath+"/avatarres/";
@@ -35,7 +45,7 @@ package com.cyj.app.utils
 			var cfgs:Array = ToolsApp.projectData.config.resBody.data;
 			if (String(resId).indexOf('/') >= 0) return {path:String(resId), isDirRes:false};
 			var cfg:* = getCfg(cfgs, "id", int(resId));
-			if (!cfg)
+			if (!cfg || !int(resId))
 			{
 				var p:String = root +'effect/' + resId;
 				var f:File = new File(p+".json");

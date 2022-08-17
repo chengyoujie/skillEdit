@@ -5,6 +5,7 @@ package com.cyj.app
 	import com.cyj.app.data.ProjectData;
 	import com.cyj.app.data.ToolsConfig;
 	import com.cyj.app.data.effect.EffectPlayData;
+	import com.cyj.app.utils.ComUtill;
 	import com.cyj.app.utils.SvnOper;
 	import com.cyj.app.view.ToolsView;
 	import com.cyj.app.view.app.effect.EffectPlayer;
@@ -116,7 +117,7 @@ package com.cyj.app
 //			var data:Object = JSON.parse(res.data);
 //			localCfg.parse(data); //XML2Obj.readXml(res.data) as LocalConfig;
 //			Log.log("开始加载config.zzp");
-//			var configPath:String = ToolsApp.localCfg.localWebPath+"/resource/config/config.zzp"
+//			var configPath:String = ToolsApp.localCfg.localWebPath+ComUtill.getCfgPath()+"config.zzp"
 //			ToolsApp.loader.loadSingleRes(configPath, ResLoader.BYT, handleZzpLoaded);
 //		}
 		
@@ -302,8 +303,8 @@ package com.cyj.app
 			}
 			if(localCfg.localWebPath)//保存瘦身过的数据
 			{
-//				var file:File = new File(localCfg.localWebPath+"/resource/config/effect.json");
-				file.saveFile(localCfg.localWebPath+"/resource/config/effect.json", thinData); 
+//				var file:File = new File(localCfg.localWebPath+ComUtill.getCfgPath()+"effect.json");
+				file.saveFile(localCfg.localWebPath+ComUtill.getCfgPath()+"effect.json", thinData); 
 			}
 			projectData.lastSaveEffectData = projectData.allEffectPlayData.copy() as EffectPlayData;
 			TipMsg.show("保存成功");
