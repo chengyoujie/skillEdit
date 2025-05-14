@@ -20,6 +20,9 @@ package com.cyj.app.data.effect
 		public var endType:int;
 		/**结束参数 */
 		public var endParam:* = 0;
+		/**结束参数2 */
+		public var endParam2:* = 0;
+		
 		/**开始条件 */
 		public var tiggler:int;
 		/**开始参数 */
@@ -51,6 +54,8 @@ package com.cyj.app.data.effect
 		public var useScreen:Boolean = false;
 		/**是否绑定拥有者**/
 		public var bindOwner:Boolean = false;
+		/**音效***/
+		public var sound:String = "";
 		
 		public function EffectPlayItemData()
 		{

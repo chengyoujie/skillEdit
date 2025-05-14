@@ -125,6 +125,7 @@ package com.cyj.app.data.effect
 			delete data["name"];//要删除的名字
 //			delete data["id"];//要删除的索引  有用到
 			if(!data["bindOwner"]) delete data["bindOwner"];// useScreen:Boolean = false;
+			if(!data["sound"]) delete data["sound"];// useScreen:Boolean = false;
 			if(!data["useScreen"]) delete data["useScreen"];//bindOwner:Boolean = false;
 			if(!data["tweenProps"] || !data["tweenProps"].length) delete data["tweenProps"];//缓动的参数
 			if(!data["rotation"]) delete data["rotation"];//旋转角度 = 0
@@ -137,6 +138,7 @@ package com.cyj.app.data.effect
 			if(data["offYType"]==0) delete data["offYType"];//偏移Y offy:String = "0";
 			
 			if(!data["endParam"]) delete data["endParam"];//结束参数 endParam:* = 0
+			if(!data["endParam2"]) delete data["endParam2"];//结束参数 endParam:* = 0
 			if(!data["tigglerParam"]) delete data["tigglerParam"];//开始参数 tigglerParam:*=0
 			if(!data["tiggler"]) delete data["tiggler"];//开始条件 tiggler =0
 			if(!data["endType"]) delete data["endType"];//结束条件 endType:int=0

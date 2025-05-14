@@ -39,8 +39,8 @@ package com.cyj.app.utils
 			_data = data;
 			binded = true;
 			initData();
-			//			_text.addEventListener(FocusEvent.FOCUS_OUT, handleFouceOut);
-			_bindUI.addEventListener(Event.CHANGE, handleFouceOut);
+			_bindUI.addEventListener(FocusEvent.FOCUS_OUT, handleFouceOut);
+			_bindUI.addEventListener(Event.CHANGE, handleChange);
 		}
 		
 		public function initData():void
@@ -56,17 +56,15 @@ package com.cyj.app.utils
 		{
 			if(_bindUI)
 			{
-				//				_text.removeEventListener(FocusEvent.FOCUS_OUT, handleFouceOut);
-				_bindUI.removeEventListener(Event.CHANGE, handleFouceOut);
+				_bindUI.removeEventListener(FocusEvent.FOCUS_OUT, handleFouceOut);
+				_bindUI.removeEventListener(Event.CHANGE, handleChange);
 			}
 			_data = null;
 			binded = false;
 			//			_onChangeFun = null;
 		}
 		
-		private function handleFouceOut(e:Event):void
-		{
-			if(!_listenerChange)return;
+		private function handleFouceOut(e:Event):void{
 			if(_checkFun != null)
 			{
 				if(!_checkFun(_bindUI[_uiProp]))//检测是否可以使用
@@ -77,6 +75,11 @@ package com.cyj.app.utils
 					return;
 				}
 			}
+		}
+		
+		private function handleChange(e:Event):void
+		{
+			if(!_listenerChange)return;
 			if(_data)
 			{
 				if(_setDataFun == null)

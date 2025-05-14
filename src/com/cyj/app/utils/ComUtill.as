@@ -30,11 +30,25 @@ package com.cyj.app.utils
 		
 		public static function getCfgPath():String{
 			var file:File = new File(ToolsApp.localCfg.localWebPath + "/resource/config/");
+			var file2:File = new File(ToolsApp.localCfg.localWebPath + "/resources/config/");
 			if(file.exists)
 			{
 				return "/resource/config/";
+			}else if(file2.exists){
+				return "/resources/config/";
 			}else{
 				return "/mainRes/config/";
+			}
+		}
+		
+		/**声音路径 */
+		public static function getSoundPath(keyName: String,suffix:String = '.mp3'):String {
+			var file:File = new File(ToolsApp.localCfg.localWebPath + "/resource/assets/sound/");
+			if(file.exists)
+			{
+				return ToolsApp.localCfg.localWebPath + "/resource/assets/sound/"+ keyName + suffix;
+			}else{
+				return ToolsApp.localCfg.localWebPath + "/mainRes/audio/"+ keyName + suffix;
 			}
 		}
 		
@@ -116,6 +130,7 @@ package com.cyj.app.utils
 			}
 			return null;
 		}
+		
 		
 		/** 通过两点获得角度 */
 		public static function  getAngle(pointA:*, pointB:*):Number {//通过两点获得角度

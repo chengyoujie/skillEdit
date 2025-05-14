@@ -19,6 +19,7 @@ package com.cyj.app.view.app.effect
 	import com.cyj.app.data.effect.EffectPlayTweenData;
 	import com.cyj.app.data.effect.EffectPlayTweenItemData;
 	import com.cyj.app.utils.ComUtill;
+	import com.cyj.app.utils.SoundUtils;
 	import com.cyj.app.view.app.CenterView;
 	import com.cyj.app.view.common.Alert;
 	import com.cyj.app.view.common.TipMsg;
@@ -97,6 +98,9 @@ package com.cyj.app.view.app.effect
 		private function run():void
 		{
 			if(!_data)return;
+			if(_data.sound){
+				SoundUtils.play(_data.sound);
+			}
 			App.timer.clearTimer( run);
 			refushDisplay();
 			doMove();

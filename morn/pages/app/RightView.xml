@@ -15,6 +15,11 @@
       <Label text="循环次数：" styleSkin="png.comp.label" y="1" layer="1" color="0xff9900" stroke="0" height="18" align="right"/>
       <TextInput text="0" skin="png.comp.textinput" x="63" layer="1" color="0x0" width="65" height="22" var="inputLoop"/>
     </Box>
+    <Box layers="1,1,0,0,第 1 层" layer="1" y="29" var="boxSound" x="134">
+      <Label text="音效：" styleSkin="png.comp.label" y="1" layer="1" color="0xff9900" stroke="0" height="18" align="right"/>
+      <TextInput skin="png.comp.textinput" x="36" layer="1" color="0x0" width="74" height="22" var="inputSound" y="0"/>
+      <Button skin="png.guidecomp.btn_sound" x="112" y="0" layer="1" stateNum="1" width="25" height="25" var="btnSoundPlay"/>
+    </Box>
   </Box>
   <Image skin="png.guidecomp.分割线_2px" x="0" y="122" layer="1" width="280"/>
   <Button skin="png.guidecomp.btn_小按钮_1" layer="1" labelColors="0xc79a84,0xe0a98d,0x93827a" var="btnPlayItem" labelStroke="0" width="54" height="28" x="161" label="播放当前" y="645"/>
@@ -94,5 +99,9 @@
     <Button skin="png.guidecomp.btn_小按钮_1" layer="1" labelColors="0xc79a84,0xe0a98d,0x93827a" var="btnTweenRefush" labelStroke="0" width="68" height="28" x="212" label="刷新缓动" y="489"/>
     <ComboBox skin="png.guidecomp.combobox" x="69" layer="1" var="comOffsetXType" width="54" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="固定X,高度百分比X,八方向↑↗.." selectedIndex="0" y="376.5"/>
     <ComboBox skin="png.guidecomp.combobox" x="162" layer="1" var="comOffsetYType" width="54" height="23" visibleNum="15" scrollBarSkin="png.guidecomp.vscroll" itemColors="0x262626,0xffe0ce,0xff861a,0x885202,0x3d3d3d" labelColors="0xf4a339,0xfedcaf,0xe0e0e0" labels="固定X,高度百分比X,八方向↑↗.." selectedIndex="0" y="376.5"/>
+    <Box layers="1,1,0,0,第 1 层" layer="1" x="141" y="167" var="boxEndParam2">
+      <Label text="结束参数2：" styleSkin="png.comp.label" y="1" layer="1" color="0xff9900" stroke="0" var="txtEndParam2Des" x="0" width="64" height="19"/>
+      <TextInput text="0" skin="png.comp.textinput" x="64" layer="1" color="0x0" width="65" height="22" var="inputEndParam2"/>
+    </Box>
   </Box>
 </View>

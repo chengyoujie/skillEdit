@@ -19,6 +19,7 @@ package com.cyj.app.view.app
 	import com.cyj.app.data.effect.EffectPlayMoveEndData;
 	import com.cyj.app.utils.BindData;
 	import com.cyj.app.utils.ComUtill;
+	import com.cyj.app.utils.SoundUtils;
 	import com.cyj.app.view.app.effect.EffectPlayItem;
 	import com.cyj.app.view.app.movectr.MoveControlCell;
 	import com.cyj.app.view.common.TipMsg;
@@ -63,10 +64,12 @@ package com.cyj.app.view.app
 			_itemBindData.splice(0, 0,			
 						new BindData(inputId, "id", "text", handleIdNameChange, handleIdChangeCheck),
 						new BindData(inputName, "name", "text", handleIdNameChange),
+						new BindData(inputSound, "sound", "text",null, handleSoundChange),
 						new BindData(comOwner, "effOwnerType", "selectedIndex", handleOwnerTypeChange),
 						new BindData(comLayer, "layer", "selectedIndex", handleRefushScene),
 						new BindData(comEndType, "endType", "selectedIndex", handleEndChange),
 						new BindData(inputEndParam, "endParam", "text", null, handleCheckEndData),
+						new BindData(inputEndParam2, "endParam2", "text", null, handleCheckEndData),
 						new BindData(comTigglerType, "tiggler", "selectedIndex", handleStarChange),
 						new BindData(inputTigglerParam, "tigglerParam","text",  null , handleCheckStartData),
 						new BindData(comOffsetXType, "offXType", "selectedIndex",handleOffsetXTypeChange),
@@ -119,6 +122,7 @@ package com.cyj.app.view.app
 			listStep.addEventListener(MouseEvent.CLICK, handleSelectStep);
 			btnPlayItem.clickHandler = new Handler(handlePlayItem);
 			btnPlayAll.clickHandler = new Handler(handlePlayAll);
+			btnSoundPlay.clickHandler = new Handler(handlePlaySound);
 			btnResetMoveDis.clickHandler = new Handler(handleResetMoveDis);
 			btnResetOffset.clickHandler = new Handler(handleResetOffset);
 			btnTweenProp.clickHandler = new Handler(handleOpenTweenProp);
@@ -302,6 +306,7 @@ package com.cyj.app.view.app
 					toBind(_disPlayBindData, selectItem.disInfo);
 				}
 				boxEndParam.visible = false;
+				boxEndParam2.visible = false;
 			}else if(type == EffectPlayEndType.MoveEnd)
 			{
 				if(comMoveTo.selectedIndex == EffectPlayOwnerType.None)
@@ -314,9 +319,11 @@ package com.cyj.app.view.app
 					handleMoveTypeChange();
 				}
 				boxEndParam.visible = false;
+				boxEndParam2.visible = false;
 			}else if(type == EffectPlayEndType.Time)
 			{
 				boxEndParam.visible = true;
+				boxEndParam2.visible = false;
 				txtEndParamDes.text = "结束时间：";
 				if(int(inputEndParam.text)<=0)
 				{
@@ -326,7 +333,9 @@ package com.cyj.app.view.app
 			}else if(type == EffectPlayEndType.Plug)
 			{
 				boxEndParam.visible = true;
+				boxEndParam2.visible = true;
 				txtEndParamDes.text = "插件ID：";
+				txtEndParam2Des.text = "插件参数2:";
 				if(!inputEndParam.text)
 				{
 					TipMsg.show("设置插件Id不能为空");
@@ -444,6 +453,15 @@ package com.cyj.app.view.app
 			if(!selectItem)return;
 			ToolsApp.effectPlayer.playItem(selectItem, true);
 		}
+		private function handlePlaySound():void
+		{
+			var selectItem:EffectPlayItemData = listStep.selectedItem as EffectPlayItemData;
+			if(!selectItem || !selectItem.sound){
+				TipMsg.show("没有选中特效或者没有设置声音");
+				return;
+			}
+			SoundUtils.play(selectItem.sound);
+		}
 		private function handlePlayAll():void
 		{
 			ToolsApp.effectPlayer.play();
@@ -456,6 +474,10 @@ package com.cyj.app.view.app
 			{
 				step.refush();
 			}
+		}
+		private function handleSoundChange(newSound:String):void
+		{
+			handleRefushScene();
 		}
 		private function handleIdChangeCheck(newId:String):Boolean
 		{
